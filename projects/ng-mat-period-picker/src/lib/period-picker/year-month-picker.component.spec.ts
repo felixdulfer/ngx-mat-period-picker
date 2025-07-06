@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PeriodPickerComponent } from './period-picker.component';
+import { YearMonthPickerComponent } from './year-month-picker.component';
 
-describe('PeriodPickerComponent', () => {
-  let component: PeriodPickerComponent;
-  let fixture: ComponentFixture<PeriodPickerComponent>;
+describe('YearMonthPickerComponent', () => {
+  let component: YearMonthPickerComponent;
+  let fixture: ComponentFixture<YearMonthPickerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PeriodPickerComponent ]
+      declarations: [ YearMonthPickerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PeriodPickerComponent);
+    fixture = TestBed.createComponent(YearMonthPickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
