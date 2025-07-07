@@ -28,6 +28,7 @@ import { YearMonth } from '../types';
           [matButton]="value?.year === year ? 'tonal' : 'text'"
           [disabled]="disabled"
           (click)="selectYear(year)"
+          class="ymp-button"
         >
           {{ year }}
           @if (value?.year === year) {
@@ -43,9 +44,10 @@ import { YearMonth } from '../types';
           [matButton]="value?.month === i + 1 ? 'tonal' : 'text'"
           [disabled]="value?.year == null"
           (click)="selectMonth(i + 1)"
+          class="ymp-button"
         >
           {{ month }}
-          @if (value?.month === i + 1) {
+          @if (value?.month === i + 1 && value?.year) {
           <mat-icon class="ymp-x">close</mat-icon>
           }
         </button>
@@ -91,6 +93,10 @@ import { YearMonth } from '../types';
         top: 4px;
         opacity: 0.7;
         pointer-events: none;
+      }
+      .ymp-button {
+        --mat-button-tonal-horizontal-padding: 12px;
+        --mat-button-text-horizontal-padding: 12px;
       }
     `,
   ],
