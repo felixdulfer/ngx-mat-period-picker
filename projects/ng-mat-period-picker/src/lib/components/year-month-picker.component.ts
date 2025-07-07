@@ -17,7 +17,7 @@ import { YearMonth } from '../types';
           <mat-icon>chevron_left</mat-icon>
         </button>
         <span class="ymp-range">{{ rangeLabel }}</span>
-        <button mat-icon-button (click)="nextRange()" [disabled]="!canGoNext()">
+        <button matIconButton (click)="nextRange()" [disabled]="!canGoNext()">
           <mat-icon>chevron_right</mat-icon>
         </button>
       </div>
