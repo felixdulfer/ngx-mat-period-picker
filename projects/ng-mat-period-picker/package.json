@@ -1,12 +1,45 @@
 {
   "name": "ng-mat-period-picker",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "description": "A modern Angular Material period picker component built with standalone components",
+  "keywords": [
+    "angular",
+    "material",
+    "period-picker",
+    "date-picker",
+    "year-month-picker",
+    "standalone-components",
+    "typescript"
+  ],
+  "author": "Felix Dulfer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/felixdulfer/ng-mat-period-picker-workspace.git"
+  },
+  "bugs": {
+    "url": "https://github.com/felixdulfer/ng-mat-period-picker-workspace/issues"
+  },
+  "homepage": "https://github.com/felixdulfer/ng-mat-period-picker-workspace#readme",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/common": "^19.2.0 || ^20.0.0",
+    "@angular/core": "^19.2.0 || ^20.0.0",
+    "@angular/material": "^19.2.0 || ^20.0.0",
+    "@angular/cdk": "^19.2.0 || ^20.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "main": "fesm2022/ng-mat-period-picker.mjs",
+  "module": "fesm2022/ng-mat-period-picker.mjs",
+  "es2022": "fesm2022/ng-mat-period-picker.mjs",
+  "typings": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./fesm2022/ng-mat-period-picker.mjs",
+      "require": "./fesm2022/ng-mat-period-picker.mjs",
+      "types": "./index.d.ts"
+    }
+  }
 }
