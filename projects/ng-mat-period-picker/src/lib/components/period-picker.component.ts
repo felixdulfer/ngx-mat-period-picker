@@ -6,19 +6,12 @@ import {
   FormGroup,
   FormsModule,
 } from '@angular/forms';
-import {
-  YearMonth,
-  YearMonthPickerComponent,
-} from './year-month-picker.component';
+import { YearMonthPickerComponent } from './year-month-picker.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
-export interface Period {
-  start: YearMonth | null;
-  end: YearMonth | 'present' | null;
-}
+import { Period, YearMonth } from '../types';
 
 @Component({
   selector: 'ngmp-period-picker',

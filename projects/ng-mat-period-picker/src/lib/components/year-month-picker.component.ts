@@ -5,11 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
-
-export interface YearMonth {
-  year: number;
-  month: number | null;
-}
+import { YearMonth } from '../types';
 
 @Component({
   selector: 'ngmp-year-month-picker',

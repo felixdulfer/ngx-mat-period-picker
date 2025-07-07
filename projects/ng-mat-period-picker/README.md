@@ -1,65 +1,122 @@
-# NgMatPeriodPicker
+# ng-mat-period-picker
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
+A modern Angular Material period picker component built with standalone components.
 
-## Code scaffolding
+## Features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Standalone Components**: Built using Angular's modern standalone component architecture
+- **Type Safety**: Full TypeScript support with proper interfaces
+- **Material Design**: Built on Angular Material components
+- **Flexible**: Supports custom date ranges and "present" end dates
+- **Accessible**: Implements ControlValueAccessor for form integration
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the library, run:
+## Installation
 
 ```bash
-ng build ng-mat-period-picker
+npm install ng-mat-period-picker
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+## Usage
 
-### Publishing the Library
+### Basic Usage
 
-Once the project is built, you can publish your library by following these steps:
+```typescript
+import { NgMatPeriodPickerComponent } from 'ng-mat-period-picker';
 
-1. Navigate to the `dist` directory:
-
-   ```bash
-   cd dist/ng-mat-period-picker
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+@Component({
+  selector: 'app-my-component',
+  standalone: true,
+  imports: [NgMatPeriodPickerComponent],
+  template: `
+    <lib-ng-mat-period-picker></lib-ng-mat-period-picker>
+  `
+})
+export class MyComponent {}
 ```
 
-## Running end-to-end tests
+### Advanced Usage with Form Control
 
-For end-to-end (e2e) testing, run:
+```typescript
+import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { PeriodPickerComponent, Period } from 'ng-mat-period-picker';
 
-```bash
-ng e2e
+@Component({
+  selector: 'app-my-component',
+  standalone: true,
+  imports: [PeriodPickerComponent, ReactiveFormsModule],
+  template: `
+    <ngmp-period-picker [formControl]="periodControl"></ngmp-period-picker>
+  `
+})
+export class MyComponent {
+  periodControl = new FormControl<Period | null>(null);
+}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Individual Components
 
-## Additional Resources
+You can also use the individual components directly:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```typescript
+import { YearMonthPickerComponent, YearMonth } from 'ng-mat-period-picker';
+
+@Component({
+  selector: 'app-my-component',
+  standalone: true,
+  imports: [YearMonthPickerComponent],
+  template: `
+    <ngmp-year-month-picker [formControl]="yearMonthControl"></ngmp-year-month-picker>
+  `
+})
+export class MyComponent {
+  yearMonthControl = new FormControl<YearMonth | null>(null);
+}
+```
+
+## API Reference
+
+### Period Interface
+
+```typescript
+interface Period {
+  start: YearMonth | null;
+  end: YearMonth | 'present' | null;
+}
+```
+
+### YearMonth Interface
+
+```typescript
+interface YearMonth {
+  year: number;
+  month: number | null;
+}
+```
+
+### Components
+
+- `NgMatPeriodPickerComponent`: Main library component
+- `PeriodPickerComponent`: Period picker with start/end dates
+- `YearMonthPickerComponent`: Individual year/month picker
+
+## Project Structure
+
+```
+src/lib/
+├── components/
+│   ├── ng-mat-period-picker.component.ts    # Main library component
+│   └── period-picker/
+│       ├── period-picker.component.ts       # Period picker component
+│       └── year-month-picker.component.ts   # Year/month picker component
+└── types/
+    └── index.ts                            # Type definitions
+```
+
+## Development
+
+This library is built using:
+- Angular standalone components
+- Angular Material for UI components
+- TypeScript for type safety
+- Modern Angular best practices
