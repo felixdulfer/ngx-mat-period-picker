@@ -61,7 +61,10 @@ import { YearMonth } from '../types';
         padding: 16px;
         max-width: 340px;
         margin: 0 auto;
-        background: #fafafa;
+        background: var(
+          --mat-year-month-picker-card-background-color,
+          var(--mat-sys-surface-container-high)
+        );
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       }
       .ymp-header {
