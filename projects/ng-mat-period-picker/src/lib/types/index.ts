@@ -5,5 +5,6 @@ export interface YearMonth {
 
 export interface Period {
   start: YearMonth | null;
-  end: YearMonth | 'present' | null;
+  end: YearMonth | null;
+  isPresent: boolean;
 }

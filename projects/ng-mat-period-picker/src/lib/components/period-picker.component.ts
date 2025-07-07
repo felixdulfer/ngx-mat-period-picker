@@ -7,7 +7,6 @@ import {
   FormsModule,
 } from '@angular/forms';
 import { YearMonthFieldComponent } from './year-month-field.component';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Period } from '../types';
@@ -22,6 +21,9 @@ import { Period } from '../types';
           formControlName="start"
           [label]="startLabel()"
           [placeholder]="startPlaceholder()"
+          [presentLabel]="presentLabel()"
+          [presentValue]="false"
+          [showPresentToggle]="false"
         />
 
         <lib-year-month-field
@@ -30,14 +32,12 @@ import { Period } from '../types';
           [placeholder]="
             form.get('present')?.value ? presentPlaceholder() : endPlaceholder()
           "
-          [disabled]="form.get('present')?.value"
+          [disabled]="false"
+          [presentLabel]="presentLabel()"
+          [presentValue]="form.get('present')?.value"
+          [showPresentToggle]="true"
+          (presentValueChange)="onPresentValueChange($event)"
         />
-      </div>
-
-      <div class="present-toggle">
-        <mat-slide-toggle formControlName="present">{{
-          presentLabel()
-        }}</mat-slide-toggle>
       </div>
     </div>
   `,
@@ -54,10 +54,6 @@ import { Period } from '../types';
         gap: 1rem;
         flex-wrap: wrap;
       }
-
-      .present-toggle {
-        margin-top: 0.5rem;
-      }
     `,
   ],
   providers: [
@@ -71,7 +67,6 @@ import { Period } from '../types';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSlideToggleModule,
     YearMonthFieldComponent,
   ],
 })
@@ -112,8 +107,8 @@ export class PeriodPickerComponent implements ControlValueAccessor {
       this.form.patchValue(
         {
           start: value.start,
-          end: value.end === 'present' ? null : value.end,
-          present: value.end === 'present',
+          end: value.isPresent ? null : value.end,
+          present: value.isPresent,
         },
         { emitEvent: false },
       );
@@ -148,8 +143,14 @@ export class PeriodPickerComponent implements ControlValueAccessor {
     const { start, end, present } = this.form.value;
     this.onChange({
       start,
-      end: present ? 'present' : end,
+      end: present ? null : end,
+      isPresent: present,
     });
     this.onTouched();
+  }
+
+  onPresentValueChange(present: boolean) {
+    this.form.get('present')?.setValue(present, { emitEvent: false });
+    this.emitChange();
   }
 }

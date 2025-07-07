@@ -4,6 +4,7 @@ import {
   ViewChild,
   ElementRef,
   input,
+  output,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -66,6 +67,10 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   minYear = input<number | undefined>();
   maxYear = input<number | undefined>();
   disabled = input<boolean>(false);
+  presentLabel = input<string>('Present');
+  presentValue = input<boolean>(false);
+  showPresentToggle = input<boolean>(false);
+  presentValueChange = output<boolean>();
 
   value: YearMonth | null = null;
   private overlayRef: OverlayRef | null = null;
@@ -76,6 +81,10 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   ) {}
 
   getDisplayValue(value: YearMonth | null): string {
+    // If present is true, show "Present" instead of the value
+    if (this.presentValue()) {
+      return this.presentLabel();
+    }
     return this.displayFormatService.formatYearMonth(value);
   }
 
@@ -119,20 +128,54 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     const pickerPortal = new ComponentPortal(YearMonthPickerComponent);
     const pickerRef = this.overlayRef.attach(pickerPortal);
 
-    // Set the current value
+    // Set the current value and present state
     pickerRef.instance.writeValue(this.value);
+    pickerRef.instance.setPresentLabel(this.presentLabel());
+    pickerRef.instance.setPresentValue(this.presentValue());
+    pickerRef.instance.setShowPresentToggle(this.showPresentToggle());
 
-    // Subscribe to touch events to track when user interacts
-    pickerRef.instance.registerOnTouched(() => {
-      const currentValue = pickerRef.instance.getCurrentValue();
+    // Subscribe to onChange to handle value updates and auto-close when complete selection is made
+    pickerRef.instance.registerOnChange((value: YearMonth | null) => {
+      // Update the internal value and emit onChange for all changes
+      this.value = value;
+      this.onChange(value);
+      this.onTouched();
 
-      // Only close if both year and month are selected
-      if (currentValue && currentValue.year && currentValue.month) {
-        this.value = currentValue;
-        this.onChange(currentValue);
-        this.onTouched();
+      // Auto-close when both year and month are selected
+      if (value && value.year && value.month) {
         this.closePicker();
       }
+    });
+
+    // Subscribe to present value changes
+    pickerRef.instance.presentValueChange.subscribe((checked: boolean) => {
+      this.presentValueChange.emit(checked);
+      this.onTouched();
+
+      // ONLY close when present is set to true
+      if (checked) {
+        // Clear the value when present is selected
+        this.value = null;
+        this.onChange(null);
+        this.closePicker();
+      }
+    });
+
+    // Subscribe to cancel button
+    pickerRef.instance.cancelClicked.subscribe(() => {
+      this.closePicker();
+    });
+
+    // Subscribe to ok button
+    pickerRef.instance.okClicked.subscribe(() => {
+      const currentValue = pickerRef.instance.getCurrentValue();
+      if (currentValue && currentValue.year) {
+        this.value = currentValue;
+        // Emit onChange only when OK is clicked to finalize the selection
+        this.onChange(currentValue);
+        this.onTouched();
+      }
+      this.closePicker();
     });
 
     // Close on backdrop click

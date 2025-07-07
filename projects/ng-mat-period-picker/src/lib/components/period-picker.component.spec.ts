@@ -23,17 +23,29 @@ describe('PeriodPickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display formatted values correctly', () => {
-    const testValue = { year: 2023, month: 6 };
-    expect(component.getDisplayValue(testValue)).toBe('Jun 2023');
+  it('should handle form value changes', () => {
+    const testValue = {
+      start: { year: 2023, month: 6 },
+      end: { year: 2024, month: 12 },
+      isPresent: false,
+    };
+    component.writeValue(testValue);
+    expect(component.form.get('start')?.value).toEqual({
+      year: 2023,
+      month: 6,
+    });
+    expect(component.form.get('end')?.value).toEqual({ year: 2024, month: 12 });
+    expect(component.form.get('present')?.value).toBe(false);
   });
 
-  it('should handle null values', () => {
-    expect(component.getDisplayValue(null)).toBe('');
-  });
-
-  it('should handle year-only values', () => {
-    const testValue = { year: 2023, month: null };
-    expect(component.getDisplayValue(testValue)).toBe('2023');
+  it('should handle present value', () => {
+    const testValue = {
+      start: { year: 2023, month: 6 },
+      end: null,
+      isPresent: true,
+    };
+    component.writeValue(testValue);
+    expect(component.form.get('present')?.value).toBe(true);
+    expect(component.form.get('end')?.value).toBeNull();
   });
 });
