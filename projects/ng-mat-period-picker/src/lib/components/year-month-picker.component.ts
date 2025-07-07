@@ -89,7 +89,7 @@ import { MonthLabelService } from '../services/month-label.service';
         grid-template-columns: repeat(4, 1fr);
       }
       .ymp-months {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         margin-bottom: 0;
       }
       .mat-icon.ymp-x {
