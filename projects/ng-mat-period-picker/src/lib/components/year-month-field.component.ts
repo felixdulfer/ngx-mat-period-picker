@@ -4,6 +4,7 @@ import {
   ViewChild,
   ElementRef,
   input,
+  output,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -69,6 +70,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   presentLabel = input<string>('Present');
   presentValue = input<boolean>(false);
   showPresentToggle = input<boolean>(false);
+  presentValueChange = output<boolean>();
 
   value: YearMonth | null = null;
   private overlayRef: OverlayRef | null = null;
@@ -79,6 +81,10 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   ) {}
 
   getDisplayValue(value: YearMonth | null): string {
+    // If present is true, show "Present" instead of the value
+    if (this.presentValue()) {
+      return this.presentLabel();
+    }
     return this.displayFormatService.formatYearMonth(value);
   }
 
@@ -148,6 +154,16 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
         this.onTouched();
       }
     });
+
+    // Override the togglePresent method to also update form model
+    const originalTogglePresent = pickerRef.instance.togglePresent;
+    pickerRef.instance.togglePresent = (checked: boolean) => {
+      originalTogglePresent.call(pickerRef.instance, checked);
+      // Emit present value change
+      this.presentValueChange.emit(checked);
+      // Trigger form model update for present value
+      this.onTouched();
+    };
 
     // Subscribe to present toggle changes
     pickerRef.instance.registerOnTouched(() => {

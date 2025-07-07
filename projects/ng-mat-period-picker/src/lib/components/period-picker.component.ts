@@ -22,7 +22,7 @@ import { Period } from '../types';
           [label]="startLabel()"
           [placeholder]="startPlaceholder()"
           [presentLabel]="presentLabel()"
-          [presentValue]="form.get('present')?.value"
+          [presentValue]="false"
           [showPresentToggle]="false"
         />
 
@@ -32,10 +32,11 @@ import { Period } from '../types';
           [placeholder]="
             form.get('present')?.value ? presentPlaceholder() : endPlaceholder()
           "
-          [disabled]="form.get('present')?.value"
+          [disabled]="false"
           [presentLabel]="presentLabel()"
           [presentValue]="form.get('present')?.value"
           [showPresentToggle]="true"
+          (presentValueChange)="onPresentValueChange($event)"
         />
       </div>
     </div>
@@ -106,8 +107,8 @@ export class PeriodPickerComponent implements ControlValueAccessor {
       this.form.patchValue(
         {
           start: value.start,
-          end: value.end === 'present' ? null : value.end,
-          present: value.end === 'present',
+          end: value.isPresent ? null : value.end,
+          present: value.isPresent,
         },
         { emitEvent: false },
       );
@@ -142,8 +143,14 @@ export class PeriodPickerComponent implements ControlValueAccessor {
     const { start, end, present } = this.form.value;
     this.onChange({
       start,
-      end: present ? 'present' : end,
+      end: present ? null : end,
+      isPresent: present,
     });
     this.onTouched();
+  }
+
+  onPresentValueChange(present: boolean) {
+    this.form.get('present')?.setValue(present, { emitEvent: false });
+    this.emitChange();
   }
 }
