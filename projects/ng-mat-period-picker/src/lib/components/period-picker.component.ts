@@ -11,34 +11,32 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Period, YearMonth } from '../types';
+import { Period } from '../types';
 
 @Component({
   selector: 'lib-ng-mat-period-picker',
   standalone: true,
   template: `
-    <mat-card>
-      <form
-        [formGroup]="form"
-        style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;"
-      >
-        <div>
-          <label>Start</label>
-          <lib-year-month-picker formControlName="start" />
-        </div>
-        <div>
-          <label>End</label>
-          @if (!form.get('present')?.value) {
-          <lib-year-month-picker formControlName="end" />
-          } @else {
-          <div style="margin-top: 2.5rem; font-weight: bold;">Present</div>
-          }
-        </div>
-        <div style="flex-basis: 100%; margin-top: 1rem;">
-          <mat-slide-toggle formControlName="present">Present</mat-slide-toggle>
-        </div>
-      </form>
-    </mat-card>
+    <form
+      [formGroup]="form"
+      style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;"
+    >
+      <div>
+        <label>Start</label>
+        <lib-year-month-picker formControlName="start" />
+      </div>
+      <div>
+        <label>End</label>
+        @if (!form.get('present')?.value) {
+        <lib-year-month-picker formControlName="end" />
+        } @else {
+        <div style="margin-top: 2.5rem; font-weight: bold;">Present</div>
+        }
+      </div>
+      <div style="flex-basis: 100%; margin-top: 1rem;">
+        <mat-slide-toggle formControlName="present">Present</mat-slide-toggle>
+      </div>
+    </form>
   `,
   providers: [
     {
