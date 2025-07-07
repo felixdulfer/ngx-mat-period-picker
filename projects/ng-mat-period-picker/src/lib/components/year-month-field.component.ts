@@ -66,6 +66,9 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   minYear = input<number | undefined>();
   maxYear = input<number | undefined>();
   disabled = input<boolean>(false);
+  presentLabel = input<string>('Present');
+  presentValue = input<boolean>(false);
+  showPresentToggle = input<boolean>(false);
 
   value: YearMonth | null = null;
   private overlayRef: OverlayRef | null = null;
@@ -119,8 +122,11 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     const pickerPortal = new ComponentPortal(YearMonthPickerComponent);
     const pickerRef = this.overlayRef.attach(pickerPortal);
 
-    // Set the current value
+    // Set the current value and present state
     pickerRef.instance.writeValue(this.value);
+    pickerRef.instance.setPresentLabel(this.presentLabel());
+    pickerRef.instance.setPresentValue(this.presentValue());
+    pickerRef.instance.setShowPresentToggle(this.showPresentToggle());
 
     // Subscribe to touch events to track when user interacts
     pickerRef.instance.registerOnTouched(() => {

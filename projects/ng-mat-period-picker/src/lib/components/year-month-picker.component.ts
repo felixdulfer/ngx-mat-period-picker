@@ -1,9 +1,10 @@
-import { Component, forwardRef, input } from '@angular/core';
+import { Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
 import { YearMonth } from '../types';
 import { MonthLabelService } from '../services/month-label.service';
@@ -13,12 +14,33 @@ import { MonthLabelService } from '../services/month-label.service';
   standalone: true,
   template: `
     <mat-card class="ymp-card">
+      @if (showPresentToggle()) {
+        <div class="ymp-present-toggle">
+          <mat-slide-toggle
+            [checked]="presentValue()"
+            (change)="togglePresent($event.checked)"
+            [disabled]="disabled()"
+          >
+            {{ presentLabel() }}
+          </mat-slide-toggle>
+        </div>
+      }
       <div class="ymp-header">
-        <button matIconButton (click)="prevRange()" [disabled]="!canGoPrev()">
+        <button
+          matIconButton
+          (click)="prevRange()"
+          [disabled]="!canGoPrev() || presentValue()"
+        >
           <mat-icon>chevron_left</mat-icon>
         </button>
-        <span class="ymp-range">{{ rangeLabel }}</span>
-        <button matIconButton (click)="nextRange()" [disabled]="!canGoNext()">
+        <span class="ymp-range" [class.ymp-range-disabled]="presentValue()">{{
+          rangeLabel
+        }}</span>
+        <button
+          matIconButton
+          (click)="nextRange()"
+          [disabled]="!canGoNext() || presentValue()"
+        >
           <mat-icon>chevron_right</mat-icon>
         </button>
       </div>
@@ -26,8 +48,10 @@ import { MonthLabelService } from '../services/month-label.service';
       <div class="ymp-years">
         @for (year of years; track year) {
           <button
-            [matButton]="value?.year === year ? 'filled' : 'text'"
-            [disabled]="disabled()"
+            [matButton]="
+              presentValue() ? 'text' : value?.year === year ? 'filled' : 'text'
+            "
+            [disabled]="disabled() || presentValue()"
             (click)="selectYear(year)"
             class="ymp-button"
           >
@@ -39,8 +63,14 @@ import { MonthLabelService } from '../services/month-label.service';
       <div class="ymp-months">
         @for (month of months; let i = $index; track month) {
           <button
-            [matButton]="value?.month === i + 1 ? 'filled' : 'text'"
-            [disabled]="value?.year == null"
+            [matButton]="
+              presentValue()
+                ? 'text'
+                : value?.month === i + 1
+                  ? 'filled'
+                  : 'text'
+            "
+            [disabled]="value?.year == null || presentValue()"
             (click)="selectMonth(i + 1)"
             class="ymp-button"
           >
@@ -70,8 +100,12 @@ import { MonthLabelService } from '../services/month-label.service';
       }
       .ymp-range {
         font-weight: 600;
-        font-size: 1.1em;
+        font-size: var(--mat-sys-title-small-size);
         letter-spacing: 1px;
+      }
+
+      .ymp-range-disabled {
+        opacity: 0.5;
       }
       .ymp-years,
       .ymp-months {
@@ -91,6 +125,17 @@ import { MonthLabelService } from '../services/month-label.service';
         --mat-button-filled-horizontal-padding: 6px;
         --mat-button-text-horizontal-padding: 6px;
       }
+
+      .ymp-present-toggle {
+        padding: 8px 0 16px 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .ymp-present-toggle .mat-slide-toggle {
+        transform: scale(0.8);
+        margin: 0;
+      }
     `,
   ],
   providers: [
@@ -106,15 +151,22 @@ import { MonthLabelService } from '../services/month-label.service';
     MatCardModule,
     MatIconModule,
     MatDividerModule,
+    MatSlideToggleModule,
   ],
 })
 export class YearMonthPickerComponent implements ControlValueAccessor {
   minYear = input<number | undefined>();
   maxYear = input<number | undefined>();
   disabled = input<boolean>(false);
+  private _showPresentToggle = signal<boolean>(false);
+  showPresentToggle = this._showPresentToggle.asReadonly();
+  private _presentLabel = signal<string>('Present');
+  presentLabel = this._presentLabel.asReadonly();
 
   yearsPerPage = 12;
   currentStartYear = 2000;
+  private _presentValue = signal<boolean>(false);
+  presentValue = this._presentValue.asReadonly();
 
   constructor(private monthLabelService: MonthLabelService) {}
 
@@ -220,5 +272,34 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
    */
   getCurrentValue(): YearMonth | null {
     return this.value;
+  }
+
+  /**
+   * Toggle the present value
+   */
+  togglePresent(checked: boolean): void {
+    this._presentValue.set(checked);
+    this.onTouched();
+  }
+
+  /**
+   * Set the present value
+   */
+  setPresentValue(value: boolean): void {
+    this._presentValue.set(value);
+  }
+
+  /**
+   * Set the present label
+   */
+  setPresentLabel(label: string): void {
+    this._presentLabel.set(label);
+  }
+
+  /**
+   * Set the show present toggle flag
+   */
+  setShowPresentToggle(show: boolean): void {
+    this._showPresentToggle.set(show);
   }
 }

@@ -7,7 +7,6 @@ import {
   FormsModule,
 } from '@angular/forms';
 import { YearMonthFieldComponent } from './year-month-field.component';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Period } from '../types';
@@ -22,6 +21,9 @@ import { Period } from '../types';
           formControlName="start"
           [label]="startLabel()"
           [placeholder]="startPlaceholder()"
+          [presentLabel]="presentLabel()"
+          [presentValue]="form.get('present')?.value"
+          [showPresentToggle]="false"
         />
 
         <lib-year-month-field
@@ -31,13 +33,10 @@ import { Period } from '../types';
             form.get('present')?.value ? presentPlaceholder() : endPlaceholder()
           "
           [disabled]="form.get('present')?.value"
+          [presentLabel]="presentLabel()"
+          [presentValue]="form.get('present')?.value"
+          [showPresentToggle]="true"
         />
-      </div>
-
-      <div class="present-toggle">
-        <mat-slide-toggle formControlName="present">{{
-          presentLabel()
-        }}</mat-slide-toggle>
       </div>
     </div>
   `,
@@ -54,10 +53,6 @@ import { Period } from '../types';
         gap: 1rem;
         flex-wrap: wrap;
       }
-
-      .present-toggle {
-        margin-top: 0.5rem;
-      }
     `,
   ],
   providers: [
@@ -71,7 +66,6 @@ import { Period } from '../types';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSlideToggleModule,
     YearMonthFieldComponent,
   ],
 })
