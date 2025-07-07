@@ -1,4 +1,4 @@
-import { Component, forwardRef, input, signal } from '@angular/core';
+import { Component, forwardRef, input, output, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -192,6 +192,11 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   private _presentValue = signal<boolean>(false);
   presentValue = this._presentValue.asReadonly();
 
+  // Event outputs
+  cancelClicked = output<void>();
+  okClicked = output<void>();
+  presentValueChange = output<boolean>();
+
   constructor(private monthLabelService: MonthLabelService) {}
 
   get months(): string[] {
@@ -310,6 +315,9 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     this._presentValue.set(checked);
     this.onTouched();
 
+    // Emit present value change
+    this.presentValueChange.emit(checked);
+
     // Trigger form model update for present value
     this.onChange(this.value);
   }
@@ -363,6 +371,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
    */
   cancel(): void {
     this.onTouched();
+    this.cancelClicked.emit();
   }
 
   /**
@@ -372,6 +381,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     if (this.hasValidSelection()) {
       this.onChange(this.value);
       this.onTouched();
+      this.okClicked.emit();
     }
   }
 }

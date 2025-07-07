@@ -134,11 +134,6 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     pickerRef.instance.setPresentValue(this.presentValue());
     pickerRef.instance.setShowPresentToggle(this.showPresentToggle());
 
-    // Subscribe to touch events to track when user interacts
-    pickerRef.instance.registerOnTouched(() => {
-      // Don't auto-close anymore, let user use Cancel/OK buttons
-    });
-
     // Subscribe to onChange to auto-close when complete selection is made
     pickerRef.instance.registerOnChange((value: YearMonth | null) => {
       if (value && value.year && value.month) {
@@ -155,33 +150,24 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
       }
     });
 
-    // Override the togglePresent method to also update form model
-    const originalTogglePresent = pickerRef.instance.togglePresent;
-    pickerRef.instance.togglePresent = (checked: boolean) => {
-      originalTogglePresent.call(pickerRef.instance, checked);
-      // Emit present value change
+    // Subscribe to present value changes
+    pickerRef.instance.presentValueChange.subscribe((checked: boolean) => {
       this.presentValueChange.emit(checked);
-      // Trigger form model update for present value
       this.onTouched();
 
       // ONLY close when present is set to true
       if (checked) {
         this.closePicker();
       }
-    };
-
-    // Subscribe to touch events to track when user interacts
-    pickerRef.instance.registerOnTouched(() => {
-      // Don't auto-close anymore, let user use Cancel/OK buttons
     });
 
     // Subscribe to cancel button
-    pickerRef.instance.cancel = () => {
+    pickerRef.instance.cancelClicked.subscribe(() => {
       this.closePicker();
-    };
+    });
 
     // Subscribe to ok button
-    pickerRef.instance.ok = () => {
+    pickerRef.instance.okClicked.subscribe(() => {
       const currentValue = pickerRef.instance.getCurrentValue();
       if (currentValue && currentValue.year) {
         this.value = currentValue;
@@ -189,7 +175,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
         this.onTouched();
       }
       this.closePicker();
-    };
+    });
 
     // Close on backdrop click
     this.overlayRef.backdropClick().subscribe(() => {
