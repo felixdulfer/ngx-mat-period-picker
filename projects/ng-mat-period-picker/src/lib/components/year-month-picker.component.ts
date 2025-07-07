@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { YearMonth } from '../types';
+import { MonthLabelService } from '../services/month-label.service';
 
 @Component({
   selector: 'lib-year-month-picker',
@@ -129,11 +130,11 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
 
   yearsPerPage = 12;
   currentStartYear = 2000;
+
+  constructor(private monthLabelService: MonthLabelService) {}
+
   get months(): string[] {
-    return Array.from({ length: 12 }, (_, i) => {
-      const date = new Date(2000, i, 1);
-      return date.toLocaleDateString(undefined, { month: 'long' });
-    });
+    return this.monthLabelService.getShortMonthLabels();
   }
 
   value: YearMonth | null = null;

@@ -5,11 +5,7 @@ import {
   ElementRef,
   input,
 } from '@angular/core';
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  FormControl,
-} from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,12 +14,18 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { YearMonthPickerComponent } from './year-month-picker.component';
 import { YearMonth } from '../types';
+import { DisplayFormatService } from '../services/display-format.service';
 
 @Component({
   selector: 'lib-year-month-field',
   standalone: true,
   template: `
-    <mat-form-field appearance="outline" class="year-month-field" #fieldRef (click)="openPicker($event)">
+    <mat-form-field
+      appearance="outline"
+      class="year-month-field"
+      #fieldRef
+      (click)="openPicker($event)"
+    >
       <mat-label>{{ label() }}</mat-label>
       <input
         matInput
@@ -68,17 +70,13 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   value: YearMonth | null = null;
   private overlayRef: OverlayRef | null = null;
 
-  constructor(private overlay: Overlay) {}
+  constructor(
+    private overlay: Overlay,
+    private displayFormatService: DisplayFormatService,
+  ) {}
 
   getDisplayValue(value: YearMonth | null): string {
-    if (!value) return '';
-    if (!value.month) return `${value.year}`;
-
-    const date = new Date(value.year, value.month - 1, 1);
-    return date.toLocaleDateString(undefined, {
-      year: 'numeric',
-      month: 'long',
-    });
+    return this.displayFormatService.formatYearMonth(value);
   }
 
   openPicker(event: MouseEvent): void {
