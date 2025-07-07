@@ -1,20 +1,29 @@
 # Quick Deployment Guide
 
-## 🚀 Deploy to NPM with `np`
+## 🚀 Deploy to NPM
 
-### Option 1: Using `np` (Recommended)
+### Simple Deployment Script
 
 ```bash
 # Make sure you're logged into NPM
 npm login
 
-# Publish using np (handles versioning, git tags, and publishing)
-npm run publish:lib
+# Auto-detect version bump from conventional commits
+./deploy.sh
+
+# Or manually specify the bump type
+./deploy.sh patch    # 0.3.0 -> 0.3.1
+./deploy.sh minor    # 0.3.0 -> 0.4.0
+./deploy.sh major    # 0.3.0 -> 1.0.0
 ```
 
-**Note**: This will run tests first, then build and publish. Make sure all changes are committed before running.
+**Auto-detection rules:**
 
-### Option 2: Manual with np
+- `major`: Breaking changes (`BREAKING CHANGE` or `!:` in commit messages)
+- `minor`: New features (`feat:` commits)
+- `patch`: Everything else (fixes, docs, etc.)
+
+### Manual Deployment
 
 ```bash
 # 1. Build the package
@@ -23,8 +32,8 @@ ng build ng-mat-period-picker --configuration production
 # 2. Navigate to the built package
 cd dist/ng-mat-period-picker
 
-# 3. Publish with np
-np
+# 3. Publish to NPM
+npm publish
 ```
 
 ## ✅ Pre-Deployment Checklist
@@ -37,7 +46,7 @@ np
 ## 📦 Package Information
 
 - **Name**: `ng-mat-period-picker`
-- **Version**: `0.1.1`
+- **Version**: `0.3.0`
 - **License**: MIT
 - **Angular Version**: ^19.2.0 || ^20.0.0
 
