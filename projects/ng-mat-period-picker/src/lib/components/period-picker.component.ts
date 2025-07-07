@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, input } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -16,26 +16,28 @@ import { Period } from '../types';
   selector: 'lib-ng-mat-period-picker',
   standalone: true,
   template: `
-    <div class="period-picker-container">
+    <div class="period-picker-container" [formGroup]="form">
       <div class="period-fields">
         <lib-year-month-field
           formControlName="start"
-          label="Start Period"
-          placeholder="Select start period"
+          [label]="startLabel()"
+          [placeholder]="startPlaceholder()"
         />
 
         <lib-year-month-field
           formControlName="end"
-          label="End Period"
+          [label]="endLabel()"
           [placeholder]="
-            form.get('present')?.value ? 'Present' : 'Select end period'
+            form.get('present')?.value ? presentPlaceholder() : endPlaceholder()
           "
           [disabled]="form.get('present')?.value"
         />
       </div>
 
       <div class="present-toggle">
-        <mat-slide-toggle formControlName="present">Present</mat-slide-toggle>
+        <mat-slide-toggle formControlName="present">{{
+          presentLabel()
+        }}</mat-slide-toggle>
       </div>
     </div>
   `,
@@ -74,6 +76,14 @@ import { Period } from '../types';
   ],
 })
 export class PeriodPickerComponent implements ControlValueAccessor {
+  // Configurable labels
+  startLabel = input<string>('Start Period');
+  endLabel = input<string>('End Period');
+  presentLabel = input<string>('Present');
+  startPlaceholder = input<string>('Select start period');
+  endPlaceholder = input<string>('Select end period');
+  presentPlaceholder = input<string>('Present');
+
   form: FormGroup;
 
   constructor() {
