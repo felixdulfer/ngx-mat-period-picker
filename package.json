@@ -10,7 +10,8 @@
     "prepare": "husky",
     "commit": "git-cz",
     "commitlint": "commitlint --edit",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "publish:lib": "ng build ng-mat-period-picker --configuration production && cd dist/ng-mat-period-picker && np"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +49,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^20.0.1",
+    "np": "^10.2.0",
     "playwright-ng-schematics": "^2.1.0",
     "prettier": "^3.6.2",
     "typescript": "~5.8.3"

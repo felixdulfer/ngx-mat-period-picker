@@ -2,6 +2,28 @@
 
 > Material Period Picker for Angular
 
+A modern Angular Material period picker component built with standalone components.
+
+## 📦 Installation
+
+```bash
+npm install ng-mat-period-picker
+```
+
+## 🚀 Quick Start
+
+```typescript
+import { PeriodPickerComponent } from "ng-mat-period-picker";
+
+@Component({
+  selector: "app-my-component",
+  standalone: true,
+  imports: [PeriodPickerComponent],
+  template: `<lib-ng-mat-period-picker />`,
+})
+export class MyComponent {}
+```
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
 
 ## Development server
@@ -83,6 +105,17 @@ git commit -m "feat(period-picker): add new feature"
 Common types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`
 
 For detailed guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## 📚 Documentation
+
+For detailed documentation, API reference, and examples, see the [library README](projects/ng-mat-period-picker/README.md).
+
+## 🚀 Deployment
+
+For deployment instructions, see:
+
+- [Quick Deployment Guide](QUICK_DEPLOY.md) - Fast deployment steps
+- [Full Deployment Guide](DEPLOYMENT.md) - Comprehensive deployment instructions
 
 ## Additional Resources
 
