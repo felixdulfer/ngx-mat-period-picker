@@ -16,7 +16,7 @@ import { Period } from '../types';
   selector: 'lib-ng-mat-period-picker',
   standalone: true,
   template: `
-    <div class="period-picker-container">
+    <div class="period-picker-container" [formGroup]="form">
       <div class="period-fields">
         <lib-year-month-field
           formControlName="start"
@@ -35,7 +35,9 @@ import { Period } from '../types';
       </div>
 
       <div class="present-toggle">
-        <mat-slide-toggle formControlName="present">{{ presentLabel() }}</mat-slide-toggle>
+        <mat-slide-toggle formControlName="present">{{
+          presentLabel()
+        }}</mat-slide-toggle>
       </div>
     </div>
   `,
