@@ -163,21 +163,16 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
       this.presentValueChange.emit(checked);
       // Trigger form model update for present value
       this.onTouched();
-    };
 
-    // Subscribe to present toggle changes
-    pickerRef.instance.registerOnTouched(() => {
-      const currentPresentValue = pickerRef.instance.presentValue();
-      if (currentPresentValue) {
-        // Auto-close when present is set to true
-        const currentValue = pickerRef.instance.getCurrentValue();
-        if (currentValue && currentValue.year) {
-          this.value = currentValue;
-          this.onChange(currentValue);
-          this.onTouched();
-        }
+      // ONLY close when present is set to true
+      if (checked) {
         this.closePicker();
       }
+    };
+
+    // Subscribe to touch events to track when user interacts
+    pickerRef.instance.registerOnTouched(() => {
+      // Don't auto-close anymore, let user use Cancel/OK buttons
     });
 
     // Subscribe to cancel button
