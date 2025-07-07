@@ -1,4 +1,6 @@
-# `ng-mat-period-picker` (Angular Material Period Picker)
+# `ng-mat-period-picker`
+
+> Material Period Picker for Angular
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
 
