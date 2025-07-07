@@ -6,9 +6,8 @@ import {
   FormControl,
   FormsModule,
 } from '@angular/forms';
-import { YearMonthPickerComponent } from './year-month-picker.component';
+import { YearMonthFieldComponent } from './year-month-field.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Period } from '../types';
@@ -17,27 +16,48 @@ import { Period } from '../types';
   selector: 'lib-ng-mat-period-picker',
   standalone: true,
   template: `
-    <form
-      [formGroup]="form"
-      style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;"
-    >
-      <div>
-        <label>Start</label>
-        <lib-year-month-picker formControlName="start" />
+    <div class="period-picker-container">
+      <div class="period-fields">
+        <lib-year-month-field
+          formControlName="start"
+          label="Start Period"
+          placeholder="Select start period"
+        />
+
+        <lib-year-month-field
+          formControlName="end"
+          label="End Period"
+          [placeholder]="
+            form.get('present')?.value ? 'Present' : 'Select end period'
+          "
+          [disabled]="form.get('present')?.value"
+        />
       </div>
-      <div>
-        <label>End</label>
-        @if (!form.get('present')?.value) {
-          <lib-year-month-picker formControlName="end" />
-        } @else {
-          <div style="margin-top: 2.5rem; font-weight: bold;">Present</div>
-        }
-      </div>
-      <div style="flex-basis: 100%; margin-top: 1rem;">
+
+      <div class="present-toggle">
         <mat-slide-toggle formControlName="present">Present</mat-slide-toggle>
       </div>
-    </form>
+    </div>
   `,
+  styles: [
+    `
+      .period-picker-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .period-fields {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .present-toggle {
+        margin-top: 0.5rem;
+      }
+    `,
+  ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -49,9 +69,8 @@ import { Period } from '../types';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule,
     MatSlideToggleModule,
-    YearMonthPickerComponent,
+    YearMonthFieldComponent,
   ],
 })
 export class PeriodPickerComponent implements ControlValueAccessor {
@@ -71,6 +90,7 @@ export class PeriodPickerComponent implements ControlValueAccessor {
       const endControl = this.form.get('end');
       if (present) {
         endControl?.disable({ emitEvent: false });
+        endControl?.setValue(null, { emitEvent: false });
       } else {
         endControl?.enable({ emitEvent: false });
       }

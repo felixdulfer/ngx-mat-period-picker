@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Overlay } from '@angular/cdk/overlay';
-import { PeriodPickerComponent } from './period-picker.component';
+import { YearMonthFieldComponent } from './year-month-field.component';
 
-describe('PeriodPickerComponent', () => {
-  let component: PeriodPickerComponent;
-  let fixture: ComponentFixture<PeriodPickerComponent>;
+describe('YearMonthFieldComponent', () => {
+  let component: YearMonthFieldComponent;
+  let fixture: ComponentFixture<YearMonthFieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PeriodPickerComponent],
+      imports: [YearMonthFieldComponent],
       providers: [Overlay],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PeriodPickerComponent);
+    fixture = TestBed.createComponent(YearMonthFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -35,5 +35,12 @@ describe('PeriodPickerComponent', () => {
   it('should handle year-only values', () => {
     const testValue = { year: 2023, month: null };
     expect(component.getDisplayValue(testValue)).toBe('2023');
+  });
+
+  it('should not open picker when disabled', () => {
+    component.disabled = true;
+    component.openPicker();
+    // The picker should not open when disabled
+    expect(component['overlayRef']).toBeNull();
   });
 });
