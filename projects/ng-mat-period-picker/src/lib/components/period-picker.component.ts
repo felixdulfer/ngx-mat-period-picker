@@ -2,8 +2,8 @@ import { Component, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
-  FormBuilder,
   FormGroup,
+  FormControl,
   FormsModule,
 } from '@angular/forms';
 import { YearMonthPickerComponent } from './year-month-picker.component';
@@ -41,7 +41,6 @@ import { Period, YearMonth } from '../types';
       </form>
     </mat-card>
   `,
-  styleUrls: [],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -61,11 +60,11 @@ import { Period, YearMonth } from '../types';
 export class PeriodPickerComponent implements ControlValueAccessor {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      start: [null],
-      end: [null],
-      present: [false],
+  constructor() {
+    this.form = new FormGroup({
+      start: new FormControl(null),
+      end: new FormControl(null),
+      present: new FormControl(false),
     });
 
     this.form.valueChanges.subscribe(() => this.emitChange());

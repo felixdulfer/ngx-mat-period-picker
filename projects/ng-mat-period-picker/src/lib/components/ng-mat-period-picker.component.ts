@@ -5,7 +5,6 @@ import { PeriodPickerComponent } from './period-picker.component';
   selector: 'lib-ng-mat-period-picker',
   standalone: true,
   imports: [PeriodPickerComponent],
-  template: ` <ngmp-period-picker /> `,
-  styles: ``,
+  template: `<ngmp-period-picker />`,
 })
 export class NgMatPeriodPickerComponent {}
