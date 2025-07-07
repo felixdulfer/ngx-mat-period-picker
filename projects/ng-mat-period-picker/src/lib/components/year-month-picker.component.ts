@@ -60,7 +60,7 @@ import { MonthLabelService } from '../services/month-label.service';
     `
       .ymp-card {
         padding: 16px;
-        max-width: 400px;
+        max-width: 320px;
         margin: 0 auto;
         background: var(
           --mat-year-month-picker-card-background-color,
@@ -214,7 +214,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     } else {
       this.value = { year, month: null };
     }
-    this.onChange(this.value);
+    // Don't call onChange here - let the parent decide when to close
     this.onTouched();
   }
 
@@ -226,7 +226,14 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     } else {
       this.value = { year: this.value.year, month };
     }
-    this.onChange(this.value);
+    // Don't call onChange here - let the parent decide when to close
     this.onTouched();
+  }
+
+  /**
+   * Get the current value without triggering onChange
+   */
+  getCurrentValue(): YearMonth | null {
+    return this.value;
   }
 }
