@@ -25,7 +25,7 @@ import { YearMonth } from '../types';
       <div class="ymp-years">
         @for (year of years; track year) {
         <button
-          [matButton]="value?.year === year ? 'tonal' : 'text'"
+          [matButton]="value?.year === year ? 'filled' : 'text'"
           [disabled]="disabled()"
           (click)="selectYear(year)"
           class="ymp-button"
@@ -41,7 +41,7 @@ import { YearMonth } from '../types';
       <div class="ymp-months">
         @for (month of months; let i = $index; track month) {
         <button
-          [matButton]="value?.month === i + 1 ? 'tonal' : 'text'"
+          [matButton]="value?.month === i + 1 ? 'filled' : 'text'"
           [disabled]="value?.year == null"
           (click)="selectMonth(i + 1)"
           class="ymp-button"
@@ -99,7 +99,7 @@ import { YearMonth } from '../types';
         translate: 5px -50%;
       }
       .mdc-button.ymp-button {
-        --mat-button-tonal-horizontal-padding: 6px;
+        --mat-button-filled-horizontal-padding: 6px;
         --mat-button-text-horizontal-padding: 6px;
       }
     `,
