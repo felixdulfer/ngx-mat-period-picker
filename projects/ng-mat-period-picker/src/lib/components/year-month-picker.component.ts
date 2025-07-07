@@ -310,9 +310,6 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     this._presentValue.set(checked);
     this.onTouched();
 
-    // Auto-commit when present is toggled
-    this.onChange(this.value);
-
     // Trigger form model update for present value
     this.onChange(this.value);
   }
