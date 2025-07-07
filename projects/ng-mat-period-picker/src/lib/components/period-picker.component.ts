@@ -28,9 +28,9 @@ import { Period } from '../types';
       <div>
         <label>End</label>
         @if (!form.get('present')?.value) {
-        <lib-year-month-picker formControlName="end" />
+          <lib-year-month-picker formControlName="end" />
         } @else {
-        <div style="margin-top: 2.5rem; font-weight: bold;">Present</div>
+          <div style="margin-top: 2.5rem; font-weight: bold;">Present</div>
         }
       </div>
       <div style="flex-basis: 100%; margin-top: 1rem;">
@@ -85,12 +85,12 @@ export class PeriodPickerComponent implements ControlValueAccessor {
           end: value.end === 'present' ? null : value.end,
           present: value.end === 'present',
         },
-        { emitEvent: false }
+        { emitEvent: false },
       );
     } else {
       this.form.reset(
         { start: null, end: null, present: false },
-        { emitEvent: false }
+        { emitEvent: false },
       );
     }
   }

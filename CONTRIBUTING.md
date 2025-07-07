@@ -31,6 +31,7 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/) f
 ### Scopes
 
 For this Angular library project, common scopes include:
+
 - `period-picker`: Changes to the main period picker component
 - `service`: Changes to the period picker service
 - `deps`: Dependency updates
@@ -39,21 +40,25 @@ For this Angular library project, common scopes include:
 ### Examples
 
 **Feature:**
+
 ```
 feat(period-picker): add year/month grid UI
 ```
 
 **Bug Fix:**
+
 ```
 fix(period-picker): correct month deselection logic
 ```
 
 **Documentation:**
+
 ```
 docs: update README with usage examples
 ```
 
 **Breaking Change:**
+
 ```
 feat(period-picker): change API to use Date objects
 
@@ -61,6 +66,7 @@ BREAKING CHANGE: The period picker now expects Date objects instead of strings
 ```
 
 **With Body:**
+
 ```
 feat(period-picker): add custom date range validation
 

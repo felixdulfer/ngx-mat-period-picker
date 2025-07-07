@@ -28,10 +28,7 @@
           "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/ng-mat-period-picker/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "e2e": {
@@ -85,9 +82,7 @@
             "outputPath": "dist/demo-app",
             "index": "projects/demo-app/src/index.html",
             "browser": "projects/demo-app/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/demo-app/tsconfig.app.json",
             "assets": [
               {
@@ -143,10 +138,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/demo-app/tsconfig.spec.json",
             "assets": [
               {

@@ -24,33 +24,33 @@ import { YearMonth } from '../types';
       <mat-divider />
       <div class="ymp-years">
         @for (year of years; track year) {
-        <button
-          [matButton]="value?.year === year ? 'filled' : 'text'"
-          [disabled]="disabled()"
-          (click)="selectYear(year)"
-          class="ymp-button"
-        >
-          {{ year }}
-          @if (value?.year === year) {
-          <mat-icon class="ymp-x">close</mat-icon>
-          }
-        </button>
+          <button
+            [matButton]="value?.year === year ? 'filled' : 'text'"
+            [disabled]="disabled()"
+            (click)="selectYear(year)"
+            class="ymp-button"
+          >
+            {{ year }}
+            @if (value?.year === year) {
+              <mat-icon class="ymp-x">close</mat-icon>
+            }
+          </button>
         }
       </div>
       <mat-divider />
       <div class="ymp-months">
         @for (month of months; let i = $index; track month) {
-        <button
-          [matButton]="value?.month === i + 1 ? 'filled' : 'text'"
-          [disabled]="value?.year == null"
-          (click)="selectMonth(i + 1)"
-          class="ymp-button"
-        >
-          {{ month }}
-          @if (value?.month === i + 1 && value?.year) {
-          <mat-icon class="ymp-x">close</mat-icon>
-          }
-        </button>
+          <button
+            [matButton]="value?.month === i + 1 ? 'filled' : 'text'"
+            [disabled]="value?.year == null"
+            (click)="selectMonth(i + 1)"
+            class="ymp-button"
+          >
+            {{ month }}
+            @if (value?.month === i + 1 && value?.year) {
+              <mat-icon class="ymp-x">close</mat-icon>
+            }
+          </button>
         }
       </div>
     </mat-card>
@@ -141,11 +141,11 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   get years(): number[] {
     return Array.from(
       { length: this.yearsPerPage },
-      (_, i) => this.currentStartYear + i
+      (_, i) => this.currentStartYear + i,
     ).filter(
       (y) =>
         (this.minYear() === undefined || y >= this.minYear()!) &&
-        (this.maxYear() === undefined || y <= this.maxYear()!)
+        (this.maxYear() === undefined || y <= this.maxYear()!),
     );
   }
 

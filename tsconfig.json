@@ -10,9 +10,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "ng-mat-period-picker": [
-        "./dist/ng-mat-period-picker"
-      ]
+      "ng-mat-period-picker": ["./dist/ng-mat-period-picker"]
     },
     "skipLibCheck": true,
     "isolatedModules": true,
