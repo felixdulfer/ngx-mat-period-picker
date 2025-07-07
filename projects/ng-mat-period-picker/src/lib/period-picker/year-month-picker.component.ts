@@ -17,41 +17,130 @@ export interface YearMonth {
   template: `
     <mat-card class="ymp-card">
       <div class="ymp-header">
-        <button mat-icon-button (click)="prevRange()" [disabled]="!canGoPrev()"><mat-icon>chevron_left</mat-icon></button>
+        <button mat-icon-button (click)="prevRange()" [disabled]="!canGoPrev()">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
         <span class="ymp-range">{{ rangeLabel }}</span>
-        <button mat-icon-button (click)="nextRange()" [disabled]="!canGoNext()"><mat-icon>chevron_right</mat-icon></button>
+        <button mat-icon-button (click)="nextRange()" [disabled]="!canGoNext()">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
       </div>
       <mat-divider></mat-divider>
       <div class="ymp-years">
-        <button mat-button
-                *ngFor="let year of years"
-                [color]="value?.year === year ? 'primary' : undefined"
-                (click)="selectYear(year)"
-                [disabled]="disabled">
+        @for (year of years; track year) {
+        <button
+          *ngIf="value?.year === year"
+          mat-tonal-button
+          [disabled]="disabled"
+          (click)="selectYear(year)"
+          style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
+        >
+          {{ year }}
+          <mat-icon class="ymp-x">close</mat-icon>
+        </button>
+        <button
+          *ngIf="value?.year !== year"
+          mat-button
+          [disabled]="disabled"
+          (click)="selectYear(year)"
+          style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
+        >
           {{ year }}
         </button>
+        }
       </div>
       <mat-divider></mat-divider>
       <div class="ymp-months">
-        <button mat-button
-                *ngFor="let month of months; let i = index"
-                [color]="value?.month === i + 1 ? 'primary' : undefined"
-                (click)="selectMonth(i + 1)"
-                [disabled]="disabled || !value?.year">
+        @for (month of months; let i = $index; track month) {
+        <button
+          *ngIf="value?.month === i + 1 && value?.year"
+          mat-tonal-button
+          [disabled]="disabled"
+          (click)="selectMonth(i + 1)"
+          style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
+        >
+          {{ month }}
+          <mat-icon class="ymp-x">close</mat-icon>
+        </button>
+        <button
+          *ngIf="value?.month !== i + 1 && value?.year"
+          mat-button
+          [disabled]="disabled"
+          (click)="selectMonth(i + 1)"
+          style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
+        >
           {{ month }}
         </button>
+        <button
+          *ngIf="!value?.year"
+          mat-button
+          disabled
+          style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
+        >
+          {{ month }}
+        </button>
+        }
       </div>
     </mat-card>
   `,
-  styleUrls: [],
+  styles: [
+    `
+      .ymp-card {
+        padding: 16px;
+        max-width: 340px;
+        margin: 0 auto;
+        background: #fafafa;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+      .ymp-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .ymp-range {
+        font-weight: 600;
+        font-size: 1.1em;
+        letter-spacing: 1px;
+      }
+      .ymp-years,
+      .ymp-months {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        margin: 8px 0;
+      }
+      .ymp-months {
+        margin-bottom: 0;
+      }
+      .ymp-x {
+        font-size: 16px;
+        vertical-align: middle;
+        position: absolute;
+        right: 4px;
+        top: 4px;
+        opacity: 0.7;
+        pointer-events: none;
+      }
+      button.selected {
+        font-weight: bold;
+      }
+    `,
+  ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => YearMonthPickerComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule, MatDividerModule]
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatDividerModule,
+  ],
 })
 export class YearMonthPickerComponent implements ControlValueAccessor {
   @Input() minYear?: number;
@@ -60,7 +149,20 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
 
   yearsPerPage = 12;
   currentStartYear = 2000;
-  months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Okt','Nov','Dec'];
+  months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Okt',
+    'Nov',
+    'Dec',
+  ];
 
   value: YearMonth | null = null;
 
@@ -68,13 +170,19 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   private onTouched: () => void = () => {};
 
   get years(): number[] {
-    return Array.from({length: this.yearsPerPage}, (_, i) => this.currentStartYear + i)
-      .filter(y => (this.minYear === undefined || y >= this.minYear) && (this.maxYear === undefined || y <= this.maxYear));
+    return Array.from(
+      { length: this.yearsPerPage },
+      (_, i) => this.currentStartYear + i
+    ).filter(
+      (y) =>
+        (this.minYear === undefined || y >= this.minYear) &&
+        (this.maxYear === undefined || y <= this.maxYear)
+    );
   }
 
   get rangeLabel(): string {
     const years = this.years;
-    return years.length ? `${years[0]}–${years[years.length-1]}` : '';
+    return years.length ? `${years[0]}–${years[years.length - 1]}` : '';
   }
 
   canGoPrev(): boolean {
@@ -82,7 +190,10 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   }
 
   canGoNext(): boolean {
-    return this.maxYear === undefined || this.currentStartYear + this.yearsPerPage <= this.maxYear;
+    return (
+      this.maxYear === undefined ||
+      this.currentStartYear + this.yearsPerPage <= this.maxYear
+    );
   }
 
   prevRange() {
@@ -97,7 +208,10 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   nextRange() {
     if (this.canGoNext()) {
       this.currentStartYear += this.yearsPerPage;
-      if (this.maxYear !== undefined && this.currentStartYear + this.yearsPerPage - 1 > this.maxYear) {
+      if (
+        this.maxYear !== undefined &&
+        this.currentStartYear + this.yearsPerPage - 1 > this.maxYear
+      ) {
         this.currentStartYear = this.maxYear - this.yearsPerPage + 1;
       }
     }
