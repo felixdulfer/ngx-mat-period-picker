@@ -47,7 +47,7 @@ describe('YearMonthFieldComponent', () => {
 
   it('should handle onChange registration correctly', () => {
     // Spy on the onChange function
-    const onChangeSpy = jasmine.createSpy('onChange');
+    const onChangeSpy = jest.fn();
     component.registerOnChange(onChangeSpy);
 
     // Test that the onChange function is properly registered
@@ -56,7 +56,7 @@ describe('YearMonthFieldComponent', () => {
 
   it('should handle value updates correctly', () => {
     // Spy on the onChange function
-    const onChangeSpy = jasmine.createSpy('onChange');
+    const onChangeSpy = jest.fn();
     component.registerOnChange(onChangeSpy);
 
     // Test setting a value

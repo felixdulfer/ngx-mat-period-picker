@@ -67,7 +67,7 @@ echo "New version: $NEW_VERSION"
 
 # Run tests
 echo "Running tests..."
-npm test
+npm run test:ci
 
 # Build package
 echo "Building package..."
