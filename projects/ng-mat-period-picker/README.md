@@ -9,6 +9,7 @@ A modern Angular Material period picker component built with standalone componen
 - **Material Design**: Built on Angular Material components
 - **Flexible**: Supports custom date ranges and "present" end dates
 - **Accessible**: Implements ControlValueAccessor for form integration
+- **Responsive**: Clean, modern UI with proper styling
 
 ## Installation
 
@@ -21,15 +22,13 @@ npm install ng-mat-period-picker
 ### Basic Usage
 
 ```typescript
-import { NgMatPeriodPickerComponent } from 'ng-mat-period-picker';
+import { PeriodPickerComponent } from "ng-mat-period-picker";
 
 @Component({
-  selector: 'app-my-component',
+  selector: "app-my-component",
   standalone: true,
-  imports: [NgMatPeriodPickerComponent],
-  template: `
-    <lib-ng-mat-period-picker></lib-ng-mat-period-picker>
-  `
+  imports: [PeriodPickerComponent],
+  template: ` <lib-ng-mat-period-picker /> `,
 })
 export class MyComponent {}
 ```
@@ -37,17 +36,15 @@ export class MyComponent {}
 ### Advanced Usage with Form Control
 
 ```typescript
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { PeriodPickerComponent, Period } from 'ng-mat-period-picker';
+import { Component } from "@angular/core";
+import { FormControl, ReactiveFormsModule } from "@angular/forms";
+import { PeriodPickerComponent, Period } from "ng-mat-period-picker";
 
 @Component({
-  selector: 'app-my-component',
+  selector: "app-my-component",
   standalone: true,
   imports: [PeriodPickerComponent, ReactiveFormsModule],
-  template: `
-    <ngmp-period-picker [formControl]="periodControl"></ngmp-period-picker>
-  `
+  template: ` <lib-ng-mat-period-picker [formControl]="periodControl" /> `,
 })
 export class MyComponent {
   periodControl = new FormControl<Period | null>(null);
@@ -59,15 +56,29 @@ export class MyComponent {
 You can also use the individual components directly:
 
 ```typescript
-import { YearMonthPickerComponent, YearMonth } from 'ng-mat-period-picker';
+import { YearMonthPickerComponent, YearMonth } from "ng-mat-period-picker";
 
 @Component({
-  selector: 'app-my-component',
+  selector: "app-my-component",
   standalone: true,
   imports: [YearMonthPickerComponent],
-  template: `
-    <ngmp-year-month-picker [formControl]="yearMonthControl"></ngmp-year-month-picker>
-  `
+  template: ` <lib-year-month-picker [formControl]="yearMonthControl" /> `,
+})
+export class MyComponent {
+  yearMonthControl = new FormControl<YearMonth | null>(null);
+}
+```
+
+### Year-Month Picker with Constraints
+
+```typescript
+import { YearMonthPickerComponent } from "ng-mat-period-picker";
+
+@Component({
+  selector: "app-my-component",
+  standalone: true,
+  imports: [YearMonthPickerComponent],
+  template: ` <lib-year-month-picker [formControl]="yearMonthControl" [minYear]="2020" [maxYear]="2030" /> `,
 })
 export class MyComponent {
   yearMonthControl = new FormControl<YearMonth | null>(null);
@@ -81,7 +92,7 @@ export class MyComponent {
 ```typescript
 interface Period {
   start: YearMonth | null;
-  end: YearMonth | 'present' | null;
+  end: YearMonth | "present" | null;
 }
 ```
 
@@ -96,27 +107,52 @@ interface YearMonth {
 
 ### Components
 
-- `NgMatPeriodPickerComponent`: Main library component
-- `PeriodPickerComponent`: Period picker with start/end dates
-- `YearMonthPickerComponent`: Individual year/month picker
+#### PeriodPickerComponent
+
+- **Selector**: `lib-ng-mat-period-picker`
+- **Features**:
+  - Start and end date selection
+  - "Present" toggle for end date
+  - Form control integration
+  - Automatic end date disabling when "present" is selected
+
+#### YearMonthPickerComponent
+
+- **Selector**: `lib-year-month-picker`
+- **Inputs**:
+  - `minYear?: number` - Minimum allowed year
+  - `maxYear?: number` - Maximum allowed year
+  - `disabled?: boolean` - Disable the component
+- **Features**:
+  - Year range navigation (12 years per page)
+  - Month selection
+  - Visual feedback for selected values
+  - Responsive grid layout
 
 ## Project Structure
 
-```
+```text
 src/lib/
 ├── components/
-│   ├── ng-mat-period-picker.component.ts    # Main library component
-│   └── period-picker/
-│       ├── period-picker.component.ts       # Period picker component
-│       └── year-month-picker.component.ts   # Year/month picker component
+│   ├── period-picker.component.ts       # Period picker component
+│   ├── year-month-picker.component.ts   # Year/month picker component
+│   └── index.ts                         # Component exports
 └── types/
-    └── index.ts                            # Type definitions
+    └── index.ts                         # Type definitions
 ```
 
 ## Development
 
 This library is built using:
-- Angular standalone components
+
+- Angular 19+ standalone components
 - Angular Material for UI components
 - TypeScript for type safety
 - Modern Angular best practices
+- ControlValueAccessor for form integration
+
+## Dependencies
+
+- **Peer Dependencies**: Angular Common and Core (^19.2.0)
+- **Dependencies**: tslib (^2.3.0)
+- **UI Components**: Angular Material (Button, Card, Icon, Divider, SlideToggle)
