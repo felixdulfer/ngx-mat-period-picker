@@ -126,20 +126,12 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
 
   yearsPerPage = 12;
   currentStartYear = 2000;
-  months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Okt',
-    'Nov',
-    'Dec',
-  ];
+  get months(): string[] {
+    return Array.from({ length: 12 }, (_, i) => {
+      const date = new Date(2000, i, 1);
+      return date.toLocaleDateString(undefined, { month: 'short' });
+    });
+  }
 
   value: YearMonth | null = null;
 
