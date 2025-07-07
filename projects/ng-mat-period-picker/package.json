@@ -15,12 +15,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/felixdulfer/ng-mat-period-picker-workspace.git"
+    "url": "https://github.com/felixdulfer/ng-mat-period-picker.git"
   },
   "bugs": {
-    "url": "https://github.com/felixdulfer/ng-mat-period-picker-workspace/issues"
+    "url": "https://github.com/felixdulfer/ng-mat-period-picker/issues"
   },
-  "homepage": "https://github.com/felixdulfer/ng-mat-period-picker-workspace#readme",
+  "homepage": "https://github.com/felixdulfer/ng-mat-period-picker#readme",
   "peerDependencies": {
     "@angular/common": "^19.2.0 || ^20.0.0",
     "@angular/core": "^19.2.0 || ^20.0.0",
