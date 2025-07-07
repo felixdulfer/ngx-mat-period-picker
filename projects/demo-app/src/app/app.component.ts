@@ -29,7 +29,7 @@ import { YearMonthFieldComponent } from '../../../ng-mat-period-picker/src/lib/c
       <pre>{{ form.value.period | json }}</pre>
 
       <h2>Period Picker (Custom Labels)</h2>
-      <lib-ng-mat-period-picker 
+      <lib-ng-mat-period-picker
         formControlName="customPeriod"
         startLabel="Employment Start"
         endLabel="Employment End"
@@ -41,7 +41,7 @@ import { YearMonthFieldComponent } from '../../../ng-mat-period-picker/src/lib/c
       <pre>{{ form.value.customPeriod | json }}</pre>
 
       <h2>Period Picker (Education Example)</h2>
-      <lib-ng-mat-period-picker 
+      <lib-ng-mat-period-picker
         formControlName="educationPeriod"
         startLabel="Study Start Date"
         endLabel="Graduation Date"

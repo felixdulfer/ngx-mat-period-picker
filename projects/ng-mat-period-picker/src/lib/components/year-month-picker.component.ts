@@ -32,9 +32,6 @@ import { MonthLabelService } from '../services/month-label.service';
             class="ymp-button"
           >
             {{ year }}
-            @if (value?.year === year) {
-              <mat-icon class="ymp-x">close</mat-icon>
-            }
           </button>
         }
       </div>
@@ -48,9 +45,6 @@ import { MonthLabelService } from '../services/month-label.service';
             class="ymp-button"
           >
             {{ month }}
-            @if (value?.month === i + 1 && value?.year) {
-              <mat-icon class="ymp-x">close</mat-icon>
-            }
           </button>
         }
       </div>
@@ -92,16 +86,7 @@ import { MonthLabelService } from '../services/month-label.service';
         grid-template-columns: repeat(4, 1fr);
         margin-bottom: 0;
       }
-      .mat-icon.ymp-x {
-        font-size: 16px;
-        vertical-align: middle;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        opacity: 0.7;
-        pointer-events: none;
-        translate: 5px -50%;
-      }
+
       .mdc-button.ymp-button {
         --mat-button-filled-horizontal-padding: 6px;
         --mat-button-text-horizontal-padding: 6px;
