@@ -1,0 +1,275 @@
+# Angular Project Rules
+
+## Component Architecture
+
+### Standalone Components
+
+- **ALWAYS** use standalone components (`standalone: true`) for all new components
+- Import standalone components directly in the `imports` array, not in `declarations`
+- Prefer standalone components over NgModules for all new features
+- Use `forwardRef()` when needed for circular dependencies in standalone components
+
+### Component Structure
+
+- Use `input()` signals instead of `@Input()` decorators for better performance
+- Use `output()` signals instead of `@Output()` decorators
+- Implement `OnPush` change detection strategy by default
+- Keep components focused and single-purpose (avoid "monster" components)
+
+## State Management
+
+### Signals (Angular 16+)
+
+- Use signals for reactive state management: `signal()`, `computed()`, `effect()`
+- Prefer signals over RxJS Observables for simple state
+- Use `toSignal()` to convert Observables to signals when needed
+- Use `toObservable()` to convert signals to Observables for compatibility
+
+### Change Detection
+
+- Always use `OnPush` change detection strategy
+- Use `trackBy` functions for all `*ngFor` loops
+- Avoid manual change detection calls (`detectChanges()`)
+
+## Forms
+
+### Reactive Forms
+
+- Use `FormGroup` constructor instead of `FormBuilder` for better tree-shaking
+- Use typed forms with `FormGroup<Type>` for better type safety
+- Implement `ControlValueAccessor` for custom form controls
+- Use `NG_VALUE_ACCESSOR` provider for form integration
+
+### Template Forms
+
+- Avoid template-driven forms in favor of reactive forms
+- Use `@if` directive instead of `*ngIf` for better performance
+
+## Styling
+
+### CSS Approach
+
+- Use inline styles in component decorator for component-specific styles
+- Use CSS custom properties for theming and Material Design integration
+- Follow Material Design color system and spacing
+- Use `:host` selector for component root styling
+
+### Material Design
+
+- Prefer Angular Material components over custom implementations
+- Use Material Design tokens and custom properties
+- Follow Material Design accessibility guidelines
+- Use `matButton` directive (camelCase) instead of `mat-button` (kebab-case)
+
+## Template Syntax
+
+### Modern Angular Directives
+
+- Use `@if` instead of `*ngIf`
+- Use `@for` instead of `*ngFor`
+- Use `@switch` instead of `*ngSwitch`
+- Use `@defer` for lazy loading content
+
+### Self-Closing Tags
+
+- Use self-closing HTML tags and Angular components where possible
+- Prefer `<mat-icon>close</mat-icon>` over `<mat-icon>close</mat-icon>`
+
+## TypeScript
+
+### Strict Mode
+
+- Enable strict TypeScript mode
+- Use proper typing for all variables, parameters, and return types
+- Avoid `any` type - use `unknown` or proper interfaces
+- Use `readonly` for immutable properties
+
+### Interfaces and Types
+
+- Define interfaces for component inputs and outputs
+- Use `type` for union types and `interface` for object shapes
+- Export types from dedicated type files
+- Use generic types for reusable components
+
+## Performance
+
+### Bundle Optimization
+
+- Use standalone components for better tree-shaking
+- Lazy load routes and feature modules
+- Use `trackBy` functions for all `*ngFor` loops
+- Avoid unnecessary template expressions
+
+### Memory Management
+
+- Unsubscribe from Observables in `OnDestroy`
+- Use `takeUntil()` or `takeUntilDestroyed()` for automatic cleanup
+- Avoid memory leaks in event listeners
+
+## Testing
+
+### Unit Testing
+
+- Write tests for all public methods and edge cases
+- Use Angular testing utilities (`ComponentFixture`, `TestBed`)
+- Mock external dependencies
+- Test component inputs, outputs, and state changes
+
+### E2E Testing
+
+- Use Playwright for E2E testing (already configured)
+- Test user interactions and accessibility
+- Test responsive design and cross-browser compatibility
+
+## Accessibility
+
+### ARIA and Semantics
+
+- Use semantic HTML elements (`<button>`, `<nav>`, `<main>`)
+- Add proper ARIA attributes (`aria-label`, `aria-describedby`)
+- Ensure keyboard navigation works for all interactive elements
+- Test with screen readers
+
+### Material Design Accessibility
+
+- Follow Material Design accessibility guidelines
+- Use proper color contrast ratios
+- Provide focus indicators for all interactive elements
+
+## Code Quality
+
+### ESLint and Prettier
+
+- Use ESLint with Angular-specific rules
+- Use Prettier for consistent code formatting
+- Enforce consistent naming conventions
+- Use meaningful variable and function names
+
+### Documentation
+
+- Add JSDoc comments for public methods
+- Document component inputs, outputs, and usage
+- Keep README files updated with examples
+- Use TypeScript interfaces for self-documenting code
+
+## Git and Versioning
+
+### Commit Messages
+
+- Use conventional commits format (already configured)
+- Include scope for component-specific changes
+- Use descriptive commit messages
+- Include breaking change notices when needed
+
+### Versioning
+
+- Use semantic versioning (MAJOR.MINOR.PATCH)
+- Document breaking changes in commit messages
+- Update CHANGELOG for significant changes
+
+## Dependencies
+
+### Angular Material
+
+- Prefer Angular Material components over custom implementations
+- Use Angular CDK for custom components when needed
+- Keep Material Design version in sync with Angular version
+
+### Third-Party Libraries
+
+- Minimize third-party dependencies
+- Prefer official Angular libraries
+- Use well-maintained and popular libraries
+- Document why external dependencies are needed
+
+## Project Structure
+
+### File Organization
+
+- Group related components in feature folders
+- Use index files for clean imports
+- Keep components, services, and types separate
+- Use consistent file naming (kebab-case for files)
+
+### Library Structure
+
+- Export public API through index files
+- Use barrel exports for clean imports
+- Keep internal implementation details private
+- Document public API thoroughly
+
+## Development Workflow
+
+### Code Review
+
+- Review for standalone component usage
+- Check for proper TypeScript typing
+- Verify accessibility compliance
+- Ensure proper testing coverage
+
+### Performance Monitoring
+
+- Monitor bundle size impact
+- Check for memory leaks
+- Verify change detection performance
+- Test with large datasets
+
+## Examples
+
+### Standalone Component
+
+```typescript
+@Component({
+  selector: "lib-example",
+  standalone: true,
+  imports: [CommonModule, MatButtonModule],
+  template: `
+    <button matButton (click)="handleClick()">
+      {{ label() }}
+    </button>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ExampleComponent {
+  label = input.required<string>();
+  clicked = output<void>();
+
+  handleClick() {
+    this.clicked.emit();
+  }
+}
+```
+
+### Form Control
+
+```typescript
+@Component({
+  selector: "lib-custom-input",
+  standalone: true,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CustomInputComponent),
+      multi: true,
+    },
+  ],
+})
+export class CustomInputComponent implements ControlValueAccessor {
+  // Implementation...
+}
+```
+
+### Signal Usage
+
+```typescript
+export class ExampleService {
+  private data = signal<Data[]>([]);
+  public readonly data$ = this.data.asReadonly();
+
+  updateData(newData: Data[]) {
+    this.data.set(newData);
+  }
+}
+```
+
+## alwaysApply: true
