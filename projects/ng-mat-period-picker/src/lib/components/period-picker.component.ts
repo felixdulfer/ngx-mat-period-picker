@@ -24,16 +24,12 @@ import { Period, YearMonth } from '../types';
       >
         <div>
           <label>Start</label>
-          <ngmp-year-month-picker
-            formControlName="start"
-          ></ngmp-year-month-picker>
+          <ngmp-year-month-picker formControlName="start" />
         </div>
         <div>
           <label>End</label>
           <ng-container *ngIf="!form.get('present')?.value; else presentLabel">
-            <ngmp-year-month-picker
-              formControlName="end"
-            ></ngmp-year-month-picker>
+            <ngmp-year-month-picker formControlName="end" />
           </ng-container>
           <ng-template #presentLabel>
             <div style="margin-top: 2.5rem; font-weight: bold;">Present</div>

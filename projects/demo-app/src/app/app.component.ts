@@ -17,13 +17,11 @@ import { YearMonthPickerComponent } from '../../../ng-mat-period-picker/src/lib/
     <h1>ng-mat-period-picker Demo</h1>
     <form [formGroup]="form">
       <h2>Year/Month Picker</h2>
-      <ngmp-year-month-picker
-        formControlName="yearMonth"
-      ></ngmp-year-month-picker>
+      <ngmp-year-month-picker formControlName="yearMonth" />
       <pre>{{ form.value.yearMonth | json }}</pre>
 
       <h2>Period Picker</h2>
-      <ngmp-period-picker formControlName="period"></ngmp-period-picker>
+      <ngmp-period-picker formControlName="period" />
       <pre>{{ form.value.period | json }}</pre>
     </form>
   `,

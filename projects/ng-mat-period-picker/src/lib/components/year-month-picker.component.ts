@@ -21,7 +21,7 @@ import { YearMonth } from '../types';
           <mat-icon>chevron_right</mat-icon>
         </button>
       </div>
-      <mat-divider></mat-divider>
+      <mat-divider />
       <div class="ymp-years">
         @for (year of years; track year) {
         <button
@@ -45,7 +45,7 @@ import { YearMonth } from '../types';
         </button>
         }
       </div>
-      <mat-divider></mat-divider>
+      <mat-divider />
       <div class="ymp-months">
         @for (month of months; let i = $index; track month) {
         <button
