@@ -256,7 +256,7 @@ chmod +x deploy.sh
 - **Package Name**: `ng-mat-period-picker`
 - **Current Version**: `0.1.0`
 - **License**: MIT
-- **Repository**: https://github.com/felixdulfer/ng-mat-period-picker-workspace
+- **Repository**: https://github.com/felixdulfer/ng-mat-period-picker
 - **NPM URL**: https://www.npmjs.com/package/ng-mat-period-picker
 
 ## Support
