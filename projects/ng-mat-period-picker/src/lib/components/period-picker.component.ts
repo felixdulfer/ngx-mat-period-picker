@@ -28,12 +28,11 @@ import { Period, YearMonth } from '../types';
         </div>
         <div>
           <label>End</label>
-          <ng-container *ngIf="!form.get('present')?.value; else presentLabel">
-            <ngmp-year-month-picker formControlName="end" />
-          </ng-container>
-          <ng-template #presentLabel>
-            <div style="margin-top: 2.5rem; font-weight: bold;">Present</div>
-          </ng-template>
+          @if (!form.get('present')?.value) {
+          <ngmp-year-month-picker formControlName="end" />
+          } @else {
+          <div style="margin-top: 2.5rem; font-weight: bold;">Present</div>
+          }
         </div>
         <div style="flex-basis: 100%; margin-top: 1rem;">
           <mat-slide-toggle formControlName="present">Present</mat-slide-toggle>

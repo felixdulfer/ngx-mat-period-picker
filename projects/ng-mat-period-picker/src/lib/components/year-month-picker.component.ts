@@ -23,9 +23,8 @@ import { YearMonth } from '../types';
       </div>
       <mat-divider />
       <div class="ymp-years">
-        @for (year of years; track year) {
+        @for (year of years; track year) { @if (value?.year === year) {
         <button
-          *ngIf="value?.year === year"
           mat-tonal-button
           [disabled]="disabled"
           (click)="selectYear(year)"
@@ -34,8 +33,8 @@ import { YearMonth } from '../types';
           {{ year }}
           <mat-icon class="ymp-x">close</mat-icon>
         </button>
+        } @else {
         <button
-          *ngIf="value?.year !== year"
           mat-button
           [disabled]="disabled"
           (click)="selectYear(year)"
@@ -43,13 +42,13 @@ import { YearMonth } from '../types';
         >
           {{ year }}
         </button>
-        }
+        } }
       </div>
       <mat-divider />
       <div class="ymp-months">
-        @for (month of months; let i = $index; track month) {
+        @for (month of months; let i = $index; track month) { @if (value?.month
+        === i + 1 && value?.year) {
         <button
-          *ngIf="value?.month === i + 1 && value?.year"
           mat-tonal-button
           [disabled]="disabled"
           (click)="selectMonth(i + 1)"
@@ -58,8 +57,8 @@ import { YearMonth } from '../types';
           {{ month }}
           <mat-icon class="ymp-x">close</mat-icon>
         </button>
+        } @else if (value?.month !== i + 1 && value?.year) {
         <button
-          *ngIf="value?.month !== i + 1 && value?.year"
           mat-button
           [disabled]="disabled"
           (click)="selectMonth(i + 1)"
@@ -67,15 +66,15 @@ import { YearMonth } from '../types';
         >
           {{ month }}
         </button>
+        } @else {
         <button
-          *ngIf="!value?.year"
           mat-button
           disabled
           style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
         >
           {{ month }}
         </button>
-        }
+        } }
       </div>
     </mat-card>
   `,
