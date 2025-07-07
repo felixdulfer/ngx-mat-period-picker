@@ -37,7 +37,7 @@ np
 ## 📦 Package Information
 
 - **Name**: `ng-mat-period-picker`
-- **Version**: `0.1.0`
+- **Version**: `0.1.1`
 - **License**: MIT
 - **Angular Version**: ^19.2.0 || ^20.0.0
 
