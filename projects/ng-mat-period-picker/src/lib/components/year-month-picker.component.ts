@@ -85,18 +85,19 @@ import { YearMonth } from '../types';
       .ymp-months {
         margin-bottom: 0;
       }
-      .ymp-x {
+      .mat-icon.ymp-x {
         font-size: 16px;
         vertical-align: middle;
         position: absolute;
-        right: 4px;
-        top: 4px;
+        right: 0;
+        top: 50%;
         opacity: 0.7;
         pointer-events: none;
+        translate: 5px -50%;
       }
-      .ymp-button {
-        --mat-button-tonal-horizontal-padding: 12px;
-        --mat-button-text-horizontal-padding: 12px;
+      .mdc-button.ymp-button {
+        --mat-button-tonal-horizontal-padding: 6px;
+        --mat-button-text-horizontal-padding: 6px;
       }
     `,
   ],
