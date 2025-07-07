@@ -13,7 +13,7 @@ import { YearMonth } from '../types';
   template: `
     <mat-card class="ymp-card">
       <div class="ymp-header">
-        <button mat-icon-button (click)="prevRange()" [disabled]="!canGoPrev()">
+        <button matIconButton (click)="prevRange()" [disabled]="!canGoPrev()">
           <mat-icon>chevron_left</mat-icon>
         </button>
         <span class="ymp-range">{{ rangeLabel }}</span>
