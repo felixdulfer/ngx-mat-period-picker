@@ -134,19 +134,16 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     pickerRef.instance.setPresentValue(this.presentValue());
     pickerRef.instance.setShowPresentToggle(this.showPresentToggle());
 
-    // Subscribe to onChange to auto-close when complete selection is made
+    // Subscribe to onChange to handle value updates and auto-close when complete selection is made
     pickerRef.instance.registerOnChange((value: YearMonth | null) => {
+      // Always update the internal value and emit to parent
+      this.value = value;
+      this.onChange(value);
+      this.onTouched();
+
+      // Auto-close when both year and month are selected
       if (value && value.year && value.month) {
-        // Auto-close when both year and month are selected
-        this.value = value;
-        this.onChange(value);
-        this.onTouched();
         this.closePicker();
-      } else if (value && value.year) {
-        // Update value but don't close for year-only selection
-        this.value = value;
-        this.onChange(value);
-        this.onTouched();
       }
     });
 

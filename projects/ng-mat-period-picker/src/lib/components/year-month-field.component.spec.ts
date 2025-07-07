@@ -44,4 +44,26 @@ describe('YearMonthFieldComponent', () => {
     // Test that the method can be called without errors
     expect(() => component.openPicker(mockEvent)).not.toThrow();
   });
+
+  it('should handle onChange registration correctly', () => {
+    // Spy on the onChange function
+    const onChangeSpy = jasmine.createSpy('onChange');
+    component.registerOnChange(onChangeSpy);
+
+    // Test that the onChange function is properly registered
+    expect(component['onChange']).toBe(onChangeSpy);
+  });
+
+  it('should handle value updates correctly', () => {
+    // Spy on the onChange function
+    const onChangeSpy = jasmine.createSpy('onChange');
+    component.registerOnChange(onChangeSpy);
+
+    // Test setting a value
+    const testValue = { year: 2023, month: 6 };
+    component.writeValue(testValue);
+
+    // Verify the value is set correctly
+    expect(component.value).toEqual(testValue);
+  });
 });

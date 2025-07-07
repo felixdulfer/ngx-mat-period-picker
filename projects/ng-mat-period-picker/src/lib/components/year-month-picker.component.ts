@@ -283,6 +283,8 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
       this.value = { year, month: null };
     }
     this.onTouched();
+    // Notify parent of value change
+    this.onChange(this.value);
   }
 
   selectMonth(month: number) {
@@ -294,11 +296,8 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
       this.value = { year: this.value.year, month };
     }
     this.onTouched();
-
-    // Auto-commit when both year and month are selected
-    if (this.value && this.value.year && this.value.month) {
-      this.onChange(this.value);
-    }
+    // Notify parent of value change
+    this.onChange(this.value);
   }
 
   /**
