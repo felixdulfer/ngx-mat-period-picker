@@ -143,12 +143,24 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
 
     // Close on backdrop click
     this.overlayRef.backdropClick().subscribe(() => {
+      const currentValue = pickerRef.instance.getCurrentValue();
+      if (currentValue && currentValue.year) {
+        this.value = currentValue;
+        this.onChange(currentValue);
+        this.onTouched();
+      }
       this.closePicker();
     });
 
     // Close on ESC key
     this.overlayRef.keydownEvents().subscribe((event: KeyboardEvent) => {
       if (event.key === 'Escape') {
+        const currentValue = pickerRef.instance.getCurrentValue();
+        if (currentValue && currentValue.year) {
+          this.value = currentValue;
+          this.onChange(currentValue);
+          this.onTouched();
+        }
         this.closePicker();
       }
     });
