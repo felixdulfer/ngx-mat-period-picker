@@ -78,6 +78,23 @@ import { MonthLabelService } from '../services/month-label.service';
           </button>
         }
       </div>
+      <mat-divider />
+      <div class="ymp-actions">
+        @if (hasChanges()) {
+          <button matButton="text" (click)="cancel()" [disabled]="disabled()">
+            Cancel
+          </button>
+        } @else {
+          <div></div>
+        }
+        <button
+          matButton="text"
+          (click)="ok()"
+          [disabled]="disabled() || !hasValidSelection()"
+        >
+          OK
+        </button>
+      </div>
     </mat-card>
   `,
   styles: [
@@ -136,6 +153,13 @@ import { MonthLabelService } from '../services/month-label.service';
         transform: scale(0.8);
         margin: 0;
       }
+
+      .ymp-actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0 0 0;
+        gap: 8px;
+      }
     `,
   ],
   providers: [
@@ -175,6 +199,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   }
 
   value: YearMonth | null = null;
+  originalValue: YearMonth | null = null;
 
   private onChange: (value: YearMonth | null) => void = () => {};
   private onTouched: () => void = () => {};
@@ -234,6 +259,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
 
   writeValue(value: YearMonth | null): void {
     this.value = value;
+    this.originalValue = value;
   }
 
   registerOnChange(fn: (value: YearMonth | null) => void): void {
@@ -251,7 +277,6 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     } else {
       this.value = { year, month: null };
     }
-    // Don't call onChange here - let the parent decide when to close
     this.onTouched();
   }
 
@@ -263,8 +288,12 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     } else {
       this.value = { year: this.value.year, month };
     }
-    // Don't call onChange here - let the parent decide when to close
     this.onTouched();
+
+    // Auto-commit when both year and month are selected
+    if (this.value && this.value.year && this.value.month) {
+      this.onChange(this.value);
+    }
   }
 
   /**
@@ -280,6 +309,9 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   togglePresent(checked: boolean): void {
     this._presentValue.set(checked);
     this.onTouched();
+
+    // Auto-commit when present is toggled
+    this.onChange(this.value);
   }
 
   /**
@@ -301,5 +333,45 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
    */
   setShowPresentToggle(show: boolean): void {
     this._showPresentToggle.set(show);
+  }
+
+  /**
+   * Check if there's a valid selection (year is required)
+   */
+  hasValidSelection(): boolean {
+    return this.value !== null && this.value.year !== null;
+  }
+
+  /**
+   * Check if changes have been made from the original value
+   */
+  hasChanges(): boolean {
+    if (this.value === null && this.originalValue === null) {
+      return false;
+    }
+    if (this.value === null || this.originalValue === null) {
+      return true;
+    }
+    return (
+      this.value.year !== this.originalValue.year ||
+      this.value.month !== this.originalValue.month
+    );
+  }
+
+  /**
+   * Cancel button handler
+   */
+  cancel(): void {
+    this.onTouched();
+  }
+
+  /**
+   * OK button handler
+   */
+  ok(): void {
+    if (this.hasValidSelection()) {
+      this.onChange(this.value);
+      this.onTouched();
+    }
   }
 }
