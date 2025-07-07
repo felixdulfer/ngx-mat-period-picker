@@ -136,7 +136,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
 
     // Subscribe to onChange to handle value updates and auto-close when complete selection is made
     pickerRef.instance.registerOnChange((value: YearMonth | null) => {
-      // Always update the internal value and emit to parent
+      // Update the internal value and emit onChange for all changes
       this.value = value;
       this.onChange(value);
       this.onTouched();
@@ -154,6 +154,9 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
 
       // ONLY close when present is set to true
       if (checked) {
+        // Clear the value when present is selected
+        this.value = null;
+        this.onChange(null);
         this.closePicker();
       }
     });
@@ -168,6 +171,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
       const currentValue = pickerRef.instance.getCurrentValue();
       if (currentValue && currentValue.year) {
         this.value = currentValue;
+        // Emit onChange only when OK is clicked to finalize the selection
         this.onChange(currentValue);
         this.onTouched();
       }

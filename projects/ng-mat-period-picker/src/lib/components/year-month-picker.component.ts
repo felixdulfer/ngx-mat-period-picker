@@ -283,7 +283,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
       this.value = { year, month: null };
     }
     this.onTouched();
-    // Notify parent of value change
+    // Emit onChange to notify the field component
     this.onChange(this.value);
   }
 
@@ -296,7 +296,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
       this.value = { year: this.value.year, month };
     }
     this.onTouched();
-    // Notify parent of value change
+    // Emit onChange to notify the field component
     this.onChange(this.value);
   }
 
@@ -317,7 +317,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     // Emit present value change
     this.presentValueChange.emit(checked);
 
-    // Trigger form model update for present value
+    // Emit onChange to notify the field component
     this.onChange(this.value);
   }
 
