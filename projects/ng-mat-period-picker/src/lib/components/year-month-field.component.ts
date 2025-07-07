@@ -23,22 +23,27 @@ import { YearMonth } from '../types';
   selector: 'lib-year-month-field',
   standalone: true,
   template: `
-    <mat-form-field appearance="outline" class="year-month-field" #fieldRef>
+    <mat-form-field appearance="outline" class="year-month-field" #fieldRef (click)="openPicker($event)">
       <mat-label>{{ label() }}</mat-label>
       <input
         matInput
         [value]="getDisplayValue(value)"
         [placeholder]="placeholder()"
         readonly
-        (click)="openPicker($event)"
       />
-      <mat-icon matSuffix>calendar_today</mat-icon>
+      <mat-icon matSuffix class="calendar-icon" aria-hidden="true"
+        >calendar_today</mat-icon
+      >
     </mat-form-field>
   `,
   styles: [
     `
       .year-month-field {
         min-width: 200px;
+      }
+
+      .calendar-icon {
+        pointer-events: none;
       }
     `,
   ],
@@ -72,7 +77,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     const date = new Date(value.year, value.month - 1, 1);
     return date.toLocaleDateString(undefined, {
       year: 'numeric',
-      month: 'short',
+      month: 'long',
     });
   }
 

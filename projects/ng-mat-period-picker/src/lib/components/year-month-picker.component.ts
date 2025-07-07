@@ -59,7 +59,7 @@ import { YearMonth } from '../types';
     `
       .ymp-card {
         padding: 16px;
-        max-width: 340px;
+        max-width: 400px;
         margin: 0 auto;
         background: var(
           --mat-year-month-picker-card-background-color,
@@ -81,11 +81,14 @@ import { YearMonth } from '../types';
       .ymp-years,
       .ymp-months {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
         gap: 4px;
         margin: 8px 0;
       }
+      .ymp-years {
+        grid-template-columns: repeat(4, 1fr);
+      }
       .ymp-months {
+        grid-template-columns: repeat(3, 1fr);
         margin-bottom: 0;
       }
       .mat-icon.ymp-x {
@@ -129,7 +132,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   get months(): string[] {
     return Array.from({ length: 12 }, (_, i) => {
       const date = new Date(2000, i, 1);
-      return date.toLocaleDateString(undefined, { month: 'short' });
+      return date.toLocaleDateString(undefined, { month: 'long' });
     });
   }
 
