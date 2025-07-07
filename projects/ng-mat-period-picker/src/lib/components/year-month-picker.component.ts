@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef, input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -26,7 +26,7 @@ import { YearMonth } from '../types';
         @for (year of years; track year) {
         <button
           [matButton]="value?.year === year ? 'tonal' : 'text'"
-          [disabled]="disabled"
+          [disabled]="disabled()"
           (click)="selectYear(year)"
           class="ymp-button"
         >
@@ -116,9 +116,9 @@ import { YearMonth } from '../types';
   ],
 })
 export class YearMonthPickerComponent implements ControlValueAccessor {
-  @Input() minYear?: number;
-  @Input() maxYear?: number;
-  @Input() disabled = false;
+  minYear = input<number | undefined>();
+  maxYear = input<number | undefined>();
+  disabled = input<boolean>(false);
 
   yearsPerPage = 12;
   currentStartYear = 2000;
@@ -148,8 +148,8 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
       (_, i) => this.currentStartYear + i
     ).filter(
       (y) =>
-        (this.minYear === undefined || y >= this.minYear) &&
-        (this.maxYear === undefined || y <= this.maxYear)
+        (this.minYear() === undefined || y >= this.minYear()!) &&
+        (this.maxYear() === undefined || y <= this.maxYear()!)
     );
   }
 
@@ -159,21 +159,26 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   }
 
   canGoPrev(): boolean {
-    return this.minYear === undefined || this.currentStartYear > this.minYear;
+    return (
+      this.minYear() === undefined || this.currentStartYear > this.minYear()!
+    );
   }
 
   canGoNext(): boolean {
     return (
-      this.maxYear === undefined ||
-      this.currentStartYear + this.yearsPerPage <= this.maxYear
+      this.maxYear() === undefined ||
+      this.currentStartYear + this.yearsPerPage <= this.maxYear()!
     );
   }
 
   prevRange() {
     if (this.canGoPrev()) {
       this.currentStartYear -= this.yearsPerPage;
-      if (this.minYear !== undefined && this.currentStartYear < this.minYear) {
-        this.currentStartYear = this.minYear;
+      if (
+        this.minYear() !== undefined &&
+        this.currentStartYear < this.minYear()!
+      ) {
+        this.currentStartYear = this.minYear()!;
       }
     }
   }
@@ -182,10 +187,10 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     if (this.canGoNext()) {
       this.currentStartYear += this.yearsPerPage;
       if (
-        this.maxYear !== undefined &&
-        this.currentStartYear + this.yearsPerPage - 1 > this.maxYear
+        this.maxYear() !== undefined &&
+        this.currentStartYear + this.yearsPerPage - 1 > this.maxYear()!
       ) {
-        this.currentStartYear = this.maxYear - this.yearsPerPage + 1;
+        this.currentStartYear = this.maxYear()! - this.yearsPerPage + 1;
       }
     }
   }
