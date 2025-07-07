@@ -39,7 +39,7 @@ This will compile your project and store the build artifacts in the `dist/` dire
 To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
 ```bash
-ng test
+npx ng test ng-mat-period-picker --karma-config=karma.conf.js --browsers=Firefox
 ```
 
 ## Running end-to-end tests
@@ -47,7 +47,7 @@ ng test
 For end-to-end (e2e) testing, run:
 
 ```bash
-ng e2e
+npx ng e2e
 ```
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.

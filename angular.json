@@ -33,6 +33,17 @@
               "zone.js/testing"
             ]
           }
+        },
+        "e2e": {
+          "builder": "playwright-ng-schematics:playwright",
+          "options": {
+            "devServerTarget": "ng-mat-period-picker:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ng-mat-period-picker:serve:production"
+            }
+          }
         }
       }
     },
@@ -148,6 +159,17 @@
               "projects/demo-app/src/styles.css"
             ],
             "scripts": []
+          }
+        },
+        "e2e": {
+          "builder": "playwright-ng-schematics:playwright",
+          "options": {
+            "devServerTarget": "demo-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "demo-app:serve:production"
+            }
           }
         }
       }

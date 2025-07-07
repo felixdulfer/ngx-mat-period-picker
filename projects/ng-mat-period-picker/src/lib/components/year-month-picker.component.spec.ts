@@ -7,9 +7,8 @@ describe('YearMonthPickerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ YearMonthPickerComponent ]
-    })
-    .compileComponents();
+      imports: [YearMonthPickerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

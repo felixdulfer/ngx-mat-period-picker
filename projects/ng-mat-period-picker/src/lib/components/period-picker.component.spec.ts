@@ -7,9 +7,8 @@ describe('PeriodPickerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PeriodPickerComponent ]
-    })
-    .compileComponents();
+      imports: [PeriodPickerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
