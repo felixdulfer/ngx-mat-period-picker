@@ -11,7 +11,7 @@
     "commit": "git-cz",
     "commitlint": "commitlint --edit",
     "e2e": "ng e2e",
-    "publish:lib": "ng build ng-mat-period-picker --configuration production && cd dist/ng-mat-period-picker && np"
+    "publish:lib": "npm test && ng build ng-mat-period-picker --configuration production && cd dist/ng-mat-period-picker && np --no-tests"
   },
   "private": true,
   "dependencies": {

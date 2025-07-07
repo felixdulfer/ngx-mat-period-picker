@@ -12,6 +12,8 @@ npm login
 npm run publish:lib
 ```
 
+**Note**: This will run tests first, then build and publish. Make sure all changes are committed before running.
+
 ### Option 2: Manual with np
 
 ```bash

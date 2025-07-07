@@ -37,9 +37,9 @@
   "typings": "index.d.ts",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./fesm2022/ng-mat-period-picker.mjs",
-      "require": "./fesm2022/ng-mat-period-picker.mjs",
-      "types": "./index.d.ts"
+      "require": "./fesm2022/ng-mat-period-picker.mjs"
     }
   }
 }
