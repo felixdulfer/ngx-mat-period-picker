@@ -23,58 +23,33 @@ import { YearMonth } from '../types';
       </div>
       <mat-divider />
       <div class="ymp-years">
-        @for (year of years; track year) { @if (value?.year === year) {
+        @for (year of years; track year) {
         <button
-          mat-tonal-button
+          [matButton]="value?.year === year ? 'tonal' : 'text'"
           [disabled]="disabled"
           (click)="selectYear(year)"
-          style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
         >
           {{ year }}
+          @if (value?.year === year) {
           <mat-icon class="ymp-x">close</mat-icon>
+          }
         </button>
-        } @else {
-        <button
-          mat-button
-          [disabled]="disabled"
-          (click)="selectYear(year)"
-          style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
-        >
-          {{ year }}
-        </button>
-        } }
+        }
       </div>
       <mat-divider />
       <div class="ymp-months">
-        @for (month of months; let i = $index; track month) { @if (value?.month
-        === i + 1 && value?.year) {
+        @for (month of months; let i = $index; track month) {
         <button
-          mat-tonal-button
-          [disabled]="disabled"
+          [matButton]="value?.month === i + 1 ? 'tonal' : 'text'"
+          [disabled]="value?.year == null"
           (click)="selectMonth(i + 1)"
-          style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
         >
           {{ month }}
+          @if (value?.month === i + 1) {
           <mat-icon class="ymp-x">close</mat-icon>
+          }
         </button>
-        } @else if (value?.month !== i + 1 && value?.year) {
-        <button
-          mat-button
-          [disabled]="disabled"
-          (click)="selectMonth(i + 1)"
-          style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
-        >
-          {{ month }}
-        </button>
-        } @else {
-        <button
-          mat-button
-          disabled
-          style="margin: 2px; min-width: 48px; min-height: 36px; font-weight: 500; position: relative;"
-        >
-          {{ month }}
-        </button>
-        } }
+        }
       </div>
     </mat-card>
   `,
@@ -116,9 +91,6 @@ import { YearMonth } from '../types';
         top: 4px;
         opacity: 0.7;
         pointer-events: none;
-      }
-      button.selected {
-        font-weight: bold;
       }
     `,
   ],

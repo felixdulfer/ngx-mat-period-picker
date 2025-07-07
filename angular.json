@@ -85,7 +85,7 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "projects/demo-app/src/styles.css"
             ],
             "scripts": []
@@ -144,7 +144,7 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "projects/demo-app/src/styles.css"
             ],
             "scripts": []
