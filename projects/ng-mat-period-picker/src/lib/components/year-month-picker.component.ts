@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { YearMonth } from '../types';
 
 @Component({
-  selector: 'ngmp-year-month-picker',
+  selector: 'lib-year-month-picker',
   standalone: true,
   template: `
     <mat-card class="ymp-card">

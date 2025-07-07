@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Period, YearMonth } from '../types';
 
 @Component({
-  selector: 'ngmp-period-picker',
+  selector: 'lib-ng-mat-period-picker',
   standalone: true,
   template: `
     <mat-card>
@@ -24,12 +24,12 @@ import { Period, YearMonth } from '../types';
       >
         <div>
           <label>Start</label>
-          <ngmp-year-month-picker formControlName="start" />
+          <lib-year-month-picker formControlName="start" />
         </div>
         <div>
           <label>End</label>
           @if (!form.get('present')?.value) {
-          <ngmp-year-month-picker formControlName="end" />
+          <lib-year-month-picker formControlName="end" />
           } @else {
           <div style="margin-top: 2.5rem; font-weight: bold;">Present</div>
           }
