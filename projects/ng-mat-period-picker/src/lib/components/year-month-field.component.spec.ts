@@ -1,21 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Overlay } from '@angular/cdk/overlay';
 import { YearMonthFieldComponent } from './year-month-field.component';
+import { DisplayFormatService } from '../services/display-format.service';
 
 describe('YearMonthFieldComponent', () => {
   let component: YearMonthFieldComponent;
   let fixture: ComponentFixture<YearMonthFieldComponent>;
+  let displayFormatService: DisplayFormatService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [YearMonthFieldComponent],
-      providers: [Overlay],
+      providers: [Overlay, DisplayFormatService],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(YearMonthFieldComponent);
     component = fixture.componentInstance;
+    displayFormatService = TestBed.inject(DisplayFormatService);
     fixture.detectChanges();
   });
 
@@ -23,47 +26,147 @@ describe('YearMonthFieldComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display formatted values correctly', () => {
-    const testValue = { year: 2023, month: 6 };
-    expect(component.getDisplayValue(testValue)).toBe('June 2023');
+  describe('getDisplayValue', () => {
+    it('should display formatted values correctly', () => {
+      const testValue = { year: 2023, month: 6 };
+      expect(component.getDisplayValue(testValue)).toBe('June 2023');
+    });
+
+    it('should handle null values', () => {
+      expect(component.getDisplayValue(null)).toBe('');
+    });
+
+    it('should handle year-only values', () => {
+      const testValue = { year: 2023, month: null };
+      expect(component.getDisplayValue(testValue)).toBe('2023');
+    });
+
+    it('should show present label when presentValue is true', () => {
+      // Mock the presentValue signal to return true
+      jest.spyOn(component, 'presentValue').mockReturnValue(true);
+      jest.spyOn(component, 'presentLabel').mockReturnValue('Current');
+      const testValue = { year: 2023, month: 6 };
+      expect(component.getDisplayValue(testValue)).toBe('Current');
+    });
+
+    it('should show present label even with null value when presentValue is true', () => {
+      // Mock the presentValue signal to return true
+      jest.spyOn(component, 'presentValue').mockReturnValue(true);
+      jest.spyOn(component, 'presentLabel').mockReturnValue('Present');
+      expect(component.getDisplayValue(null)).toBe('Present');
+    });
+
+    it('should use displayFormatService for formatting', () => {
+      const testValue = { year: 2023, month: 6 };
+      const spy = jest.spyOn(displayFormatService, 'formatYearMonth');
+      component.getDisplayValue(testValue);
+      expect(spy).toHaveBeenCalledWith(testValue);
+    });
   });
 
-  it('should handle null values', () => {
-    expect(component.getDisplayValue(null)).toBe('');
+  describe('openPicker', () => {
+    it('should handle openPicker method without errors', () => {
+      const mockEvent = new MouseEvent('click');
+      expect(() => component.openPicker(mockEvent)).not.toThrow();
+    });
+
+    it('should not open picker when disabled', () => {
+      // Mock the disabled signal to return true
+      jest.spyOn(component, 'disabled').mockReturnValue(true);
+      const mockEvent = new MouseEvent('click');
+      const spy = jest.spyOn(component['overlay'], 'create');
+
+      component.openPicker(mockEvent);
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should close existing picker before opening new one', () => {
+      const mockEvent = new MouseEvent('click');
+      const closeSpy = jest.spyOn(component as any, 'closePicker');
+
+      component.openPicker(mockEvent);
+
+      expect(closeSpy).toHaveBeenCalled();
+    });
   });
 
-  it('should handle year-only values', () => {
-    const testValue = { year: 2023, month: null };
-    expect(component.getDisplayValue(testValue)).toBe('2023');
+  describe('ControlValueAccessor implementation', () => {
+    it('should handle onChange registration correctly', () => {
+      const onChangeSpy = jest.fn();
+      component.registerOnChange(onChangeSpy);
+      expect(component['onChange']).toBe(onChangeSpy);
+    });
+
+    it('should handle onTouched registration correctly', () => {
+      const onTouchedSpy = jest.fn();
+      component.registerOnTouched(onTouchedSpy);
+      expect(component['onTouched']).toBe(onTouchedSpy);
+    });
+
+    it('should handle value updates correctly', () => {
+      const onChangeSpy = jest.fn();
+      component.registerOnChange(onChangeSpy);
+
+      const testValue = { year: 2023, month: 6 };
+      component.writeValue(testValue);
+
+      expect(component.valueSignal()).toEqual(testValue);
+    });
+
+    it('should handle null value updates', () => {
+      const onChangeSpy = jest.fn();
+      component.registerOnChange(onChangeSpy);
+
+      component.writeValue(null);
+
+      expect(component.valueSignal()).toBeNull();
+    });
+
+    it('should handle setDisabledState', () => {
+      expect(() => component.setDisabledState(true)).not.toThrow();
+      expect(() => component.setDisabledState(false)).not.toThrow();
+    });
   });
 
-  it('should handle openPicker method', () => {
-    // Create a mock mouse event
-    const mockEvent = new MouseEvent('click');
+  describe('Input signals', () => {
+    it('should have default values for input signals', () => {
+      expect(component.label()).toBe('Select Year/Month');
+      expect(component.placeholder()).toBe('Click to select');
+      expect(component.disabled()).toBe(false);
+      expect(component.presentLabel()).toBe('Present');
+      expect(component.presentValue()).toBe(false);
+      expect(component.showPresentToggle()).toBe(false);
+    });
 
-    // Test that the method can be called without errors
-    expect(() => component.openPicker(mockEvent)).not.toThrow();
+    it('should have default values for input signals', () => {
+      expect(component.label()).toBe('Select Year/Month');
+      expect(component.placeholder()).toBe('Click to select');
+      expect(component.disabled()).toBe(false);
+      expect(component.presentLabel()).toBe('Present');
+      expect(component.presentValue()).toBe(false);
+      expect(component.showPresentToggle()).toBe(false);
+    });
+
+    it('should handle undefined minYear and maxYear', () => {
+      expect(component.minYear()).toBeUndefined();
+      expect(component.maxYear()).toBeUndefined();
+    });
   });
 
-  it('should handle onChange registration correctly', () => {
-    // Spy on the onChange function
-    const onChangeSpy = jest.fn();
-    component.registerOnChange(onChangeSpy);
+  describe('closePicker', () => {
+    it('should dispose overlay when closing picker', () => {
+      const mockEvent = new MouseEvent('click');
+      component.openPicker(mockEvent);
 
-    // Test that the onChange function is properly registered
-    expect(component['onChange']).toBe(onChangeSpy);
-  });
+      const disposeSpy = jest.spyOn(component['overlayRef']!, 'dispose');
+      component['closePicker']();
 
-  it('should handle value updates correctly', () => {
-    // Spy on the onChange function
-    const onChangeSpy = jest.fn();
-    component.registerOnChange(onChangeSpy);
+      expect(disposeSpy).toHaveBeenCalled();
+    });
 
-    // Test setting a value
-    const testValue = { year: 2023, month: 6 };
-    component.writeValue(testValue);
-
-    // Verify the value is set correctly
-    expect(component.value).toEqual(testValue);
+    it('should not dispose when no overlay exists', () => {
+      expect(() => component['closePicker']()).not.toThrow();
+    });
   });
 });

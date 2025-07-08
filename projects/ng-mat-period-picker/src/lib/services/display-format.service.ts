@@ -12,6 +12,7 @@ export class DisplayFormatService {
    */
   formatYearMonth(value: YearMonth | null): string {
     if (!value) return '';
+    if (!value.year) return '';
     if (!value.month) return `${value.year}`;
 
     const date = new Date(value.year, value.month - 1, 1);
