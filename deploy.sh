@@ -65,6 +65,19 @@ fi
 echo "Current version: $CURRENT_VERSION"
 echo "New version: $NEW_VERSION"
 
+# Check if there are uncommitted changes
+if [ -n "$(git status --porcelain)" ]; then
+  echo "Warning: There are uncommitted changes. Please commit them before deploying."
+  echo "Uncommitted changes:"
+  git status --porcelain
+  read -p "Continue anyway? (y/N): " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Deployment cancelled."
+    exit 1
+  fi
+fi
+
 # Run tests
 echo "Running tests..."
 npm run test:ci
@@ -73,10 +86,15 @@ npm run test:ci
 echo "Building package..."
 ng build ng-mat-period-picker --configuration production
 
-# Update version
+# Update version in package.json
 echo "Updating version to $NEW_VERSION..."
 sed -i.bak "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" "$PACKAGE_DIR/package.json"
 rm -f "$PACKAGE_DIR/package.json.bak"
+
+# Commit the version change
+echo "Committing version change..."
+git add "$PACKAGE_DIR/package.json"
+git commit -m "chore: bump version to $NEW_VERSION"
 
 # Publish
 echo "Publishing to NPM..."
@@ -85,6 +103,13 @@ npm publish
 
 # Create git tag
 cd ../..
+echo "Creating git tag v$NEW_VERSION..."
 git tag "v$NEW_VERSION"
 
-echo "Deployment complete! Don't forget to push the tag: git push origin v$NEW_VERSION"
+# Push changes and tag
+echo "Pushing changes and tag to origin..."
+git push origin main
+git push origin "v$NEW_VERSION"
+
+echo "Deployment complete!"
+echo "Version $NEW_VERSION has been published to NPM and tagged as v$NEW_VERSION"

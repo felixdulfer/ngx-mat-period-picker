@@ -21,46 +21,27 @@ cat projects/ng-mat-period-picker/package.json
 
 Key things to verify:
 
-- ✅ Version is set to `1.0.0` (or appropriate version)
+- ✅ Version is set to the current version
 - ✅ Name is `ng-mat-period-picker`
 - ✅ Description and keywords are set
 - ✅ Author and license are specified
 - ✅ Repository URL is correct
 - ✅ Peer dependencies include Angular Material and CDK
 
-### 2. Build the Package
+### 2. Check Git Status
 
-Build the library for production:
-
-```bash
-# Build the library
-ng build ng-mat-period-picker --configuration production
-
-# Verify the build output
-ls -la dist/ng-mat-period-picker/
-```
-
-Expected output should include:
-
-- `bundles/` - UMD bundles
-- `esm2022/` - ES modules
-- `fesm2022/` - Flat ES modules
-- `index.d.ts` - TypeScript definitions
-- `package.json` - Package manifest
-
-### 3. Test the Build
-
-Test that the built package works correctly:
+Ensure all changes are committed:
 
 ```bash
-# Run tests to ensure everything works
-npm test
+# Check for uncommitted changes
+git status
 
-# Build the demo app to verify integration
-ng build demo-app
+# If there are uncommitted changes, commit them first
+git add .
+git commit -m "feat: your changes description"
 ```
 
-### 4. Check NPM Login Status
+### 3. Check NPM Login Status
 
 Ensure you're logged into NPM:
 
@@ -74,9 +55,45 @@ npm login
 
 ## Deployment Steps
 
-### Option 1: Using `np` (Recommended)
+### Option 1: Using the Automated Deploy Script (Recommended)
 
-The easiest way to deploy is using `np`, which handles versioning, git tags, and publishing:
+The easiest way to deploy is using the automated deploy script:
+
+```bash
+# From the project root
+./deploy.sh [patch|minor|major]
+```
+
+**Parameters:**
+
+- `patch` (default): For bug fixes and small changes
+- `minor`: For new features (backward compatible)
+- `major`: For breaking changes
+
+**What the script does:**
+
+1. ✅ Checks for uncommitted changes
+2. ✅ Runs all tests
+3. ✅ Builds the package for production
+4. ✅ Updates version in package.json
+5. ✅ Commits the version change
+6. ✅ Publishes to NPM
+7. ✅ Creates and pushes git tag
+8. ✅ Pushes all changes to main branch
+
+**Example usage:**
+
+```bash
+# Auto-detect bump type based on conventional commits
+./deploy.sh
+
+# Force a specific bump type
+./deploy.sh minor
+```
+
+### Option 2: Using `np` (Alternative)
+
+You can also use `np` for deployment:
 
 ```bash
 # From the project root
@@ -94,7 +111,7 @@ This will:
    - Publish to NPM
    - Push git tag
 
-### Option 2: Manual Steps
+### Option 3: Manual Steps
 
 #### Step 1: Navigate to the Built Package
 
@@ -184,89 +201,54 @@ import { PeriodPickerComponent } from "ng-mat-period-picker";
 
 ````
 
-### 3. Create a Release Tag
-
-Create a Git tag for the release:
-
-```bash
-# From the project root
-git tag v1.0.0
-git push origin v1.0.0
-````
-
 ## Troubleshooting
 
 ### Common Issues
 
-1. **"Package name already exists"**
-   - Check if the package name is available: `npm search ng-mat-period-picker`
-   - Consider using a scoped package: `@your-org/ng-mat-period-picker`
-
-2. **"You must be logged in"**
-   - Run `npm login` and follow the prompts
-
-3. **"Invalid package.json"**
-   - Verify the package.json structure
-   - Check for required fields (name, version, etc.)
-
-4. **"Build failed"**
-   - Run `npm test` to check for errors
-   - Ensure all dependencies are installed: `npm install`
-
-### Version Management
-
-For future releases, update the version in `projects/ng-mat-period-picker/package.json`:
-
-```json
-{
-  "version": "1.0.1" // or "1.1.0" for minor, "2.0.0" for major
-}
+**1. Uncommitted Changes**
+If the deploy script fails due to uncommitted changes:
+```bash
+# Commit your changes first
+git add .
+git commit -m "feat: your changes"
+# Then run the deploy script again
+./deploy.sh
 ```
 
-## Automated Deployment (Optional)
-
-For future deployments, you can create a deployment script:
-
+**2. NPM Login Issues**
+If you're not logged into NPM:
 ```bash
-#!/bin/bash
-# deploy.sh
-
-set -e
-
-echo "Building package..."
-ng build ng-mat-period-picker --configuration production
-
-echo "Navigating to built package..."
-cd dist/ng-mat-period-picker
-
-echo "Publishing to NPM..."
-npm publish
-
-echo "Deployment complete!"
+npm login
+# Enter your username, password, and email
 ```
 
-Make it executable:
-
+**3. Permission Issues**
+If you get permission errors:
 ```bash
+# Make sure the deploy script is executable
 chmod +x deploy.sh
 ```
 
-## Package Information
+**4. Version Conflicts**
+If the version already exists on NPM:
+```bash
+# Check current version
+npm view ng-mat-period-picker version
+# Use a different bump type or manually update version
+```
 
-- **Package Name**: `ng-mat-period-picker`
-- **Current Version**: `0.3.0`
-- **License**: MIT
-- **Repository**: https://github.com/felixdulfer/ng-mat-period-picker
-- **NPM URL**: https://www.npmjs.com/package/ng-mat-period-picker
+### Version Bumping Logic
 
-## Support
+The deploy script automatically determines the bump type based on conventional commits:
 
-If you encounter issues during deployment:
+- **Major** (`!:` or `BREAKING CHANGE`): Breaking changes
+- **Minor** (`feat:`): New features
+- **Patch** (default): Bug fixes and other changes
 
-1. Check the [NPM documentation](https://docs.npmjs.com/)
-2. Review the [Angular Package Format](https://angular.io/guide/angular-package-format)
-3. Open an issue in the GitHub repository
-
----
-
-**Note**: This is the initial release (v1.0.0). Future releases should include proper changelog management and semantic versioning.
+You can also manually specify the bump type:
+```bash
+./deploy.sh major  # Force major version bump
+./deploy.sh minor  # Force minor version bump
+./deploy.sh patch  # Force patch version bump
+```
+````
