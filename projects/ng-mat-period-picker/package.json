@@ -1,6 +1,6 @@
 {
   "name": "ng-mat-period-picker",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A modern Angular Material period picker component built with standalone components",
   "keywords": [
     "angular",
