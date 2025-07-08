@@ -5,6 +5,8 @@ import {
   ElementRef,
   input,
   output,
+  signal,
+  effect,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,7 +32,7 @@ import { DisplayFormatService } from '../services/display-format.service';
       <mat-label>{{ label() }}</mat-label>
       <input
         matInput
-        [value]="getDisplayValue(value)"
+        [value]="getDisplayValue(valueSignal())"
         [placeholder]="placeholder()"
         readonly
       />
@@ -72,13 +74,15 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   showPresentToggle = input<boolean>(false);
   presentValueChange = output<boolean>();
 
-  value: YearMonth | null = null;
+  valueSignal = signal<YearMonth | null>(null);
   private overlayRef: OverlayRef | null = null;
 
   constructor(
     private overlay: Overlay,
     private displayFormatService: DisplayFormatService,
-  ) {}
+  ) {
+    // Remove automatic effect - onChange/onTouched should be called manually
+  }
 
   getDisplayValue(value: YearMonth | null): string {
     // If present is true, show "Present" instead of the value
@@ -129,22 +133,21 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     const pickerRef = this.overlayRef.attach(pickerPortal);
 
     // Set the current value and present state
-    pickerRef.instance.writeValue(this.value);
+    pickerRef.instance.writeValue(this.valueSignal());
     pickerRef.instance.setPresentLabel(this.presentLabel());
     pickerRef.instance.setPresentValue(this.presentValue());
     pickerRef.instance.setShowPresentToggle(this.showPresentToggle());
 
-    // Subscribe to onChange to handle value updates and auto-close when complete selection is made
+    // Subscribe to onChange to handle value updates
     pickerRef.instance.registerOnChange((value: YearMonth | null) => {
-      // Update the internal value and emit onChange for all changes
-      this.value = value;
+      // Update the internal value signal
+      this.valueSignal.set(value);
+
+      // Call onChange and onTouched when value changes
       this.onChange(value);
       this.onTouched();
 
-      // Auto-close when both year and month are selected
-      if (value && value.year && value.month) {
-        this.closePicker();
-      }
+      // Don't auto-close - let user manually close with OK button
     });
 
     // Subscribe to present value changes
@@ -155,7 +158,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
       // ONLY close when present is set to true
       if (checked) {
         // Clear the value when present is selected
-        this.value = null;
+        this.valueSignal.set(null);
         this.onChange(null);
         this.closePicker();
       }
@@ -170,8 +173,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     pickerRef.instance.okClicked.subscribe(() => {
       const currentValue = pickerRef.instance.getCurrentValue();
       if (currentValue && currentValue.year) {
-        this.value = currentValue;
-        // Emit onChange only when OK is clicked to finalize the selection
+        this.valueSignal.set(currentValue);
         this.onChange(currentValue);
         this.onTouched();
       }
@@ -199,7 +201,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   }
 
   writeValue(value: YearMonth | null): void {
-    this.value = value;
+    this.valueSignal.set(value);
   }
 
   private onChange: (value: YearMonth | null) => void = () => {};
@@ -214,7 +216,6 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    // Note: This is called by Angular forms, but we use the input signal
-    // The actual disabled state is handled by the input signal
+    // Handle disabled state if needed
   }
 }

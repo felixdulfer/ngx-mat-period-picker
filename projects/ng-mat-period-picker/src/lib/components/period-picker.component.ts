@@ -1,4 +1,4 @@
-import { Component, forwardRef, input } from '@angular/core';
+import { Component, forwardRef, input, signal, effect } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -80,6 +80,7 @@ export class PeriodPickerComponent implements ControlValueAccessor {
   presentPlaceholder = input<string>('Present');
 
   form: FormGroup;
+  private valueSignal = signal<Period | null>(null);
 
   constructor() {
     this.form = new FormGroup({
@@ -88,7 +89,23 @@ export class PeriodPickerComponent implements ControlValueAccessor {
       present: new FormControl(false),
     });
 
-    this.form.valueChanges.subscribe(() => this.emitChange());
+    // Use effect for form value changes in zoneless environment
+    effect(() => {
+      const value = this.valueSignal();
+      if (value !== null) {
+        this.emitChange();
+      }
+    });
+
+    this.form.valueChanges.subscribe(() => {
+      this.valueSignal.set({
+        start: this.form.get('start')?.value,
+        end: this.form.get('present')?.value
+          ? null
+          : this.form.get('end')?.value,
+        isPresent: this.form.get('present')?.value,
+      });
+    });
 
     // Subscribe to present changes and enable/disable end control
     this.form.get('present')!.valueChanges.subscribe((present: boolean) => {

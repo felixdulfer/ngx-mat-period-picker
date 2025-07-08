@@ -1,4 +1,11 @@
-import { Component, forwardRef, input, output, signal } from '@angular/core';
+import {
+  Component,
+  forwardRef,
+  input,
+  output,
+  signal,
+  effect,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -49,7 +56,11 @@ import { MonthLabelService } from '../services/month-label.service';
         @for (year of years; track year) {
           <button
             [matButton]="
-              presentValue() ? 'text' : value?.year === year ? 'filled' : 'text'
+              presentValue()
+                ? 'text'
+                : valueSignal()?.year === year
+                  ? 'filled'
+                  : 'text'
             "
             [disabled]="disabled() || presentValue()"
             (click)="selectYear(year)"
@@ -66,11 +77,11 @@ import { MonthLabelService } from '../services/month-label.service';
             [matButton]="
               presentValue()
                 ? 'text'
-                : value?.month === i + 1
+                : valueSignal()?.month === i + 1
                   ? 'filled'
                   : 'text'
             "
-            [disabled]="value?.year == null || presentValue()"
+            [disabled]="valueSignal()?.year == null || presentValue()"
             (click)="selectMonth(i + 1)"
             class="ymp-button"
           >
@@ -197,75 +208,57 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   okClicked = output<void>();
   presentValueChange = output<boolean>();
 
-  constructor(private monthLabelService: MonthLabelService) {}
+  valueSignal = signal<YearMonth | null>(null);
+  originalValue: YearMonth | null = null;
+
+  constructor(private monthLabelService: MonthLabelService) {
+    // Remove automatic effect - onChange/onTouched should be called manually
+  }
 
   get months(): string[] {
     return this.monthLabelService.getShortMonthLabels();
   }
 
-  value: YearMonth | null = null;
-  originalValue: YearMonth | null = null;
-
-  private onChange: (value: YearMonth | null) => void = () => {};
-  private onTouched: () => void = () => {};
-
   get years(): number[] {
-    return Array.from(
-      { length: this.yearsPerPage },
-      (_, i) => this.currentStartYear + i,
-    ).filter(
-      (y) =>
-        (this.minYear() === undefined || y >= this.minYear()!) &&
-        (this.maxYear() === undefined || y <= this.maxYear()!),
-    );
+    const years: number[] = [];
+    for (let i = 0; i < this.yearsPerPage; i++) {
+      years.push(this.currentStartYear + i);
+    }
+    return years;
   }
 
   get rangeLabel(): string {
-    const years = this.years;
-    return years.length ? `${years[0]}–${years[years.length - 1]}` : '';
+    return `${this.currentStartYear} - ${this.currentStartYear + this.yearsPerPage - 1}`;
   }
 
   canGoPrev(): boolean {
-    return (
-      this.minYear() === undefined || this.currentStartYear > this.minYear()!
-    );
+    return this.currentStartYear > (this.minYear() || 1900);
   }
 
   canGoNext(): boolean {
-    return (
-      this.maxYear() === undefined ||
-      this.currentStartYear + this.yearsPerPage <= this.maxYear()!
-    );
+    const maxYear = this.maxYear() || 2100;
+    return this.currentStartYear + this.yearsPerPage <= maxYear;
   }
 
   prevRange() {
     if (this.canGoPrev()) {
       this.currentStartYear -= this.yearsPerPage;
-      if (
-        this.minYear() !== undefined &&
-        this.currentStartYear < this.minYear()!
-      ) {
-        this.currentStartYear = this.minYear()!;
-      }
     }
   }
 
   nextRange() {
     if (this.canGoNext()) {
       this.currentStartYear += this.yearsPerPage;
-      if (
-        this.maxYear() !== undefined &&
-        this.currentStartYear + this.yearsPerPage - 1 > this.maxYear()!
-      ) {
-        this.currentStartYear = this.maxYear()! - this.yearsPerPage + 1;
-      }
     }
   }
 
   writeValue(value: YearMonth | null): void {
-    this.value = value;
+    this.valueSignal.set(value);
     this.originalValue = value;
   }
+
+  private onChange: (value: YearMonth | null) => void = () => {};
+  private onTouched: () => void = () => {};
 
   registerOnChange(fn: (value: YearMonth | null) => void): void {
     this.onChange = fn;
@@ -276,110 +269,92 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   }
 
   selectYear(year: number) {
-    if (this.value?.year === year) {
-      // Deselect year (and month)
-      this.value = null;
+    if (this.presentValue()) return;
+
+    const currentValue = this.valueSignal();
+
+    // If clicking the same year, deselect it
+    if (currentValue?.year === year) {
+      this.valueSignal.set(null);
     } else {
-      this.value = { year, month: null };
+      this.valueSignal.set({ year, month: null });
     }
+
+    this.onChange(this.valueSignal());
     this.onTouched();
-    // Emit onChange to notify the field component
-    this.onChange(this.value);
   }
 
   selectMonth(month: number) {
-    if (!this.value?.year) return;
-    if (this.value?.month === month) {
-      // Deselect month
-      this.value = { year: this.value.year, month: null };
-    } else {
-      this.value = { year: this.value.year, month };
+    if (this.presentValue()) return;
+
+    const currentValue = this.valueSignal();
+    if (currentValue?.year) {
+      // If clicking the same month, deselect it
+      if (currentValue.month === month) {
+        this.valueSignal.set({ year: currentValue.year, month: null });
+      } else {
+        this.valueSignal.set({ ...currentValue, month });
+      }
+
+      this.onChange(this.valueSignal());
+      this.onTouched();
     }
-    this.onTouched();
-    // Emit onChange to notify the field component
-    this.onChange(this.value);
   }
 
-  /**
-   * Get the current value without triggering onChange
-   */
   getCurrentValue(): YearMonth | null {
-    return this.value;
+    return this.valueSignal();
   }
 
-  /**
-   * Toggle the present value
-   */
   togglePresent(checked: boolean): void {
     this._presentValue.set(checked);
-    this.onTouched();
-
-    // Emit present value change
     this.presentValueChange.emit(checked);
 
-    // Emit onChange to notify the field component
-    this.onChange(this.value);
+    if (checked) {
+      // Clear the value when present is selected
+      this.valueSignal.set(null);
+      this.onChange(null);
+      this.onTouched();
+    }
   }
 
-  /**
-   * Set the present value
-   */
   setPresentValue(value: boolean): void {
     this._presentValue.set(value);
   }
 
-  /**
-   * Set the present label
-   */
   setPresentLabel(label: string): void {
     this._presentLabel.set(label);
   }
 
-  /**
-   * Set the show present toggle flag
-   */
   setShowPresentToggle(show: boolean): void {
     this._showPresentToggle.set(show);
   }
 
-  /**
-   * Check if there's a valid selection (year is required)
-   */
   hasValidSelection(): boolean {
-    return this.value !== null && this.value.year !== null;
+    const value = this.valueSignal();
+    return !!(value && value.year && value.month);
   }
 
-  /**
-   * Check if changes have been made from the original value
-   */
   hasChanges(): boolean {
-    if (this.value === null && this.originalValue === null) {
-      return false;
-    }
-    if (this.value === null || this.originalValue === null) {
-      return true;
-    }
+    const currentValue = this.valueSignal();
+    const original = this.originalValue;
+
+    if (!currentValue && !original) return false;
+    if (!currentValue || !original) return true;
+
     return (
-      this.value.year !== this.originalValue.year ||
-      this.value.month !== this.originalValue.month
+      currentValue.year !== original.year ||
+      currentValue.month !== original.month
     );
   }
 
-  /**
-   * Cancel button handler
-   */
   cancel(): void {
-    this.onTouched();
+    this.valueSignal.set(this.originalValue);
     this.cancelClicked.emit();
   }
 
-  /**
-   * OK button handler
-   */
   ok(): void {
-    if (this.hasValidSelection()) {
-      this.onChange(this.value);
-      this.onTouched();
+    const currentValue = this.valueSignal();
+    if (currentValue && currentValue.year) {
       this.okClicked.emit();
     }
   }
