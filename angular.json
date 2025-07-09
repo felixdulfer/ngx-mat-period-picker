@@ -41,6 +41,15 @@
               "devServerTarget": "ng-mat-period-picker:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-mat-period-picker/**/*.ts",
+              "projects/ng-mat-period-picker/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -162,6 +171,15 @@
             "production": {
               "devServerTarget": "demo-app:serve:production"
             }
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/demo-app/**/*.ts",
+              "projects/demo-app/**/*.html"
+            ]
           }
         }
       }
