@@ -7,6 +7,7 @@ This guide provides step-by-step instructions for deploying the `@felixdulfer/ng
 1. **NPM Account**: You need an NPM account with publish permissions
 2. **Node.js**: Ensure you have Node.js installed (version 18 or higher recommended)
 3. **Git**: Make sure your repository is properly set up and all changes are committed
+4. **GitHub CLI** (optional): Install GitHub CLI for automatic release drafting (`gh`)
 
 ## Pre-Deployment Checklist
 
@@ -80,6 +81,7 @@ The easiest way to deploy is using the automated deploy script:
 6. ✅ Publishes to NPM
 7. ✅ Creates and pushes git tag
 8. ✅ Pushes all changes to main branch
+9. ✅ Creates GitHub release draft (if GitHub CLI is installed)
 
 **Example usage:**
 

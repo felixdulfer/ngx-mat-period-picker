@@ -116,5 +116,51 @@ echo "Pushing changes and tag to origin..."
 git push origin main
 git push origin "v$NEW_VERSION"
 
+# Create GitHub release draft
+echo "Creating GitHub release draft..."
+RELEASE_TITLE="v$NEW_VERSION"
+RELEASE_BODY="## What's Changed
+
+This release includes the following changes:
+
+### Features
+- Add new features here
+
+### Bug Fixes
+- Fix bugs here
+
+### Breaking Changes
+- Document breaking changes here
+
+## Installation
+
+\`\`\`bash
+npm install @felixdulfer/ngx-mat-period-picker@$NEW_VERSION
+\`\`\`
+
+## Usage
+
+\`\`\`typescript
+import { PeriodPickerComponent } from '@felixdulfer/ngx-mat-period-picker';
+\`\`\`
+
+## Changelog
+
+$(git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 2>/dev/null || git rev-list --max-parents=0 HEAD)..HEAD | head -20)
+"
+
+# Create draft release using GitHub CLI
+if command -v gh &>/dev/null; then
+  echo "Using GitHub CLI to create release draft..."
+  gh release create "v$NEW_VERSION" --draft --title "$RELEASE_TITLE" --notes "$RELEASE_BODY"
+  echo "GitHub release draft created: https://github.com/felixdulfer/ngx-mat-period-picker/releases"
+else
+  echo "GitHub CLI not found. Please install it to create releases automatically."
+  echo "You can create a release manually at: https://github.com/felixdulfer/ngx-mat-period-picker/releases/new"
+  echo "Tag: v$NEW_VERSION"
+  echo "Title: $RELEASE_TITLE"
+  echo "Body: $RELEASE_BODY"
+fi
+
 echo "Deployment complete!"
 echo "Version $NEW_VERSION has been published to NPM and tagged as v$NEW_VERSION"
