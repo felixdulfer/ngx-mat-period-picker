@@ -91,9 +91,9 @@ echo "Pushing changes and tag to origin..."
 git push origin main
 git push origin "v$NEW_VERSION"
 
-# Generate changelog using conventional-changelog
-echo "Generating changelog..."
-CHANGELOG=$(npx conventional-changelog --preset angular --release-count 0 --output-unreleased)
+# Generate changelog for current release only
+echo "Generating changelog for current release..."
+CHANGELOG=$(npx conventional-changelog --preset angular --release-count 1)
 
 # Create GitHub release draft
 echo "Creating GitHub release draft..."
