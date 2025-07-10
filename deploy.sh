@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Simple deployment script for ng-mat-period-picker
+# Simple deployment script for @felixdulfer/ngx-mat-period-picker
 # Usage: ./deploy.sh [patch|minor|major] (optional - will auto-detect if not provided)
 
 set -e
 
-PACKAGE_DIR="projects/ng-mat-period-picker"
+PACKAGE_DIR="projects/ngx-mat-period-picker"
 
 # Function to determine bump type from conventional commits
 determine_bump_type() {
@@ -49,7 +49,7 @@ determine_bump_type() {
 # Get bump type (auto-detect if not provided)
 BUMP_TYPE=${1:-$(determine_bump_type)}
 
-echo "Deploying ng-mat-period-picker with $BUMP_TYPE bump..."
+echo "Deploying @felixdulfer/ngx-mat-period-picker with $BUMP_TYPE bump..."
 
 # Get current version and calculate new version
 CURRENT_VERSION=$(grep '"version"' "$PACKAGE_DIR/package.json" | sed 's/.*"version": "\([^"]*\)".*/\1/')
@@ -84,7 +84,7 @@ npm run test:ci
 
 # Build package
 echo "Building package..."
-ng build ng-mat-period-picker --configuration production
+ng build ngx-mat-period-picker --configuration production
 
 # Update version in package.json
 echo "Updating version to $NEW_VERSION..."
@@ -98,7 +98,7 @@ git commit -m "chore: bump version to $NEW_VERSION"
 
 # Publish
 echo "Publishing to NPM..."
-cd dist/ng-mat-period-picker
+cd dist/ngx-mat-period-picker
 npm publish
 
 # Create git tag
