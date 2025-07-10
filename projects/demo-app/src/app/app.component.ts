@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { PeriodPickerComponent } from '../../../ng-mat-period-picker/src/lib/components/period-picker.component';
-import { YearMonthFieldComponent } from '../../../ng-mat-period-picker/src/lib/components/year-month-field.component';
-import { Period } from '../../../ng-mat-period-picker/src/lib/types';
+import { PeriodPickerComponent } from '../../../ngx-mat-period-picker/src/lib/components/period-picker.component';
+import { YearMonthFieldComponent } from '../../../ngx-mat-period-picker/src/lib/components/year-month-field.component';
+import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ import { Period } from '../../../ng-mat-period-picker/src/lib/types';
     YearMonthFieldComponent,
   ],
   template: `
-    <h1>ng-mat-period-picker Demo</h1>
+    <h1>ngx-mat-period-picker Demo</h1>
     <form [formGroup]="form">
       <h2>Year/Month Picker (Original)</h2>
       <lib-year-month-field formControlName="yearMonth" />
@@ -26,11 +26,11 @@ import { Period } from '../../../ng-mat-period-picker/src/lib/types';
       <pre>{{ form.value.yearMonthField | json }}</pre>
 
       <h2>Period Picker (Default Labels)</h2>
-      <lib-ng-mat-period-picker formControlName="period" />
+      <lib-ngx-mat-period-picker formControlName="period" />
       <pre>{{ form.value.period | json }}</pre>
 
       <h2>Period Picker (Custom Labels)</h2>
-      <lib-ng-mat-period-picker
+      <lib-ngx-mat-period-picker
         formControlName="customPeriod"
         startLabel="Employment Start"
         endLabel="Employment End"
@@ -42,7 +42,7 @@ import { Period } from '../../../ng-mat-period-picker/src/lib/types';
       <pre>{{ form.value.customPeriod | json }}</pre>
 
       <h2>Period Picker (Education Example)</h2>
-      <lib-ng-mat-period-picker
+      <lib-ngx-mat-period-picker
         formControlName="educationPeriod"
         startLabel="Study Start Date"
         endLabel="Graduation Date"
@@ -56,7 +56,7 @@ import { Period } from '../../../ng-mat-period-picker/src/lib/types';
       <h2>Pre-filled Examples</h2>
 
       <h3>Complete Period (Start + End)</h3>
-      <lib-ng-mat-period-picker
+      <lib-ngx-mat-period-picker
         formControlName="completePeriod"
         startLabel="Start Date"
         endLabel="End Date"
@@ -65,7 +65,7 @@ import { Period } from '../../../ng-mat-period-picker/src/lib/types';
       <pre>{{ form.value.completePeriod | json }}</pre>
 
       <h3>Current Period (Start + Present)</h3>
-      <lib-ng-mat-period-picker
+      <lib-ngx-mat-period-picker
         formControlName="currentPeriod"
         startLabel="Start Date"
         endLabel="End Date"
@@ -74,7 +74,7 @@ import { Period } from '../../../ng-mat-period-picker/src/lib/types';
       <pre>{{ form.value.currentPeriod | json }}</pre>
 
       <h3>Year Only Period (Start Year + End Year)</h3>
-      <lib-ng-mat-period-picker
+      <lib-ngx-mat-period-picker
         formControlName="yearOnlyPeriod"
         startLabel="Start Year"
         endLabel="End Year"
@@ -83,7 +83,7 @@ import { Period } from '../../../ng-mat-period-picker/src/lib/types';
       <pre>{{ form.value.yearOnlyPeriod | json }}</pre>
 
       <h3>Mixed Period (Start Year/Month + End Year Only)</h3>
-      <lib-ng-mat-period-picker
+      <lib-ngx-mat-period-picker
         formControlName="mixedPeriod"
         startLabel="Start Date"
         endLabel="End Year"

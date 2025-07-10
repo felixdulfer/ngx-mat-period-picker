@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-mat-period-picker": {
+    "ngx-mat-period-picker": {
       "projectType": "library",
-      "root": "projects/ng-mat-period-picker",
-      "sourceRoot": "projects/ng-mat-period-picker/src",
+      "root": "projects/ngx-mat-period-picker",
+      "sourceRoot": "projects/ngx-mat-period-picker/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
           "options": {
-            "project": "projects/ng-mat-period-picker/ng-package.json"
+            "project": "projects/ngx-mat-period-picker/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ng-mat-period-picker/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-mat-period-picker/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ng-mat-period-picker/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-mat-period-picker/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,18 +27,18 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/ng-mat-period-picker/tsconfig.spec.json",
+            "tsConfig": "projects/ngx-mat-period-picker/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "e2e": {
           "builder": "playwright-ng-schematics:playwright",
           "options": {
-            "devServerTarget": "ng-mat-period-picker:serve"
+            "devServerTarget": "ngx-mat-period-picker:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ng-mat-period-picker:serve:production"
+              "devServerTarget": "ngx-mat-period-picker:serve:production"
             }
           }
         },
@@ -46,8 +46,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/ng-mat-period-picker/**/*.ts",
-              "projects/ng-mat-period-picker/**/*.html"
+              "projects/ngx-mat-period-picker/**/*.ts",
+              "projects/ngx-mat-period-picker/**/*.html"
             ]
           }
         }

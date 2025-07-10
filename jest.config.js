@@ -3,7 +3,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'jsdom',
   moduleNameMapping: {
-    '^@lib/(.*)$': '<rootDir>/projects/ng-mat-period-picker/src/lib/$1',
+    '^@lib/(.*)$': '<rootDir>/projects/ngx-mat-period-picker/src/lib/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
   testMatch: [
@@ -11,9 +11,9 @@ module.exports = {
     '<rootDir>/projects/**/*.test.ts',
   ],
   collectCoverageFrom: [
-    'projects/ng-mat-period-picker/src/lib/**/*.ts',
-    '!projects/ng-mat-period-picker/src/lib/**/*.spec.ts',
-    '!projects/ng-mat-period-picker/src/lib/**/*.test.ts',
+    'projects/ngx-mat-period-picker/src/lib/**/*.ts',
+    '!projects/ngx-mat-period-picker/src/lib/**/*.spec.ts',
+    '!projects/ngx-mat-period-picker/src/lib/**/*.test.ts',
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
@@ -34,7 +34,7 @@ module.exports = {
   ],
   // Mock CSS files
   moduleNameMapping: {
-    '^@lib/(.*)$': '<rootDir>/projects/ng-mat-period-picker/src/lib/$1',
+    '^@lib/(.*)$': '<rootDir>/projects/ngx-mat-period-picker/src/lib/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
   // Handle CSS parsing errors

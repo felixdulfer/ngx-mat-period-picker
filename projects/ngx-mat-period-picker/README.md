@@ -1,4 +1,4 @@
-# ng-mat-period-picker
+# ngx-mat-period-picker
 
 A modern Angular Material period picker component built with standalone components.
 
@@ -17,7 +17,7 @@ A modern Angular Material period picker component built with standalone componen
 ## Installation
 
 ```bash
-npm install ng-mat-period-picker
+npm install ngx-mat-period-picker
 ```
 
 ## Usage
@@ -25,13 +25,13 @@ npm install ng-mat-period-picker
 ### Basic Usage
 
 ```typescript
-import { PeriodPickerComponent } from "ng-mat-period-picker";
+import { PeriodPickerComponent } from "ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
   standalone: true,
   imports: [PeriodPickerComponent],
-  template: ` <lib-ng-mat-period-picker /> `,
+  template: ` <lib-ngx-mat-period-picker /> `,
 })
 export class MyComponent {}
 ```
@@ -41,13 +41,13 @@ export class MyComponent {}
 ```typescript
 import { Component } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
-import { PeriodPickerComponent, Period } from "ng-mat-period-picker";
+import { PeriodPickerComponent, Period } from "ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
   standalone: true,
   imports: [PeriodPickerComponent, ReactiveFormsModule],
-  template: ` <lib-ng-mat-period-picker [formControl]="periodControl" /> `,
+  template: ` <lib-ngx-mat-period-picker [formControl]="periodControl" /> `,
 })
 export class MyComponent {
   periodControl = new FormControl<Period | null>(null);
@@ -61,7 +61,7 @@ You can use the individual components directly:
 #### Year/Month Field (Text Field with Overlay)
 
 ```typescript
-import { YearMonthFieldComponent, YearMonth } from "ng-mat-period-picker";
+import { YearMonthFieldComponent, YearMonth } from "ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
@@ -77,7 +77,7 @@ export class MyComponent {
 #### Year/Month Field with Custom Configuration
 
 ```typescript
-import { YearMonthFieldComponent, YearMonth } from "ng-mat-period-picker";
+import { YearMonthFieldComponent, YearMonth } from "ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
@@ -93,7 +93,7 @@ export class MyComponent {
 #### Year/Month Picker (Direct Picker)
 
 ```typescript
-import { YearMonthPickerComponent, YearMonth } from "ng-mat-period-picker";
+import { YearMonthPickerComponent, YearMonth } from "ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
@@ -109,7 +109,7 @@ export class MyComponent {
 ### Year-Month Picker with Constraints
 
 ```typescript
-import { YearMonthPickerComponent } from "ng-mat-period-picker";
+import { YearMonthPickerComponent } from "ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
@@ -146,7 +146,7 @@ interface YearMonth {
 
 #### PeriodPickerComponent
 
-- **Selector**: `lib-ng-mat-period-picker`
+- **Selector**: `lib-ngx-mat-period-picker`
 - **Features**:
   - Built using YearMonthFieldComponent for start and end fields
   - "Present" toggle for end date

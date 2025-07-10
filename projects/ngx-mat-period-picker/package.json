@@ -1,5 +1,5 @@
 {
-  "name": "ng-mat-period-picker",
+  "name": "ngx-mat-period-picker",
   "version": "0.3.5",
   "description": "A modern Angular Material period picker component built with standalone components",
   "keywords": [
@@ -15,12 +15,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/felixdulfer/ng-mat-period-picker.git"
+    "url": "https://github.com/felixdulfer/ngx-mat-period-picker.git"
   },
   "bugs": {
-    "url": "https://github.com/felixdulfer/ng-mat-period-picker/issues"
+    "url": "https://github.com/felixdulfer/ngx-mat-period-picker/issues"
   },
-  "homepage": "https://github.com/felixdulfer/ng-mat-period-picker#readme",
+  "homepage": "https://github.com/felixdulfer/ngx-mat-period-picker#readme",
   "peerDependencies": {
     "@angular/common": "^19.2.0 || ^20.0.0",
     "@angular/core": "^19.2.0 || ^20.0.0",
@@ -31,15 +31,15 @@
     "tslib": "^2.3.0"
   },
   "sideEffects": false,
-  "main": "fesm2022/ng-mat-period-picker.mjs",
-  "module": "fesm2022/ng-mat-period-picker.mjs",
-  "es2022": "fesm2022/ng-mat-period-picker.mjs",
+  "main": "fesm2022/ngx-mat-period-picker.mjs",
+  "module": "fesm2022/ngx-mat-period-picker.mjs",
+  "es2022": "fesm2022/ngx-mat-period-picker.mjs",
   "typings": "index.d.ts",
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./fesm2022/ng-mat-period-picker.mjs",
-      "require": "./fesm2022/ng-mat-period-picker.mjs"
+      "import": "./fesm2022/ngx-mat-period-picker.mjs",
+      "require": "./fesm2022/ngx-mat-period-picker.mjs"
     }
   }
 }

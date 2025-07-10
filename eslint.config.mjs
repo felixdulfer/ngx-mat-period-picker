@@ -30,8 +30,8 @@ export default [
       parserOptions: {
         project: [
           './tsconfig.json',
-          './projects/ng-mat-period-picker/tsconfig.lib.json',
-          './projects/ng-mat-period-picker/tsconfig.spec.json',
+          './projects/ngx-mat-period-picker/tsconfig.lib.json',
+          './projects/ngx-mat-period-picker/tsconfig.spec.json',
           './projects/demo-app/tsconfig.app.json',
           './projects/demo-app/tsconfig.spec.json',
         ],
@@ -82,8 +82,8 @@ export default [
       parser: tsParser,
       parserOptions: {
         project: [
-          './projects/ng-mat-period-picker/tsconfig.lib.json',
-          './projects/ng-mat-period-picker/tsconfig.spec.json',
+          './projects/ngx-mat-period-picker/tsconfig.lib.json',
+          './projects/ngx-mat-period-picker/tsconfig.spec.json',
           './projects/demo-app/tsconfig.app.json',
           './projects/demo-app/tsconfig.spec.json',
         ],

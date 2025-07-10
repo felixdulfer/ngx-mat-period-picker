@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/ng-mat-period-picker",
+  "dest": "../../dist/ngx-mat-period-picker",
   "lib": {
     "entryFile": "src/public-api.ts"
   }

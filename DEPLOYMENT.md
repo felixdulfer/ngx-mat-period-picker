@@ -1,6 +1,6 @@
-# Deployment Guide for ng-mat-period-picker
+# Deployment Guide for ngx-mat-period-picker
 
-This guide provides step-by-step instructions for deploying the `ng-mat-period-picker` package to NPM.
+This guide provides step-by-step instructions for deploying the `ngx-mat-period-picker` package to NPM.
 
 ## Prerequisites
 
@@ -16,13 +16,13 @@ Ensure the package is properly configured:
 
 ```bash
 # Check the package.json in the library directory
-cat projects/ng-mat-period-picker/package.json
+cat projects/ngx-mat-period-picker/package.json
 ```
 
 Key things to verify:
 
 - ✅ Version is set to the current version
-- ✅ Name is `ng-mat-period-picker`
+- ✅ Name is `ngx-mat-period-picker`
 - ✅ Description and keywords are set
 - ✅ Author and license are specified
 - ✅ Repository URL is correct
@@ -117,7 +117,7 @@ This will:
 
 ```bash
 # Navigate to the built package directory
-cd dist/ng-mat-period-picker
+cd dist/ngx-mat-period-picker
 ```
 
 #### Step 2: Verify Package Contents
@@ -155,9 +155,9 @@ After publishing, verify the package is available:
 
 ```bash
 # Check the package on NPM
-npm view ng-mat-period-picker
+npm view ngx-mat-period-picker
 
-# Or visit: https://www.npmjs.com/package/ng-mat-period-picker
+# Or visit: https://www.npmjs.com/package/ngx-mat-period-picker
 ```
 
 ## Post-Deployment
@@ -175,7 +175,7 @@ cd test-install
 ng new test-app --standalone --routing=false --style=css --skip-git
 
 # Install the published package
-npm install ng-mat-period-picker
+npm install ngx-mat-period-picker
 
 # Verify it's listed in package.json
 cat package.json
@@ -189,14 +189,14 @@ Update the README.md in the main repository to reflect the published version:
 ## Installation
 
 ```bash
-npm install ng-mat-period-picker
+npm install ngx-mat-period-picker
 ```
 ````
 
 ## Usage
 
 ```typescript
-import { PeriodPickerComponent } from "ng-mat-period-picker";
+import { PeriodPickerComponent } from "ngx-mat-period-picker";
 ```
 
 ````
@@ -233,7 +233,7 @@ chmod +x deploy.sh
 If the version already exists on NPM:
 ```bash
 # Check current version
-npm view ng-mat-period-picker version
+npm view ngx-mat-period-picker version
 # Use a different bump type or manually update version
 ```
 

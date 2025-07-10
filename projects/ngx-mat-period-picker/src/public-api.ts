@@ -1,5 +1,5 @@
 /*
- * Public API Surface of ng-mat-period-picker
+ * Public API Surface of ngx-mat-period-picker
  */
 
 export * from './lib/components';

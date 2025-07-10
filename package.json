@@ -1,5 +1,5 @@
 {
-  "name": "ng-mat-period-picker",
+  "name": "ngx-mat-period-picker",
   "version": "0.3.0",
   "scripts": {
     "ng": "ng",
@@ -15,7 +15,7 @@
     "commitlint": "commitlint --edit",
     "e2e": "ng e2e",
     "publish:lib": "./deploy.sh",
-    "lint:lib": "ng lint --project ng-mat-period-picker",
+    "lint:lib": "ng lint --project ngx-mat-period-picker",
     "lint:app": "ng lint --project demo-app",
     "lint": "run-s lint:*"
   },
