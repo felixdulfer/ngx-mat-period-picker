@@ -31,15 +31,15 @@
     "tslib": "^2.3.0"
   },
   "sideEffects": false,
-  "main": "fesm2022/ngx-mat-period-picker.mjs",
-  "module": "fesm2022/ngx-mat-period-picker.mjs",
-  "es2022": "fesm2022/ngx-mat-period-picker.mjs",
+  "main": "fesm2022/felixdulfer-ngx-mat-period-picker.mjs",
+  "module": "fesm2022/felixdulfer-ngx-mat-period-picker.mjs",
+  "es2022": "fesm2022/felixdulfer-ngx-mat-period-picker.mjs",
   "typings": "index.d.ts",
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./fesm2022/ngx-mat-period-picker.mjs",
-      "require": "./fesm2022/ngx-mat-period-picker.mjs"
+      "import": "./fesm2022/felixdulfer-ngx-mat-period-picker.mjs",
+      "require": "./fesm2022/felixdulfer-ngx-mat-period-picker.mjs"
     }
   }
 }
