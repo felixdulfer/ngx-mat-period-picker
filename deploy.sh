@@ -99,7 +99,7 @@ git commit -m "chore: bump version to $NEW_VERSION"
 # Publish
 echo "Publishing to NPM..."
 cd dist/ngx-mat-period-picker
-npm publish
+npm publish --access public
 
 # Create git tag
 cd ../..

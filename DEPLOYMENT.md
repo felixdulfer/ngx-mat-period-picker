@@ -145,8 +145,8 @@ npm pack --dry-run
 # Publish the package
 npm publish
 
-# If this is a scoped package (e.g., @your-org/package-name), use:
-# npm publish --access public
+# For scoped packages, always use:
+npm publish --access public
 ```
 
 ### Step 5: Verify Publication

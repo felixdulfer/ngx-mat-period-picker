@@ -33,7 +33,7 @@ ng build ngx-mat-period-picker --configuration production
 cd dist/ngx-mat-period-picker
 
 # 3. Publish to NPM
-npm publish
+npm publish --access public
 ```
 
 ## ✅ Pre-Deployment Checklist
