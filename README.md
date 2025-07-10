@@ -114,7 +114,7 @@ For detailed documentation, API reference, and examples, see the [library README
 
 Try the component in your browser:
 
-- [GitHub Pages Demo](https://felixdulfer.github.io/ng-mat-period-picker/) (Coming Soon)
+- [GitHub Pages Demo](https://felixdulfer.github.io/ngx-mat-period-picker/) (Coming Soon)
 - [StackBlitz Demo](https://stackblitz.com/edit/angular-ngx-mat-period-picker-demo) (Coming Soon)
 - [CodeSandbox Demo](https://codesandbox.io/s/angular-ngx-mat-period-picker-demo) (Coming Soon)
 

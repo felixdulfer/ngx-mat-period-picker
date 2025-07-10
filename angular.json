@@ -185,7 +185,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "/ng-mat-period-picker/"
+            "baseHref": "/ngx-mat-period-picker/"
           }
         }
       }
