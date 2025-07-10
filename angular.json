@@ -119,7 +119,8 @@
                   "maximumError": "10kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/ngx-mat-period-picker/"
             },
             "development": {
               "optimization": false,
