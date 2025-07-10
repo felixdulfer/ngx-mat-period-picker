@@ -92,6 +92,12 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
       <pre>{{ form.value.mixedPeriod | json }}</pre>
     </form>
   `,
+  styles: `
+    :host {
+      display: block;
+      padding: 2rem;
+    }
+  `,
 })
 export class AppComponent {
   form = new FormGroup({
