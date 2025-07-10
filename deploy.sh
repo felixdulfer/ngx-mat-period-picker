@@ -118,7 +118,16 @@ git push origin "v$NEW_VERSION"
 
 # Generate intelligent release notes
 echo "Generating intelligent release notes..."
-COMMITS_SINCE_LAST_TAG=$(git log --pretty=format:"%s" $(git describe --tags --abbrev=0 2>/dev/null || git rev-list --max-parents=0 HEAD)..HEAD)
+# Determine last tag and git log range
+LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+if [ -z "$LAST_TAG" ]; then
+  # No tags found, use all commits
+  COMMITS_SINCE_LAST_TAG=$(git log --pretty=format:"%s")
+  GIT_LOG_RANGE=""
+else
+  COMMITS_SINCE_LAST_TAG=$(git log --pretty=format:"%s" ${LAST_TAG}..HEAD)
+  GIT_LOG_RANGE="${LAST_TAG}..HEAD"
+fi
 
 # Analyze commits and categorize them
 FEATURES=$(echo "$COMMITS_SINCE_LAST_TAG" | grep -i "feat\|add\|new\|implement" | head -5)
@@ -161,7 +170,7 @@ if [ -n "$CHORES" ]; then
 fi
 
 # Add installation and usage sections
-RELEASE_BODY="$RELEASE_BODY## 📦 Installation\n\n\`\`\`bash\nnpm install @felixdulfer/ngx-mat-period-picker@$NEW_VERSION\n\`\`\`\n\n## 🚀 Usage\n\n\`\`\`typescript\nimport { PeriodPickerComponent } from '@felixdulfer/ngx-mat-period-picker';\n\`\`\`\n\n## 📋 Changelog\n\n$(git log --pretty=format:\"- %s\" $(git describe --tags --abbrev=0 2>/dev/null || git rev-list --max-parents=0 HEAD)..HEAD | head -20)"
+RELEASE_BODY="$RELEASE_BODY## 📦 Installation\n\n\`\`\`bash\nnpm install @felixdulfer/ngx-mat-period-picker@$NEW_VERSION\n\`\`\`\n\n## 🚀 Usage\n\n\`\`\`typescript\nimport { PeriodPickerComponent } from '@felixdulfer/ngx-mat-period-picker';\n\`\`\`\n\n## 📋 Changelog\n\n$(git log --pretty=format:\"- %s\" $GIT_LOG_RANGE | head -20)"
 
 RELEASE_TITLE="v$NEW_VERSION"
 
