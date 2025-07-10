@@ -116,38 +116,54 @@ echo "Pushing changes and tag to origin..."
 git push origin main
 git push origin "v$NEW_VERSION"
 
-# Create GitHub release draft
-echo "Creating GitHub release draft..."
+# Generate intelligent release notes
+echo "Generating intelligent release notes..."
+COMMITS_SINCE_LAST_TAG=$(git log --pretty=format:"%s" $(git describe --tags --abbrev=0 2>/dev/null || git rev-list --max-parents=0 HEAD)..HEAD)
+
+# Analyze commits and categorize them
+FEATURES=$(echo "$COMMITS_SINCE_LAST_TAG" | grep -i "feat\|add\|new\|implement" | head -5)
+BUGFIXES=$(echo "$COMMITS_SINCE_LAST_TAG" | grep -i "fix\|bug\|issue\|problem" | head -5)
+BREAKING=$(echo "$COMMITS_SINCE_LAST_TAG" | grep -i "breaking\|major\|!:" | head -5)
+CHORES=$(echo "$COMMITS_SINCE_LAST_TAG" | grep -i "chore\|refactor\|clean\|update" | head -5)
+
+# Generate release summary
+if [ -n "$BREAKING" ]; then
+  RELEASE_TYPE="🚨 Breaking Changes"
+elif [ -n "$FEATURES" ]; then
+  RELEASE_TYPE="✨ New Features"
+elif [ -n "$BUGFIXES" ]; then
+  RELEASE_TYPE="🐛 Bug Fixes"
+else
+  RELEASE_TYPE="📦 Maintenance"
+fi
+
+# Build the release body
+RELEASE_BODY="## $RELEASE_TYPE\n\nThis release includes the following changes:\n\n"
+
+# Add features section if there are features
+if [ -n "$FEATURES" ]; then
+  RELEASE_BODY="$RELEASE_BODY### ✨ Features\n$(echo "$FEATURES" | sed 's/^/- /')\n"
+fi
+
+# Add bug fixes section if there are bug fixes
+if [ -n "$BUGFIXES" ]; then
+  RELEASE_BODY="$RELEASE_BODY### 🐛 Bug Fixes\n$(echo "$BUGFIXES" | sed 's/^/- /')\n"
+fi
+
+# Add breaking changes section if there are breaking changes
+if [ -n "$BREAKING" ]; then
+  RELEASE_BODY="$RELEASE_BODY### 🚨 Breaking Changes\n$(echo "$BREAKING" | sed 's/^/- /')\n"
+fi
+
+# Add chores section if there are chores
+if [ -n "$CHORES" ]; then
+  RELEASE_BODY="$RELEASE_BODY### 🔧 Maintenance\n$(echo "$CHORES" | sed 's/^/- /')\n"
+fi
+
+# Add installation and usage sections
+RELEASE_BODY="$RELEASE_BODY## 📦 Installation\n\n\`\`\`bash\nnpm install @felixdulfer/ngx-mat-period-picker@$NEW_VERSION\n\`\`\`\n\n## 🚀 Usage\n\n\`\`\`typescript\nimport { PeriodPickerComponent } from '@felixdulfer/ngx-mat-period-picker';\n\`\`\`\n\n## 📋 Changelog\n\n$(git log --pretty=format:\"- %s\" $(git describe --tags --abbrev=0 2>/dev/null || git rev-list --max-parents=0 HEAD)..HEAD | head -20)"
+
 RELEASE_TITLE="v$NEW_VERSION"
-RELEASE_BODY="## What's Changed
-
-This release includes the following changes:
-
-### Features
-- Add new features here
-
-### Bug Fixes
-- Fix bugs here
-
-### Breaking Changes
-- Document breaking changes here
-
-## Installation
-
-\`\`\`bash
-npm install @felixdulfer/ngx-mat-period-picker@$NEW_VERSION
-\`\`\`
-
-## Usage
-
-\`\`\`typescript
-import { PeriodPickerComponent } from '@felixdulfer/ngx-mat-period-picker';
-\`\`\`
-
-## Changelog
-
-$(git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 2>/dev/null || git rev-list --max-parents=0 HEAD)..HEAD | head -20)
-"
 
 # Create draft release using GitHub CLI
 if command -v gh &>/dev/null; then
