@@ -1,4 +1,4 @@
-# `ngx-mat-period-picker`
+# `@felixdulfer/ngx-mat-period-picker`
 
 > Material Period Picker for Angular
 
@@ -7,13 +7,13 @@ A modern Angular Material period picker component built with standalone componen
 ## 📦 Installation
 
 ```bash
-npm install ngx-mat-period-picker
+npm install @felixdulfer/ngx-mat-period-picker
 ```
 
 ## 🚀 Quick Start
 
 ```typescript
-import { PeriodPickerComponent } from "ngx-mat-period-picker";
+import { PeriodPickerComponent } from "@felixdulfer/ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
@@ -31,7 +31,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 To start a local development server, make sure you have a build of the lib:
 
 ```bash
-npx -p @angular/cli@20 ng build ngx-mat-period-picker --watch
+npx -p @angular/cli@20 ng build @felixdulfer/ngx-mat-period-picker --watch
 ```
 
 To run the demo app, run:
@@ -47,7 +47,7 @@ Once the server is running, open your browser and navigate to `http://localhost:
 To build the project run:
 
 ```bash
-npx -p @angular/cli@20 ng build ngx-mat-period-picker
+npx -p @angular/cli@20 ng build @felixdulfer/ngx-mat-period-picker
 ```
 
 ```bash
@@ -61,7 +61,7 @@ This will compile your project and store the build artifacts in the `dist/` dire
 To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
 ```bash
-npx ng test ngx-mat-period-picker --karma-config=karma.conf.js --browsers=Firefox
+npx ng test @felixdulfer/ngx-mat-period-picker --karma-config=karma.conf.js --browsers=Firefox
 ```
 
 ## Running end-to-end tests

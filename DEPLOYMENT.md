@@ -1,6 +1,6 @@
-# Deployment Guide for ngx-mat-period-picker
+# Deployment Guide for @felixdulfer/ngx-mat-period-picker
 
-This guide provides step-by-step instructions for deploying the `ngx-mat-period-picker` package to NPM.
+This guide provides step-by-step instructions for deploying the `@felixdulfer/ngx-mat-period-picker` package to NPM.
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ cat projects/ngx-mat-period-picker/package.json
 Key things to verify:
 
 - ✅ Version is set to the current version
-- ✅ Name is `ngx-mat-period-picker`
+- ✅ Name is `@felixdulfer/ngx-mat-period-picker`
 - ✅ Description and keywords are set
 - ✅ Author and license are specified
 - ✅ Repository URL is correct
@@ -155,9 +155,9 @@ After publishing, verify the package is available:
 
 ```bash
 # Check the package on NPM
-npm view ngx-mat-period-picker
+npm view @felixdulfer/ngx-mat-period-picker
 
-# Or visit: https://www.npmjs.com/package/ngx-mat-period-picker
+# Or visit: https://www.npmjs.com/package/@felixdulfer/ngx-mat-period-picker
 ```
 
 ## Post-Deployment
@@ -175,7 +175,7 @@ cd test-install
 ng new test-app --standalone --routing=false --style=css --skip-git
 
 # Install the published package
-npm install ngx-mat-period-picker
+npm install @felixdulfer/ngx-mat-period-picker
 
 # Verify it's listed in package.json
 cat package.json
@@ -189,14 +189,14 @@ Update the README.md in the main repository to reflect the published version:
 ## Installation
 
 ```bash
-npm install ngx-mat-period-picker
+npm install @felixdulfer/ngx-mat-period-picker
 ```
 ````
 
 ## Usage
 
 ```typescript
-import { PeriodPickerComponent } from "ngx-mat-period-picker";
+import { PeriodPickerComponent } from "@felixdulfer/ngx-mat-period-picker";
 ```
 
 ````
@@ -233,7 +233,7 @@ chmod +x deploy.sh
 If the version already exists on NPM:
 ```bash
 # Check current version
-npm view ngx-mat-period-picker version
+npm view @felixdulfer/ngx-mat-period-picker version
 # Use a different bump type or manually update version
 ```
 

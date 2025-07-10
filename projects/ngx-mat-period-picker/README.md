@@ -1,4 +1,4 @@
-# ngx-mat-period-picker
+# @felixdulfer/ngx-mat-period-picker
 
 A modern Angular Material period picker component built with standalone components.
 
@@ -17,7 +17,7 @@ A modern Angular Material period picker component built with standalone componen
 ## Installation
 
 ```bash
-npm install ngx-mat-period-picker
+npm install @felixdulfer/ngx-mat-period-picker
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ npm install ngx-mat-period-picker
 ### Basic Usage
 
 ```typescript
-import { PeriodPickerComponent } from "ngx-mat-period-picker";
+import { PeriodPickerComponent } from "@felixdulfer/ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
@@ -41,7 +41,7 @@ export class MyComponent {}
 ```typescript
 import { Component } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
-import { PeriodPickerComponent, Period } from "ngx-mat-period-picker";
+import { PeriodPickerComponent, Period } from "@felixdulfer/ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
@@ -61,7 +61,7 @@ You can use the individual components directly:
 #### Year/Month Field (Text Field with Overlay)
 
 ```typescript
-import { YearMonthFieldComponent, YearMonth } from "ngx-mat-period-picker";
+import { YearMonthFieldComponent, YearMonth } from "@felixdulfer/ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
@@ -77,7 +77,7 @@ export class MyComponent {
 #### Year/Month Field with Custom Configuration
 
 ```typescript
-import { YearMonthFieldComponent, YearMonth } from "ngx-mat-period-picker";
+import { YearMonthFieldComponent, YearMonth } from "@felixdulfer/ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
@@ -93,7 +93,7 @@ export class MyComponent {
 #### Year/Month Picker (Direct Picker)
 
 ```typescript
-import { YearMonthPickerComponent, YearMonth } from "ngx-mat-period-picker";
+import { YearMonthPickerComponent, YearMonth } from "@felixdulfer/ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
@@ -109,7 +109,7 @@ export class MyComponent {
 ### Year-Month Picker with Constraints
 
 ```typescript
-import { YearMonthPickerComponent } from "ngx-mat-period-picker";
+import { YearMonthPickerComponent } from "@felixdulfer/ngx-mat-period-picker";
 
 @Component({
   selector: "app-my-component",
