@@ -31,7 +31,7 @@ import { PeriodPickerComponent } from "@felixdulfer/ngx-mat-period-picker";
   selector: "app-my-component",
   standalone: true,
   imports: [PeriodPickerComponent],
-  template: ` <lib-ngx-mat-period-picker /> `,
+  template: ` <ngx-mat-period-picker /> `,
 })
 export class MyComponent {}
 ```
@@ -47,7 +47,7 @@ import { PeriodPickerComponent, Period } from "@felixdulfer/ngx-mat-period-picke
   selector: "app-my-component",
   standalone: true,
   imports: [PeriodPickerComponent, ReactiveFormsModule],
-  template: ` <lib-ngx-mat-period-picker [formControl]="periodControl" /> `,
+  template: ` <ngx-mat-period-picker [formControl]="periodControl" /> `,
 })
 export class MyComponent {
   periodControl = new FormControl<Period | null>(null);
@@ -146,7 +146,7 @@ interface YearMonth {
 
 #### PeriodPickerComponent
 
-- **Selector**: `lib-ngx-mat-period-picker`
+- **Selector**: `ngx-mat-period-picker`
 - **Features**:
   - Built using YearMonthFieldComponent for start and end fields
   - "Present" toggle for end date

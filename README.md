@@ -19,7 +19,7 @@ import { PeriodPickerComponent } from "@felixdulfer/ngx-mat-period-picker";
   selector: "app-my-component",
   standalone: true,
   imports: [PeriodPickerComponent],
-  template: `<lib-ngx-mat-period-picker />`,
+  template: `<ngx-mat-period-picker />`,
 })
 export class MyComponent {}
 ```

@@ -78,6 +78,11 @@ if [ -n "$(git status --porcelain)" ]; then
   fi
 fi
 
+# Run lint
+echo "Running lint..."
+npm run lint:lib
+npm run lint:app
+
 # Run tests
 echo "Running tests..."
 npm run test:ci

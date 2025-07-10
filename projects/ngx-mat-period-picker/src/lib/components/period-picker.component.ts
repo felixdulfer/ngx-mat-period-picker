@@ -12,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Period } from '../types';
 
 @Component({
-  selector: 'lib-ngx-mat-period-picker',
+  selector: 'ngx-mat-period-picker',
   standalone: true,
   template: `
     <div class="period-picker-container" [formGroup]="form">
