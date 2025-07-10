@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PeriodPickerComponent } from '../../../ng-mat-period-picker/src/lib/components/period-picker.component';
 import { YearMonthFieldComponent } from '../../../ng-mat-period-picker/src/lib/components/year-month-field.component';
-import { YearMonth, Period } from '../../../ng-mat-period-picker/src/lib/types';
+import { Period } from '../../../ng-mat-period-picker/src/lib/types';
 
 @Component({
   selector: 'app-root',

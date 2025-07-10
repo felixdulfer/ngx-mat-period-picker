@@ -83,7 +83,10 @@ describe('YearMonthFieldComponent', () => {
 
     it('should close existing picker before opening new one', () => {
       const mockEvent = new MouseEvent('click');
-      const closeSpy = jest.spyOn(component as any, 'closePicker');
+      const closeSpy = jest.spyOn(
+        component as YearMonthFieldComponent & { closePicker: () => void },
+        'closePicker',
+      );
 
       component.openPicker(mockEvent);
 

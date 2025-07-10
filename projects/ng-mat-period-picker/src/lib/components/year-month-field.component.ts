@@ -6,7 +6,7 @@ import {
   input,
   output,
   signal,
-  effect,
+  inject,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -77,12 +77,8 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   valueSignal = signal<YearMonth | null>(null);
   private overlayRef: OverlayRef | null = null;
 
-  constructor(
-    private overlay: Overlay,
-    private displayFormatService: DisplayFormatService,
-  ) {
-    // Remove automatic effect - onChange/onTouched should be called manually
-  }
+  private overlay = inject(Overlay);
+  private displayFormatService = inject(DisplayFormatService);
 
   getDisplayValue(value: YearMonth | null): string {
     // If present is true, show "Present" instead of the value
@@ -204,10 +200,14 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     this.valueSignal.set(value);
   }
 
+  // eslint-disable-next-line no-unused-vars
   private onChange: (value: YearMonth | null) => void = () => {};
   private onTouched: () => void = () => {};
 
-  registerOnChange(fn: (value: YearMonth | null) => void): void {
+  registerOnChange(
+    // eslint-disable-next-line no-unused-vars
+    fn: (value: YearMonth | null) => void,
+  ): void {
     this.onChange = fn;
   }
 
@@ -215,6 +215,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   setDisabledState(isDisabled: boolean): void {
     // Handle disabled state if needed
   }

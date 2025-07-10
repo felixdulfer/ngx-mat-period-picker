@@ -5,7 +5,6 @@ import { MonthLabelService } from '../services/month-label.service';
 describe('YearMonthPickerComponent', () => {
   let component: YearMonthPickerComponent;
   let fixture: ComponentFixture<YearMonthPickerComponent>;
-  let monthLabelService: MonthLabelService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -15,7 +14,6 @@ describe('YearMonthPickerComponent', () => {
 
     fixture = TestBed.createComponent(YearMonthPickerComponent);
     component = fixture.componentInstance;
-    monthLabelService = TestBed.inject(MonthLabelService);
     fixture.detectChanges();
   });
 

@@ -91,8 +91,8 @@ export class PeriodPickerComponent implements ControlValueAccessor {
 
     // Use effect for form value changes in zoneless environment
     effect(() => {
-      const value = this.valueSignal();
-      if (value !== null) {
+      const currentValue = this.valueSignal();
+      if (currentValue !== null) {
         this.emitChange();
       }
     });
@@ -137,9 +137,11 @@ export class PeriodPickerComponent implements ControlValueAccessor {
     }
   }
 
+  // eslint-disable-next-line no-unused-vars
   private onChange: (value: Period | null) => void = () => {};
   private onTouched: () => void = () => {};
 
+  // eslint-disable-next-line no-unused-vars
   registerOnChange(fn: (value: Period | null) => void): void {
     this.onChange = fn;
   }

@@ -4,7 +4,7 @@ import {
   input,
   output,
   signal,
-  effect,
+  inject,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -211,7 +211,8 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   valueSignal = signal<YearMonth | null>(null);
   originalValue: YearMonth | null = null;
 
-  constructor(private monthLabelService: MonthLabelService) {
+  private monthLabelService = inject(MonthLabelService);
+  constructor() {
     // Remove automatic effect - onChange/onTouched should be called manually
   }
 
@@ -252,15 +253,17 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     }
   }
 
-  writeValue(value: YearMonth | null): void {
-    this.valueSignal.set(value);
-    this.originalValue = value;
+  writeValue(_value: YearMonth | null): void {
+    this.valueSignal.set(_value);
+    this.originalValue = _value;
   }
 
-  private onChange: (value: YearMonth | null) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+  private onChange: (_value: YearMonth | null) => void = () => {};
   private onTouched: () => void = () => {};
 
-  registerOnChange(fn: (value: YearMonth | null) => void): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+  registerOnChange(fn: (_value: YearMonth | null) => void): void {
     this.onChange = fn;
   }
 
