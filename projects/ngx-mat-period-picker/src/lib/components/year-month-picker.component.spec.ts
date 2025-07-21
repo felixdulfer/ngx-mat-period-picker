@@ -144,6 +144,9 @@ describe('YearMonthPickerComponent', () => {
       expect(component.hasValidSelection()).toBe(true);
 
       component.writeValue({ year: 2023, month: null });
+      expect(component.hasValidSelection()).toBe(true);
+
+      component.writeValue(null);
       expect(component.hasValidSelection()).toBe(false);
     });
 

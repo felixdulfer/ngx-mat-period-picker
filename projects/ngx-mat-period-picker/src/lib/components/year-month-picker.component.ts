@@ -334,7 +334,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
 
   hasValidSelection(): boolean {
     const value = this.valueSignal();
-    return !!(value && value.year && value.month);
+    return !!(value && value.year);
   }
 
   hasChanges(): boolean {
