@@ -61,6 +61,33 @@ describe('YearMonthPickerComponent', () => {
       expect(onChangeSpy).toHaveBeenCalledWith({ year: 2024, month: null });
     });
 
+    it('should select year and enable OK button', () => {
+      const onChangeSpy = jest.fn();
+      component.registerOnChange(onChangeSpy);
+
+      // Initially no selection
+      expect(component.hasValidSelection()).toBe(false);
+
+      // Select a year
+      component.selectYear(2024);
+
+      // Should now have valid selection (year only)
+      expect(component.hasValidSelection()).toBe(true);
+      expect(component.valueSignal()).toEqual({ year: 2024, month: null });
+    });
+
+    it('should deselect year when clicking same year', () => {
+      const onChangeSpy = jest.fn();
+      component.registerOnChange(onChangeSpy);
+      component.valueSignal.set({ year: 2024, month: null });
+
+      component.selectYear(2024);
+
+      expect(component.valueSignal()).toBeNull();
+      expect(component.hasValidSelection()).toBe(false);
+      expect(onChangeSpy).toHaveBeenCalledWith(null);
+    });
+
     it('should select month', () => {
       const onChangeSpy = jest.fn();
       component.registerOnChange(onChangeSpy);
@@ -80,6 +107,18 @@ describe('YearMonthPickerComponent', () => {
 
       expect(component.valueSignal()).toBeNull();
       expect(onChangeSpy).not.toHaveBeenCalled();
+    });
+
+    it('should deselect month when clicking same month', () => {
+      const onChangeSpy = jest.fn();
+      component.registerOnChange(onChangeSpy);
+      component.valueSignal.set({ year: 2023, month: 8 });
+
+      component.selectMonth(8);
+
+      expect(component.valueSignal()).toEqual({ year: 2023, month: null });
+      expect(component.hasValidSelection()).toBe(true); // Still valid because year is selected
+      expect(onChangeSpy).toHaveBeenCalledWith({ year: 2023, month: null });
     });
   });
 
@@ -139,14 +178,33 @@ describe('YearMonthPickerComponent', () => {
   });
 
   describe('Validation and state', () => {
-    it('should check if has valid selection', () => {
+    it('should check if has valid selection with year and month', () => {
       component.writeValue({ year: 2023, month: 6 });
       expect(component.hasValidSelection()).toBe(true);
+    });
 
+    it('should check if has valid selection with year only (month null)', () => {
       component.writeValue({ year: 2023, month: null });
       expect(component.hasValidSelection()).toBe(true);
+    });
 
+    it('should check if has valid selection with year only (month undefined)', () => {
+      component.writeValue({ year: 2023, month: undefined as any });
+      expect(component.hasValidSelection()).toBe(true);
+    });
+
+    it('should not have valid selection when no value is set', () => {
       component.writeValue(null);
+      expect(component.hasValidSelection()).toBe(false);
+    });
+
+    it('should not have valid selection when year is null', () => {
+      component.writeValue({ year: null as any, month: 6 });
+      expect(component.hasValidSelection()).toBe(false);
+    });
+
+    it('should not have valid selection when year is undefined', () => {
+      component.writeValue({ year: undefined as any, month: 6 });
       expect(component.hasValidSelection()).toBe(false);
     });
 
@@ -177,7 +235,7 @@ describe('YearMonthPickerComponent', () => {
       expect(cancelSpy).toHaveBeenCalled();
     });
 
-    it('should handle ok action', () => {
+    it('should handle ok action with year and month', () => {
       const okSpy = jest.fn();
       const onChangeSpy = jest.fn();
       component.okClicked.subscribe(okSpy);
@@ -189,9 +247,31 @@ describe('YearMonthPickerComponent', () => {
       expect(okSpy).toHaveBeenCalled();
     });
 
+    it('should handle ok action with year only (month null)', () => {
+      const okSpy = jest.fn();
+      const onChangeSpy = jest.fn();
+      component.okClicked.subscribe(okSpy);
+      component.registerOnChange(onChangeSpy);
+      component.valueSignal.set({ year: 2023, month: null });
+
+      component.ok();
+
+      expect(okSpy).toHaveBeenCalled();
+    });
+
     it('should not emit ok when no valid selection', () => {
       const okSpy = jest.fn();
       component.okClicked.subscribe(okSpy);
+
+      component.ok();
+
+      expect(okSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not emit ok when no year is selected', () => {
+      const okSpy = jest.fn();
+      component.okClicked.subscribe(okSpy);
+      component.valueSignal.set(null);
 
       component.ok();
 
