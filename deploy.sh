@@ -62,14 +62,15 @@ npm run lint:app
 echo "Running tests..."
 npm run test:ci
 
-# Build package
-echo "Building package..."
-ng build ngx-mat-period-picker --configuration production
-
-# Update version in package.json
+# Update version in package.json first
 echo "Updating version to $NEW_VERSION..."
 sed -i.bak "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" "$PACKAGE_DIR/package.json"
 rm -f "$PACKAGE_DIR/package.json.bak"
+
+# Clean and rebuild package with new version
+echo "Cleaning and rebuilding package..."
+rm -rf dist
+ng build ngx-mat-period-picker --configuration production
 
 # Commit the version change
 echo "Committing version change..."
