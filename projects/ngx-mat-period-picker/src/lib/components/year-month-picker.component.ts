@@ -146,7 +146,6 @@ import { MonthLabelService } from '../services/month-label.service';
       }
       .ymp-months {
         grid-template-columns: repeat(4, 1fr);
-        margin-bottom: 0;
       }
 
       .mdc-button.ymp-button {
