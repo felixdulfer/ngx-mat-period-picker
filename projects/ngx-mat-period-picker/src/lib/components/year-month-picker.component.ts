@@ -256,6 +256,37 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   writeValue(_value: YearMonth | null): void {
     this.valueSignal.set(_value);
     this.originalValue = _value;
+    
+    // If a year is selected/pre-filled, set the currentStartYear to show the interval containing that year
+    if (_value?.year) {
+      this.setCurrentStartYearForYear(_value.year);
+    }
+  }
+
+  /**
+   * Sets the currentStartYear to show the interval containing the specified year
+   */
+  private setCurrentStartYearForYear(year: number): void {
+    // Calculate which interval this year belongs to
+    // We want to find the start year of the interval that contains the target year
+    // For example: year 2030 should be in interval 2028-2039, so currentStartYear should be 2028
+    const minYear = this.minYear() || 1900;
+    
+    // Find the interval that contains the target year
+    // We want the year to be within the interval [startYear, startYear + yearsPerPage - 1]
+    // Let's find the correct interval by checking which interval contains the year
+    let newStartYear = minYear;
+    
+    // Find the interval that contains the target year
+    while (newStartYear + this.yearsPerPage <= year) {
+      newStartYear += this.yearsPerPage;
+    }
+    
+    // Ensure the new start year is within valid bounds
+    const maxYear = this.maxYear() || 2100;
+    if (newStartYear + this.yearsPerPage <= maxYear) {
+      this.currentStartYear = newStartYear;
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
@@ -281,6 +312,8 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
       this.valueSignal.set(null);
     } else {
       this.valueSignal.set({ year, month: null });
+      // Set the current interval to show the selected year
+      this.setCurrentStartYearForYear(year);
     }
 
     this.onChange(this.valueSignal());

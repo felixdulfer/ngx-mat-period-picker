@@ -296,5 +296,28 @@ describe('YearMonthPickerComponent', () => {
       const years = component.years;
       expect(rangeLabel).toBe(`${years[0]} - ${years[years.length - 1]}`);
     });
+
+    it('should set currentStartYear to show interval containing pre-filled year', () => {
+      component.writeValue({ year: 2025, month: 6 });
+      
+      expect(component.currentStartYear).toBe(2020);
+      expect(component.rangeLabel).toBe('2020 - 2031');
+    });
+
+    it('should set currentStartYear to show interval containing selected year', () => {
+      component.selectYear(2030);
+      
+      expect(component.currentStartYear).toBe(2020);
+      expect(component.rangeLabel).toBe('2020 - 2031');
+    });
+
+    it('should handle year selection within current interval without changing currentStartYear', () => {
+      component.selectYear(2025);
+      expect(component.currentStartYear).toBe(2020);
+      
+      component.selectYear(2030);
+      expect(component.currentStartYear).toBe(2020);
+      expect(component.rangeLabel).toBe('2020 - 2031');
+    });
   });
 });
