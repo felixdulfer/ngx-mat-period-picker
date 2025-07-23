@@ -208,6 +208,12 @@ describe('YearMonthPickerComponent', () => {
       expect(component.hasValidSelection()).toBe(false);
     });
 
+    it('should have valid selection when present is true', () => {
+      component.writeValue(null);
+      component.setPresentValue(true);
+      expect(component.hasValidSelection()).toBe(true);
+    });
+
     it('should check if has changes', () => {
       const originalValue = { year: 2023, month: 6 };
       component.writeValue(originalValue);
@@ -308,6 +314,17 @@ describe('YearMonthPickerComponent', () => {
       component.ok();
 
       expect(okSpy).not.toHaveBeenCalled();
+    });
+
+    it('should emit ok when present is selected', () => {
+      const okSpy = jest.fn();
+      component.okClicked.subscribe(okSpy);
+      component.setPresentValue(true);
+      component.valueSignal.set(null);
+
+      component.ok();
+
+      expect(okSpy).toHaveBeenCalled();
     });
   });
 
