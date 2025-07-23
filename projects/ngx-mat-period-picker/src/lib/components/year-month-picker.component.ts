@@ -91,9 +91,9 @@ import { MonthLabelService } from '../services/month-label.service';
       </div>
       <mat-divider />
       <div class="ymp-actions">
-        @if (hasChanges()) {
-          <button matButton="text" (click)="cancel()" [disabled]="disabled()">
-            Cancel
+        @if (hasValue()) {
+          <button matButton="text" (click)="clear()" [disabled]="disabled()">
+            Clear
           </button>
         } @else {
           <div></div>
@@ -369,6 +369,11 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     return !!(value && value.year);
   }
 
+  hasValue(): boolean {
+    const value = this.valueSignal();
+    return !!(value && value.year) || this.presentValue();
+  }
+
   hasChanges(): boolean {
     const currentValue = this.valueSignal();
     const original = this.originalValue;
@@ -382,8 +387,11 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     );
   }
 
-  cancel(): void {
-    this.valueSignal.set(this.originalValue);
+  clear(): void {
+    this.valueSignal.set(null);
+    this._presentValue.set(false);
+    this.onChange(null);
+    this.onTouched();
     this.cancelClicked.emit();
   }
 
