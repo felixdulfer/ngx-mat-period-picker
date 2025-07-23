@@ -59,7 +59,7 @@ import { MonthLabelService } from '../services/month-label.service';
               presentValue()
                 ? 'text'
                 : valueSignal()?.year === year
-                  ? 'filled'
+                  ? 'outlined'
                   : 'text'
             "
             [disabled]="disabled() || presentValue()"
@@ -78,7 +78,7 @@ import { MonthLabelService } from '../services/month-label.service';
               presentValue()
                 ? 'text'
                 : valueSignal()?.month === i + 1
-                  ? 'filled'
+                  ? 'outlined'
                   : 'text'
             "
             [disabled]="valueSignal()?.year == null || presentValue()"
@@ -99,7 +99,7 @@ import { MonthLabelService } from '../services/month-label.service';
           <div></div>
         }
         <button
-          matButton="text"
+          matButton="filled"
           (click)="ok()"
           [disabled]="disabled() || !hasValidSelection()"
         >
@@ -149,6 +149,7 @@ import { MonthLabelService } from '../services/month-label.service';
       }
 
       .mdc-button.ymp-button {
+        --mat-button-outlined-horizontal-padding: 6px;
         --mat-button-filled-horizontal-padding: 6px;
         --mat-button-text-horizontal-padding: 6px;
       }
