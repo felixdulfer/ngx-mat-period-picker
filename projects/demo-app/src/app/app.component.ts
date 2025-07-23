@@ -99,7 +99,8 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         startLabel="Start Date"
         endLabel="End Date"
         presentLabel="Present"
-        [baseYear]="2010"
+        [baseYearStart]="2010"
+        [baseYearEnd]="2010"
       />
       <pre>{{ form.value.baseYear2010 | json }}</pre>
       <p><small>When you click on empty fields above, the year picker will show an interval containing 2010.</small></p>
@@ -110,10 +111,23 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         startLabel="Start Date"
         endLabel="End Date"
         presentLabel="Present"
-        [baseYear]="2035"
+        [baseYearStart]="2035"
+        [baseYearEnd]="2035"
       />
       <pre>{{ form.value.baseYear2035 | json }}</pre>
       <p><small>When you click on empty fields above, the year picker will show an interval containing 2035.</small></p>
+
+      <h3>Period Picker with Different Base Years</h3>
+      <ngx-mat-period-picker
+        formControlName="differentBaseYears"
+        startLabel="Birth Year"
+        endLabel="Retirement Year"
+        presentLabel="Still Working"
+        [baseYearStart]="1990"
+        [baseYearEnd]="2070"
+      />
+      <pre>{{ form.value.differentBaseYears | json }}</pre>
+      <p><small>Start field shows 1984-1995 interval (for birth years), End field shows 2068-2079 interval (for retirement years).</small></p>
 
       <h3>Single Year/Month Field with Base Year 1995</h3>
       <lib-year-month-field
@@ -162,6 +176,7 @@ export class AppComponent {
     }),
     baseYear2010: new FormControl(null),
     baseYear2035: new FormControl(null),
+    differentBaseYears: new FormControl(null),
     singleBaseYear1995: new FormControl(null),
   });
 }
