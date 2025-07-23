@@ -60,7 +60,7 @@ import { MonthLabelService } from '../services/month-label.service';
                 ? 'text'
                 : valueSignal()?.year === year
                   ? 'filled'
-                  : 'text'
+                  : 'outlined'
             "
             [disabled]="disabled() || presentValue()"
             (click)="selectYear(year)"
@@ -79,7 +79,7 @@ import { MonthLabelService } from '../services/month-label.service';
                 ? 'text'
                 : valueSignal()?.month === i + 1
                   ? 'filled'
-                  : 'text'
+                  : 'outlined'
             "
             [disabled]="valueSignal()?.year == null || presentValue()"
             (click)="selectMonth(i + 1)"
@@ -99,7 +99,7 @@ import { MonthLabelService } from '../services/month-label.service';
           <div></div>
         }
         <button
-          matButton="text"
+          matButton="filled"
           (click)="ok()"
           [disabled]="disabled() || !hasValidSelection()"
         >
