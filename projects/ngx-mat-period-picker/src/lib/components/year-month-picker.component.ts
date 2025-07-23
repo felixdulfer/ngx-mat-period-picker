@@ -192,6 +192,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   minYear = input<number | undefined>();
   maxYear = input<number | undefined>();
   disabled = input<boolean>(false);
+  baseYear = input<number | undefined>();
   private _showPresentToggle = signal<boolean>(false);
   showPresentToggle = this._showPresentToggle.asReadonly();
   private _presentLabel = signal<string>('Present');
@@ -199,6 +200,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
 
   yearsPerPage = 12;
   currentStartYear = 2000;
+  private _baseYear: number | undefined = undefined;
   private _presentValue = signal<boolean>(false);
   presentValue = this._presentValue.asReadonly();
 
@@ -212,7 +214,16 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
 
   private monthLabelService = inject(MonthLabelService);
   constructor() {
-    // Remove automatic effect - onChange/onTouched should be called manually
+    // Initialize currentStartYear based on baseYear or current year
+    this.initializeCurrentStartYear();
+  }
+
+  /**
+   * Initializes currentStartYear based on baseYear input or current year
+   */
+  private initializeCurrentStartYear(): void {
+    const targetYear = this._baseYear || this.baseYear() || new Date().getFullYear();
+    this.setCurrentStartYearForYear(targetYear);
   }
 
   get months(): string[] {
@@ -259,6 +270,9 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     // If a year is selected/pre-filled, set the currentStartYear to show the interval containing that year
     if (_value?.year) {
       this.setCurrentStartYearForYear(_value.year);
+    } else {
+      // If no value is provided, initialize based on baseYear or current year
+      this.initializeCurrentStartYear();
     }
   }
 
@@ -362,6 +376,12 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
 
   setShowPresentToggle(show: boolean): void {
     this._showPresentToggle.set(show);
+  }
+
+  setBaseYear(year: number | undefined): void {
+    // Update the baseYear and reinitialize if needed
+    this._baseYear = year;
+    this.initializeCurrentStartYear();
   }
 
   hasValidSelection(): boolean {

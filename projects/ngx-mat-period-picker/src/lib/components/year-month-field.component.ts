@@ -68,6 +68,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   placeholder = input<string>('Click to select');
   minYear = input<number | undefined>();
   maxYear = input<number | undefined>();
+  baseYear = input<number | undefined>();
   disabled = input<boolean>(false);
   presentLabel = input<string>('Present');
   presentValue = input<boolean>(false);
@@ -133,6 +134,11 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     pickerRef.instance.setPresentLabel(this.presentLabel());
     pickerRef.instance.setPresentValue(this.presentValue());
     pickerRef.instance.setShowPresentToggle(this.showPresentToggle());
+    
+    // Set the baseYear if provided
+    if (this.baseYear() !== undefined) {
+      pickerRef.instance.setBaseYear(this.baseYear());
+    }
 
     // Subscribe to onChange to handle value updates
     pickerRef.instance.registerOnChange((value: YearMonth | null) => {

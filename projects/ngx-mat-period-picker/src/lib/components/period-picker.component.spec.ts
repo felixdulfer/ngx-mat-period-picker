@@ -29,6 +29,8 @@ describe('PeriodPickerComponent', () => {
       expect(component.startPlaceholder()).toBe('Select start period');
       expect(component.endPlaceholder()).toBe('Select end period');
       expect(component.presentPlaceholder()).toBe('Present');
+      expect(component.baseYearStart()).toBeUndefined();
+      expect(component.baseYearEnd()).toBeUndefined();
     });
 
     it('should accept custom values', () => {
@@ -36,6 +38,25 @@ describe('PeriodPickerComponent', () => {
       expect(component.startLabel()).toBe('Start Period');
       expect(component.endLabel()).toBe('End Period');
       expect(component.presentLabel()).toBe('Present');
+    });
+
+    it('should accept baseYear values', () => {
+      // Reset component with input values
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        imports: [PeriodPickerComponent, ReactiveFormsModule],
+      });
+
+      const newFixture = TestBed.createComponent(PeriodPickerComponent);
+      const newComponent = newFixture.componentInstance;
+      
+      // Set input values using fixture.componentRef.setInput
+      newFixture.componentRef.setInput('baseYearStart', 2010);
+      newFixture.componentRef.setInput('baseYearEnd', 2020);
+      newFixture.detectChanges();
+
+      expect(newComponent.baseYearStart()).toBe(2010);
+      expect(newComponent.baseYearEnd()).toBe(2020);
     });
   });
 
