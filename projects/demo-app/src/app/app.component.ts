@@ -29,7 +29,7 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
       <ngx-mat-period-picker formControlName="period" />
       <pre>{{ form.value.period | json }}</pre>
 
-      <h2>Period Picker (Custom Labels)</h2>
+      <h2>Period Picker (Employment Example)</h2>
       <ngx-mat-period-picker
         formControlName="customPeriod"
         startLabel="Employment Start"
@@ -38,6 +38,7 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         startPlaceholder="When did you start?"
         endPlaceholder="When did you end?"
         presentPlaceholder="Still working here"
+        [showPresentToggle]="true"
       />
       <pre>{{ form.value.customPeriod | json }}</pre>
 
@@ -50,6 +51,7 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         startPlaceholder="Select start date"
         endPlaceholder="Select graduation date"
         presentPlaceholder="Still studying"
+        [showPresentToggle]="false"
       />
       <pre>{{ form.value.educationPeriod | json }}</pre>
 
