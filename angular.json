@@ -120,7 +120,29 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/ngx-mat-period-picker/"
+              "baseHref": "/ngx-mat-period-picker/",
+              "optimization": {
+                "fonts": false
+              }
+            },
+            "pr-preview": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2MB",
+                  "maximumError": "5MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
+                }
+              ],
+              "outputHashing": "all",
+              "baseHref": "./",
+              "optimization": {
+                "fonts": false
+              }
             },
             "development": {
               "optimization": false,

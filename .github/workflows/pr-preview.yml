@@ -1,0 +1,47 @@
+name: Deploy PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  pull-requests: write
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      if: github.event.action != 'closed'
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      if: github.event.action != 'closed'
+      run: npm ci
+
+    - name: Build library
+      if: github.event.action != 'closed'
+      run: npx ng build ngx-mat-period-picker
+
+    - name: Build demo app
+      if: github.event.action != 'closed'
+      run: npm run build:demo:pr-preview
+
+    - name: Deploy PR Preview
+      uses: rossjrw/pr-preview-action@v1
+      with:
+        source-dir: ./dist/demo-app/browser
+        preview-branch: gh-pages
+        umbrella-dir: pr-preview
+        action: auto
+        github-token: ${{ secrets.GITHUB_TOKEN }}

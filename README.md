@@ -118,6 +118,15 @@ Try the component in your browser:
 - [StackBlitz Demo](https://stackblitz.com/edit/angular-ngx-mat-period-picker-demo) (Coming Soon)
 - [CodeSandbox Demo](https://codesandbox.io/s/angular-ngx-mat-period-picker-demo) (Coming Soon)
 
+## 🔬 PR Preview Environments
+
+This repository automatically creates preview environments for each pull request! When you open a PR, the demo app is automatically built and deployed to a unique URL where you can test your changes.
+
+- **Main demo**: `https://felixdulfer.github.io/ngx-mat-period-picker/`
+- **PR previews**: `https://felixdulfer.github.io/ngx-mat-period-picker/pr-preview/pr-{number}/`
+
+The preview environment is automatically updated whenever you push new commits to your PR branch, and cleaned up when the PR is closed or merged.
+
 ## 🚀 Deployment
 
 For deployment instructions, see:
