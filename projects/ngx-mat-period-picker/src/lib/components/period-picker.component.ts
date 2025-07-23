@@ -24,6 +24,7 @@ import { Period } from '../types';
           [presentLabel]="presentLabel()"
           [presentValue]="false"
           [showPresentToggle]="false"
+          [baseYear]="baseYear()"
         />
 
         <lib-year-month-field
@@ -36,6 +37,7 @@ import { Period } from '../types';
           [presentLabel]="presentLabel()"
           [presentValue]="form.get('present')?.value"
           [showPresentToggle]="true"
+          [baseYear]="baseYear()"
           (presentValueChange)="onPresentValueChange($event)"
         />
       </div>
@@ -78,6 +80,7 @@ export class PeriodPickerComponent implements ControlValueAccessor {
   startPlaceholder = input<string>('Select start period');
   endPlaceholder = input<string>('Select end period');
   presentPlaceholder = input<string>('Present');
+  baseYear = input<number | undefined>();
 
   form: FormGroup;
   private valueSignal = signal<Period | null>(null);
