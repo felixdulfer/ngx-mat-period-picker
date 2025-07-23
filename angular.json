@@ -31,17 +31,6 @@
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
-        "e2e": {
-          "builder": "playwright-ng-schematics:playwright",
-          "options": {
-            "devServerTarget": "ngx-mat-period-picker:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ngx-mat-period-picker:serve:production"
-            }
-          }
-        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
