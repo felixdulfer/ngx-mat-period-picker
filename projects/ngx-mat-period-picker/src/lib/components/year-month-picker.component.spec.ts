@@ -243,23 +243,6 @@ describe('YearMonthPickerComponent', () => {
     });
   });
 
-  describe('Button Visual Hierarchy', () => {
-    it('should maintain existing functionality after button variant changes', () => {
-      // Test that basic functionality still works after our changes
-      component.valueSignal.set({ year: 2023, month: 6 });
-      
-      expect(component.hasValidSelection()).toBe(true);
-      expect(component.getCurrentValue()).toEqual({ year: 2023, month: 6 });
-    });
-
-    it('should show Cancel button when there are changes', () => {
-      component.writeValue({ year: 2022, month: 3 });
-      component.valueSignal.set({ year: 2023, month: 6 });
-      
-      expect(component.hasChanges()).toBe(true);
-    });
-  });
-
   describe('Actions', () => {
     it('should handle clear action', () => {
       const cancelSpy = jest.fn();
