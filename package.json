@@ -10,6 +10,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --watchAll=false",
+    "test:e2e": "ng e2e",
     "prepare": "husky",
     "commit": "git-cz",
     "commitlint": "commitlint --edit",
