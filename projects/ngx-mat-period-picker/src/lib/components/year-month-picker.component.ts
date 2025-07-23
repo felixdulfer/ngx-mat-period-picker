@@ -59,8 +59,8 @@ import { MonthLabelService } from '../services/month-label.service';
               presentValue()
                 ? 'text'
                 : valueSignal()?.year === year
-                  ? 'filled'
-                  : 'outlined'
+                  ? 'outlined'
+                  : 'text'
             "
             [disabled]="disabled() || presentValue()"
             (click)="selectYear(year)"
@@ -78,8 +78,8 @@ import { MonthLabelService } from '../services/month-label.service';
               presentValue()
                 ? 'text'
                 : valueSignal()?.month === i + 1
-                  ? 'filled'
-                  : 'outlined'
+                  ? 'outlined'
+                  : 'text'
             "
             [disabled]="valueSignal()?.year == null || presentValue()"
             (click)="selectMonth(i + 1)"
