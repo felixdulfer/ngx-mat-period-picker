@@ -93,10 +93,19 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
 
     this.closePicker();
 
-    // Get the element that was clicked (the input field)
-    const targetElement = event.currentTarget as HTMLElement;
+    // Get the clicked mat-form-field element
+    const formFieldElement = event.currentTarget as HTMLElement;
+    
+    // Safety check for null currentTarget (e.g., in tests)
+    if (!formFieldElement) {
+      return;
+    }
+    
+    // Find the text field wrapper within the form field for more precise positioning
+    const textFieldWrapper = formFieldElement.querySelector('.mat-mdc-text-field-wrapper');
+    const targetElement = textFieldWrapper || formFieldElement;
 
-    // Create overlay positioned relative to the text field
+    // Create overlay positioned relative to the text field wrapper
     const positionStrategy = this.overlay
       .position()
       .flexibleConnectedTo(targetElement)
