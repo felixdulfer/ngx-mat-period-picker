@@ -19,7 +19,8 @@
     "lint:app": "ng lint --project demo-app",
     "lint": "run-s lint:*",
     "deploy:demo": "ng deploy demo-app",
-    "build:demo": "ng build demo-app --configuration production"
+    "build:demo": "ng build demo-app --configuration production",
+    "build:demo:pr-preview": "ng build demo-app --configuration pr-preview"
   },
   "private": true,
   "dependencies": {
