@@ -337,4 +337,102 @@ describe('YearMonthPickerComponent', () => {
       expect(component.rangeLabel).toBe('2020 - 2031');
     });
   });
+
+  describe('baseYear functionality', () => {
+    it('should initialize with current year when no baseYear is provided', () => {
+      // Mock the current year to be predictable
+      const currentYear = new Date().getFullYear();
+      
+      // Create a new component instance to test initialization
+      const fixture = TestBed.createComponent(YearMonthPickerComponent);
+      const component = fixture.componentInstance;
+      
+      // Use the same algorithm as setCurrentStartYearForYear
+      const minYear = 1900;
+      let expectedStartYear = minYear;
+      while (expectedStartYear + 12 <= currentYear) {
+        expectedStartYear += 12;
+      }
+      
+      expect(component.currentStartYear).toBe(expectedStartYear);
+    });
+
+    it('should initialize with baseYear interval when baseYear is provided', () => {
+      // Test with baseYear 2030
+      const testFixture = TestBed.createComponent(YearMonthPickerComponent);
+      const testComponent = testFixture.componentInstance;
+      
+      testComponent.setBaseYear(2030);
+      
+      // Calculate expected start year for 2030
+      const minYear = 1900;
+      let expectedStartYear = minYear;
+      while (expectedStartYear + 12 <= 2030) {
+        expectedStartYear += 12;
+      }
+      
+      expect(testComponent.currentStartYear).toBe(expectedStartYear);
+      expect(testComponent.rangeLabel).toBe(`${expectedStartYear} - ${expectedStartYear + 11}`);
+    });
+
+    it('should update interval when baseYear is changed', () => {
+      component.setBaseYear(2010);
+      
+      // Calculate expected start year for 2010
+      const minYear = 1900;
+      let expectedStartYear2010 = minYear;
+      while (expectedStartYear2010 + 12 <= 2010) {
+        expectedStartYear2010 += 12;
+      }
+      
+      expect(component.currentStartYear).toBe(expectedStartYear2010);
+      expect(component.rangeLabel).toBe(`${expectedStartYear2010} - ${expectedStartYear2010 + 11}`);
+      
+      // Change baseYear again
+      component.setBaseYear(2050);
+      
+      // Calculate expected start year for 2050
+      let expectedStartYear2050 = minYear;
+      while (expectedStartYear2050 + 12 <= 2050) {
+        expectedStartYear2050 += 12;
+      }
+      
+      expect(component.currentStartYear).toBe(expectedStartYear2050);
+      expect(component.rangeLabel).toBe(`${expectedStartYear2050} - ${expectedStartYear2050 + 11}`);
+    });
+
+    it('should use baseYear for initialization when writeValue is called with null', () => {
+      component.setBaseYear(2035);
+      
+      // Writing null should still use the baseYear interval
+      component.writeValue(null);
+      
+      // Calculate expected start year for 2035
+      const minYear = 1900;
+      let expectedStartYear = minYear;
+      while (expectedStartYear + 12 <= 2035) {
+        expectedStartYear += 12;
+      }
+      
+      expect(component.currentStartYear).toBe(expectedStartYear);
+      expect(component.rangeLabel).toBe(`${expectedStartYear} - ${expectedStartYear + 11}`);
+    });
+
+    it('should use year from value over baseYear when writeValue is called with a value', () => {
+      component.setBaseYear(2010);
+      
+      // Writing a value should use the value's year, not the baseYear
+      component.writeValue({ year: 2045, month: 3 });
+      
+      // Calculate expected start year for 2045
+      const minYear = 1900;
+      let expectedStartYear = minYear;
+      while (expectedStartYear + 12 <= 2045) {
+        expectedStartYear += 12;
+      }
+      
+      expect(component.currentStartYear).toBe(expectedStartYear);
+      expect(component.rangeLabel).toBe(`${expectedStartYear} - ${expectedStartYear + 11}`);
+    });
+  });
 });

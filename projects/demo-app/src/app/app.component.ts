@@ -90,6 +90,54 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         presentLabel="Present"
       />
       <pre>{{ form.value.mixedPeriod | json }}</pre>
+
+      <h2>Base Year Configuration Examples</h2>
+
+      <h3>Period Picker with Base Year 2010</h3>
+      <ngx-mat-period-picker
+        formControlName="baseYear2010"
+        startLabel="Start Date"
+        endLabel="End Date"
+        presentLabel="Present"
+        [baseYearStart]="2010"
+        [baseYearEnd]="2010"
+      />
+      <pre>{{ form.value.baseYear2010 | json }}</pre>
+      <p><small>When you click on empty fields above, the year picker will show an interval containing 2010.</small></p>
+
+      <h3>Period Picker with Base Year 2035</h3>
+      <ngx-mat-period-picker
+        formControlName="baseYear2035"
+        startLabel="Start Date"
+        endLabel="End Date"
+        presentLabel="Present"
+        [baseYearStart]="2035"
+        [baseYearEnd]="2035"
+      />
+      <pre>{{ form.value.baseYear2035 | json }}</pre>
+      <p><small>When you click on empty fields above, the year picker will show an interval containing 2035.</small></p>
+
+      <h3>Period Picker with Different Base Years</h3>
+      <ngx-mat-period-picker
+        formControlName="differentBaseYears"
+        startLabel="Birth Year"
+        endLabel="Retirement Year"
+        presentLabel="Still Working"
+        [baseYearStart]="1990"
+        [baseYearEnd]="2070"
+      />
+      <pre>{{ form.value.differentBaseYears | json }}</pre>
+      <p><small>Start field shows 1984-1995 interval (for birth years), End field shows 2068-2079 interval (for retirement years).</small></p>
+
+      <h3>Single Year/Month Field with Base Year 1995</h3>
+      <lib-year-month-field
+        formControlName="singleBaseYear1995"
+        label="Historical Date"
+        placeholder="Select historical year/month"
+        [baseYear]="1995"
+      />
+      <pre>{{ form.value.singleBaseYear1995 | json }}</pre>
+      <p><small>When you click above, the year picker will show an interval containing 1995.</small></p>
     </form>
   `,
   styles: `
@@ -126,5 +174,9 @@ export class AppComponent {
       end: { year: 2024, month: null },
       isPresent: false,
     }),
+    baseYear2010: new FormControl(null),
+    baseYear2035: new FormControl(null),
+    differentBaseYears: new FormControl(null),
+    singleBaseYear1995: new FormControl(null),
   });
 }
