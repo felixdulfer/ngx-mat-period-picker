@@ -191,6 +191,7 @@ import { MonthLabelService } from '../services/month-label.service';
 export class YearMonthPickerComponent implements ControlValueAccessor {
   minYear = input<number | undefined>();
   maxYear = input<number | undefined>();
+  baseYear = input<number | undefined>();
   disabled = input<boolean>(false);
   private _showPresentToggle = signal<boolean>(false);
   showPresentToggle = this._showPresentToggle.asReadonly();
@@ -213,6 +214,18 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   private monthLabelService = inject(MonthLabelService);
   constructor() {
     // Remove automatic effect - onChange/onTouched should be called manually
+    this.initializeCurrentStartYear();
+  }
+
+  /**
+   * Initializes the currentStartYear based on the baseYear input.
+   * Uses nullish coalescing to properly handle baseYear = 0.
+   */
+  private initializeCurrentStartYear(): void {
+    // Since baseYear input signal might not be available during construction,
+    // we need to defer this initialization or use a different approach
+    const targetYear = this.baseYear() ?? new Date().getFullYear();
+    this.setCurrentStartYearForYear(targetYear);
   }
 
   get months(): string[] {
@@ -232,11 +245,11 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   }
 
   canGoPrev(): boolean {
-    return this.currentStartYear > (this.minYear() || 1900);
+    return this.currentStartYear > (this.minYear() ?? 1900);
   }
 
   canGoNext(): boolean {
-    const maxYear = this.maxYear() || 2100;
+    const maxYear = this.maxYear() ?? 2100;
     return this.currentStartYear + this.yearsPerPage <= maxYear;
   }
 
@@ -269,7 +282,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     // Calculate which interval this year belongs to
     // We want to find the start year of the interval that contains the target year
     // For example: year 2030 should be in interval 2028-2039, so currentStartYear should be 2028
-    const minYear = this.minYear() || 1900;
+    const minYear = this.minYear() ?? 1900;
     
     // Find the interval that contains the target year
     // We want the year to be within the interval [startYear, startYear + yearsPerPage - 1]
@@ -282,7 +295,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     }
     
     // Ensure the new start year is within valid bounds
-    const maxYear = this.maxYear() || 2100;
+    const maxYear = this.maxYear() ?? 2100;
     if (newStartYear + this.yearsPerPage <= maxYear) {
       this.currentStartYear = newStartYear;
     }
