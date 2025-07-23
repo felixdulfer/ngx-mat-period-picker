@@ -149,6 +149,7 @@ import { MonthLabelService } from '../services/month-label.service';
       }
 
       .mdc-button.ymp-button {
+        --mat-button-outlined-horizontal-padding: 6px;
         --mat-button-filled-horizontal-padding: 6px;
         --mat-button-text-horizontal-padding: 6px;
       }
