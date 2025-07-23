@@ -219,19 +219,51 @@ describe('YearMonthPickerComponent', () => {
       component.valueSignal.set({ year: 2024, month: 6 });
       expect(component.hasChanges()).toBe(true);
     });
+
+    it('should check if has value with year and month', () => {
+      component.writeValue({ year: 2023, month: 6 });
+      expect(component.hasValue()).toBe(true);
+    });
+
+    it('should check if has value with year only', () => {
+      component.writeValue({ year: 2023, month: null });
+      expect(component.hasValue()).toBe(true);
+    });
+
+    it('should check if has value when present is true', () => {
+      component.writeValue(null);
+      component.setPresentValue(true);
+      expect(component.hasValue()).toBe(true);
+    });
+
+    it('should not have value when no value and present is false', () => {
+      component.writeValue(null);
+      component.setPresentValue(false);
+      expect(component.hasValue()).toBe(false);
+    });
   });
 
   describe('Actions', () => {
-    it('should handle cancel action', () => {
+    it('should handle clear action', () => {
       const cancelSpy = jest.fn();
+      const onChangeSpy = jest.fn();
+      const onTouchedSpy = jest.fn();
+      
       component.cancelClicked.subscribe(cancelSpy);
-      const originalValue = { year: 2024, month: null };
+      component.registerOnChange(onChangeSpy);
+      component.registerOnTouched(onTouchedSpy);
+      
+      const originalValue = { year: 2024, month: 6 };
       component.writeValue(originalValue);
-      component.valueSignal.set({ year: 2023, month: 6 });
+      component.valueSignal.set({ year: 2023, month: 8 });
+      component.setPresentValue(true);
 
-      component.cancel();
+      component.clear();
 
-      expect(component.valueSignal()).toEqual(originalValue);
+      expect(component.valueSignal()).toBeNull();
+      expect(component.presentValue()).toBe(false);
+      expect(onChangeSpy).toHaveBeenCalledWith(null);
+      expect(onTouchedSpy).toHaveBeenCalled();
       expect(cancelSpy).toHaveBeenCalled();
     });
 
