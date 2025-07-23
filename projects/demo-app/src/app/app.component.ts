@@ -18,11 +18,11 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
     <h1>ngx-mat-period-picker Demo</h1>
     <form [formGroup]="form">
       <h2>Year/Month Picker (Original)</h2>
-      <lib-year-month-field formControlName="yearMonth" />
+      <ngx-mat-year-month-picker formControlName="yearMonth" />
       <pre>{{ form.value.yearMonth | json }}</pre>
 
       <h2>Year/Month Field (New Text Field)</h2>
-      <lib-year-month-field formControlName="yearMonthField" />
+      <ngx-mat-year-month-picker formControlName="yearMonthField" />
       <pre>{{ form.value.yearMonthField | json }}</pre>
 
       <h2>Period Picker (Default Labels)</h2>
@@ -132,7 +132,7 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
       <p><small>Start field shows 1984-1995 interval (for birth years), End field shows 2068-2079 interval (for retirement years).</small></p>
 
       <h3>Single Year/Month Field with Base Year 1995</h3>
-      <lib-year-month-field
+      <ngx-mat-year-month-picker
         formControlName="singleBaseYear1995"
         label="Historical Date"
         placeholder="Select historical year/month"

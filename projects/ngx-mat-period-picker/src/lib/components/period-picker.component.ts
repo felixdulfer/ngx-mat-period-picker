@@ -17,7 +17,7 @@ import { Period } from '../types';
   template: `
     <div class="period-picker-container" [formGroup]="form">
       <div class="period-fields">
-        <lib-year-month-field
+        <ngx-mat-year-month-picker
           formControlName="start"
           [label]="startLabel()"
           [placeholder]="startPlaceholder()"
@@ -27,7 +27,7 @@ import { Period } from '../types';
           [baseYear]="baseYearStart()"
         />
 
-        <lib-year-month-field
+        <ngx-mat-year-month-picker
           formControlName="end"
           [label]="endLabel()"
           [placeholder]="

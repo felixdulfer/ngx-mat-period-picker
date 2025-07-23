@@ -20,7 +20,7 @@ import { YearMonth } from '../types';
 import { DisplayFormatService } from '../services/display-format.service';
 
 @Component({
-  selector: 'lib-year-month-field',
+  selector: 'ngx-mat-year-month-picker',
   standalone: true,
   template: `
     <mat-form-field

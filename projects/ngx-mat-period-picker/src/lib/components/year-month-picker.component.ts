@@ -17,7 +17,7 @@ import { YearMonth } from '../types';
 import { MonthLabelService } from '../services/month-label.service';
 
 @Component({
-  selector: 'lib-year-month-picker',
+  selector: 'ngx-mat-year-month-picker-dialog',
   standalone: true,
   template: `
     <mat-card class="ymp-card">

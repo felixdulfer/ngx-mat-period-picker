@@ -229,7 +229,7 @@ describe('PeriodPickerComponent', () => {
 
     it('should have year-month-field components', () => {
       const fields = fixture.nativeElement.querySelectorAll(
-        'lib-year-month-field',
+        'ngx-mat-year-month-picker',
       );
       expect(fields.length).toBe(2);
     });

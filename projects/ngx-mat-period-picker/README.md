@@ -67,7 +67,7 @@ import { YearMonthFieldComponent, YearMonth } from "@felixdulfer/ngx-mat-period-
   selector: "app-my-component",
   standalone: true,
   imports: [YearMonthFieldComponent],
-  template: ` <lib-year-month-field [formControl]="yearMonthControl" /> `,
+  template: ` <ngx-mat-year-month-picker [formControl]="yearMonthControl" /> `,
 })
 export class MyComponent {
   yearMonthControl = new FormControl<YearMonth | null>(null);
@@ -83,7 +83,7 @@ import { YearMonthFieldComponent, YearMonth } from "@felixdulfer/ngx-mat-period-
   selector: "app-my-component",
   standalone: true,
   imports: [YearMonthFieldComponent],
-  template: ` <lib-year-month-field [formControl]="yearMonthControl" label="Custom Label" placeholder="Custom placeholder" [minYear]="2020" [maxYear]="2030" /> `,
+  template: ` <ngx-mat-year-month-picker [formControl]="yearMonthControl" label="Custom Label" placeholder="Custom placeholder" [minYear]="2020" [maxYear]="2030" /> `,
 })
 export class MyComponent {
   yearMonthControl = new FormControl<YearMonth | null>(null);
@@ -99,7 +99,7 @@ import { YearMonthPickerComponent, YearMonth } from "@felixdulfer/ngx-mat-period
   selector: "app-my-component",
   standalone: true,
   imports: [YearMonthPickerComponent],
-  template: ` <lib-year-month-picker [formControl]="yearMonthControl" /> `,
+  template: ` <ngx-mat-year-month-picker [formControl]="yearMonthControl" /> `,
 })
 export class MyComponent {
   yearMonthControl = new FormControl<YearMonth | null>(null);
@@ -115,7 +115,7 @@ import { YearMonthPickerComponent } from "@felixdulfer/ngx-mat-period-picker";
   selector: "app-my-component",
   standalone: true,
   imports: [YearMonthPickerComponent],
-  template: ` <lib-year-month-picker [formControl]="yearMonthControl" [minYear]="2020" [maxYear]="2030" /> `,
+  template: ` <ngx-mat-year-month-picker [formControl]="yearMonthControl" [minYear]="2020" [maxYear]="2030" /> `,
 })
 export class MyComponent {
   yearMonthControl = new FormControl<YearMonth | null>(null);
@@ -156,7 +156,7 @@ interface YearMonth {
 
 #### YearMonthFieldComponent
 
-- **Selector**: `lib-year-month-field`
+- **Selector**: `ngx-mat-year-month-picker`
 - **Inputs**:
   - `label?: string` - Field label (default: "Select Year/Month")
   - `placeholder?: string` - Field placeholder (default: "Click to select")
@@ -173,7 +173,7 @@ interface YearMonth {
 
 #### YearMonthPickerComponent
 
-- **Selector**: `lib-year-month-picker`
+- **Selector**: `ngx-mat-year-month-picker`
 - **Inputs**:
   - `minYear?: number` - Minimum allowed year
   - `maxYear?: number` - Maximum allowed year
