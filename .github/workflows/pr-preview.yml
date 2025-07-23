@@ -29,6 +29,10 @@ jobs:
       if: github.event.action != 'closed'
       run: npm ci
 
+    - name: Build library
+      if: github.event.action != 'closed'
+      run: npx ng build ngx-mat-period-picker
+
     - name: Build demo app
       if: github.event.action != 'closed'
       run: npm run build:demo:pr-preview
