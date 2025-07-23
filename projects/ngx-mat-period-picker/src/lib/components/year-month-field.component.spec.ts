@@ -159,13 +159,21 @@ describe('YearMonthFieldComponent', () => {
 
   describe('closePicker', () => {
     it('should dispose overlay when closing picker', () => {
-      const mockEvent = new MouseEvent('click');
-      component.openPicker(mockEvent);
+      // Create a mock overlay ref
+      const mockOverlayRef = {
+        dispose: jest.fn(),
+        attach: jest.fn(),
+        backdropClick: jest.fn().mockReturnValue({ subscribe: jest.fn() }),
+        keydownEvents: jest.fn().mockReturnValue({ subscribe: jest.fn() })
+      };
+      
+      // Manually set the overlay ref to simulate having an open overlay
+      component['overlayRef'] = mockOverlayRef as any;
 
-      const disposeSpy = jest.spyOn(component['overlayRef']!, 'dispose');
       component['closePicker']();
 
-      expect(disposeSpy).toHaveBeenCalled();
+      expect(mockOverlayRef.dispose).toHaveBeenCalled();
+      expect(component['overlayRef']).toBeNull();
     });
 
     it('should not dispose when no overlay exists', () => {

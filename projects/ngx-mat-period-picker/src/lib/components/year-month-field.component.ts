@@ -166,12 +166,11 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
       this.presentValueChange.emit(checked);
       this.onTouched();
 
-      // ONLY close when present is set to true
+      // Clear the value when present is selected, but don't close the popup
       if (checked) {
         // Clear the value when present is selected
         this.valueSignal.set(null);
         this.onChange(null);
-        this.closePicker();
       }
     });
 
