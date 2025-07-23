@@ -58,10 +58,10 @@ This will compile your project and store the build artifacts in the `dist/` dire
 
 ## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+To execute unit tests, use the following command:
 
 ```bash
-npx ng test @felixdulfer/ngx-mat-period-picker --karma-config=karma.conf.js --browsers=Firefox
+npm test
 ```
 
 ## Running end-to-end tests
