@@ -58,7 +58,7 @@ echo "Running lint..."
 npm run lint:lib
 npm run lint:app
 
-# Run tests
+# Run unittests
 echo "Running tests..."
 npm run test:ci
 
@@ -71,6 +71,10 @@ rm -f "$PACKAGE_DIR/package.json.bak"
 echo "Cleaning and rebuilding package..."
 rm -rf dist
 ng build ngx-mat-period-picker --configuration production
+
+# Run e2e tests
+echo "Running e2e tests..."
+npm run test:e2e
 
 # Commit the version change
 echo "Committing version change..."
