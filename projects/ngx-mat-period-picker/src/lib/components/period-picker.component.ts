@@ -36,7 +36,6 @@ import { Period } from '../types';
           [disabled]="false"
           [presentLabel]="presentLabel()"
           [presentValue]="form.get('present')?.value"
-          [showPresentToggle]="true"
           [baseYear]="baseYearEnd()"
           [showPresentToggle]="showPresentToggle()"
           (presentValueChange)="onPresentValueChange($event)"
