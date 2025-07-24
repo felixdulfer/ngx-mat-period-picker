@@ -6,6 +6,12 @@ import {
   signal,
   inject,
 } from '@angular/core';
+import {
+  trigger,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -20,7 +26,7 @@ import { MonthLabelService } from '../services/month-label.service';
   selector: 'ngx-mat-year-month-picker-dialog',
   standalone: true,
   template: `
-    <mat-card class="ymp-card">
+    <mat-card class="ymp-card" [@slideInOut]>
       @if (showPresentToggle()) {
         <div class="ymp-present-toggle">
           <mat-slide-toggle
@@ -172,6 +178,32 @@ import { MonthLabelService } from '../services/month-label.service';
         gap: 8px;
       }
     `,
+  ],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({
+          transform: 'scale(0.8)',
+          opacity: 0,
+        }),
+        animate(
+          '200ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+          style({
+            transform: 'scale(1)',
+            opacity: 1,
+          }),
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '150ms cubic-bezier(0.4, 0.0, 0.6, 1)',
+          style({
+            transform: 'scale(0.8)',
+            opacity: 0,
+          }),
+        ),
+      ]),
+    ]),
   ],
   providers: [
     {

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { YearMonthPickerComponent } from './year-month-picker.component';
 import { MonthLabelService } from '../services/month-label.service';
 
@@ -8,7 +9,7 @@ describe('YearMonthPickerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [YearMonthPickerComponent],
+      imports: [YearMonthPickerComponent, NoopAnimationsModule],
       providers: [MonthLabelService],
     }).compileComponents();
 
