@@ -119,6 +119,18 @@ import { MonthLabelService } from '../services/month-label.service';
           var(--mat-sys-surface-container-high)
         );
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        animation: slideInOut 200ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+      }
+      
+      @keyframes slideInOut {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
       }
       .ymp-header {
         display: flex;
