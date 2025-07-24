@@ -273,6 +273,28 @@ describe('YearMonthPickerComponent', () => {
       expect(cancelSpy).toHaveBeenCalled();
     });
 
+    it('should emit presentValueChange when clear action is called and present is true', () => {
+      const presentValueChangeSpy = jest.fn();
+      const onChangeSpy = jest.fn();
+      const onTouchedSpy = jest.fn();
+      
+      component.presentValueChange.subscribe(presentValueChangeSpy);
+      component.registerOnChange(onChangeSpy);
+      component.registerOnTouched(onTouchedSpy);
+      
+      // Set up component with present value true
+      component.valueSignal.set({ year: 2023, month: 8 });
+      component.setPresentValue(true);
+
+      component.clear();
+
+      expect(component.valueSignal()).toBeNull();
+      expect(component.presentValue()).toBe(false);
+      expect(presentValueChangeSpy).toHaveBeenCalledWith(false);
+      expect(onChangeSpy).toHaveBeenCalledWith(null);
+      expect(onTouchedSpy).toHaveBeenCalled();
+    });
+
     it('should handle ok action with year and month', () => {
       const okSpy = jest.fn();
       const onChangeSpy = jest.fn();

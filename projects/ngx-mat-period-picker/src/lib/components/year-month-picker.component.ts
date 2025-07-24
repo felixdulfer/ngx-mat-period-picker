@@ -411,6 +411,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   clear(): void {
     this.valueSignal.set(null);
     this._presentValue.set(false);
+    this.presentValueChange.emit(false);
     this.onChange(null);
     this.onTouched();
     this.cancelClicked.emit();
