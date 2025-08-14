@@ -18,8 +18,6 @@ import { Period } from '../types';
     <div
       class="period-picker-container"
       [class.full-width]="fullWidth()"
-      [class.layout-flex]="layout() === 'flex'"
-      [class.layout-grid]="layout() === 'grid'"
       [style.width]="!fullWidth() ? (typeof width() === 'number' ? width() + 'px' : width()) : '100%'"
       [formGroup]="form"
     >
@@ -72,30 +70,14 @@ import { Period } from '../types';
         flex-wrap: wrap;
       }
 
-      .period-picker-container.layout-flex .period-fields {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
-
-      .period-picker-container.layout-flex .period-fields > * {
+      .period-fields > * {
         flex: 1;
         min-width: 200px;
       }
 
-      .period-picker-container.layout-grid .period-fields {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-      }
-
-      .period-picker-container.layout-grid .period-fields > * {
-        width: 100%;
-      }
-
       @media (max-width: 768px) {
-        .period-picker-container.layout-grid .period-fields {
-          grid-template-columns: 1fr;
+        .period-fields > * {
+          flex: 1 1 100%;
         }
       }
     `,
@@ -129,7 +111,6 @@ export class PeriodPickerComponent implements ControlValueAccessor {
   // Width and layout configuration
   width = input<string | number>('auto');
   fullWidth = input<boolean>(false);
-  layout = input<'flex' | 'grid'>('flex');
   fieldWidth = input<string | number>('200px');
   fieldFullWidth = input<boolean>(false);
 

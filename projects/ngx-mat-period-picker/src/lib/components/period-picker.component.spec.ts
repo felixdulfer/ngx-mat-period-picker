@@ -37,7 +37,6 @@ describe('PeriodPickerComponent', () => {
     it('should have default width and layout values', () => {
       expect(component.width()).toBe('auto');
       expect(component.fullWidth()).toBe(false);
-      expect(component.layout()).toBe('flex');
       expect(component.fieldWidth()).toBe('200px');
       expect(component.fieldFullWidth()).toBe(false);
     });
@@ -79,14 +78,12 @@ describe('PeriodPickerComponent', () => {
 
       newFixture.componentRef.setInput('width', 600);
       newFixture.componentRef.setInput('fullWidth', true);
-      newFixture.componentRef.setInput('layout', 'grid');
       newFixture.componentRef.setInput('fieldWidth', 250);
       newFixture.componentRef.setInput('fieldFullWidth', true);
       newFixture.detectChanges();
 
       expect(newComponent.width()).toBe(600);
       expect(newComponent.fullWidth()).toBe(true);
-      expect(newComponent.layout()).toBe('grid');
       expect(newComponent.fieldWidth()).toBe(250);
       expect(newComponent.fieldFullWidth()).toBe(true);
     });

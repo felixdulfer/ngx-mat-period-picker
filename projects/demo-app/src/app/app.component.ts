@@ -168,24 +168,10 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
           startLabel="Start"
           endLabel="End"
           [width]="600"
-          [layout]="'flex'"
           [fieldWidth]="250"
         />
       </div>
       <pre>{{ form.value.fixedWidthFlex | json }}</pre>
-
-      <h3>Period Picker with Grid Layout</h3>
-      <div style="width: 500px; border: 1px solid #ccc; padding: 1rem;">
-        <ngx-mat-period-picker
-          formControlName="gridLayout"
-          startLabel="Start"
-          endLabel="End"
-          [width]="500"
-          [layout]="'grid'"
-          [fieldWidth]="200"
-        />
-      </div>
-      <pre>{{ form.value.gridLayout | json }}</pre>
 
       <h3>Period Picker with Full Width and Equal Field Widths</h3>
       <ngx-mat-period-picker
@@ -193,7 +179,6 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         startLabel="Start Date"
         endLabel="End Date"
         [fullWidth]="true"
-        [layout]="'flex'"
         [fieldFullWidth]="true"
       />
       <pre>{{ form.value.fullWidthEqual | json }}</pre>
@@ -240,7 +225,6 @@ export class AppComponent {
     customWidthField: new FormControl(null),
     fullWidthField: new FormControl(null),
     fixedWidthFlex: new FormControl(null),
-    gridLayout: new FormControl(null),
     fullWidthEqual: new FormControl(null),
   });
 }

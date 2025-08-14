@@ -83,7 +83,6 @@ export class ExampleComponent {
 | `showPresentToggle` | `boolean` | `true` | Whether to show the present toggle |
 | `width` | `string \| number` | `'auto'` | Fixed width of the period picker container |
 | `fullWidth` | `boolean` | `false` | Whether to take full container width |
-| `layout` | `'flex' \| 'grid'` | `'flex'` | Layout type for the start/end fields |
 | `fieldWidth` | `string \| number` | `'200px'` | Width of individual fields |
 | `fieldFullWidth` | `boolean` | `false` | Whether fields should take full width |
 
@@ -117,19 +116,6 @@ export class ExampleComponent {
 ```
 
 Fields are displayed side by side with equal flex distribution. Each field has a minimum width of 200px and will grow to fill available space.
-
-### Grid Layout
-
-```typescript
-<ngx-mat-period-picker
-  [layout]="'grid'"
-  [fieldWidth]="200"
-  startLabel="Start"
-  endLabel="End"
-/>
-```
-
-Fields are displayed in a CSS Grid with two equal columns. On mobile devices (max-width: 768px), fields stack vertically.
 
 ### Full Width Configuration
 
