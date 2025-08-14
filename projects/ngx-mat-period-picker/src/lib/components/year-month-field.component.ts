@@ -84,7 +84,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
 
   // Width configuration
   width = input<string | number>('200px');
-  fullWidth = input<boolean>(false);
+  fullWidth = input<boolean>(true);
 
   valueSignal = signal<YearMonth | null>(null);
   private overlayRef: OverlayRef | null = null;

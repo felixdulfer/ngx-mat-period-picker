@@ -82,9 +82,9 @@ export class ExampleComponent {
 | `baseYearEnd` | `number \| undefined` | `undefined` | Base year for end field year picker |
 | `showPresentToggle` | `boolean` | `true` | Whether to show the present toggle |
 | `width` | `string \| number` | `'auto'` | Fixed width of the period picker container |
-| `fullWidth` | `boolean` | `false` | Whether to take full container width |
+| `fullWidth` | `boolean` | `true` | Whether to take full container width |
 | `fieldWidth` | `string \| number` | `'200px'` | Width of individual fields |
-| `fieldFullWidth` | `boolean` | `false` | Whether fields should take full width |
+| `fieldFullWidth` | `boolean` | `true` | Whether fields should take full width |
 
 ### Year/Month Field Inputs
 
@@ -98,9 +98,9 @@ export class ExampleComponent {
 | `disabled` | `boolean` | `false` | Whether the field is disabled |
 | `presentLabel` | `string` | `'Present'` | Label for present value |
 | `presentValue` | `boolean` | `false` | Whether present is selected |
-| `showPresentToggle` | `boolean` | `false` | Whether to show present toggle |
+| `showPresentToggle` | `boolean` | `false` | Whether to show the present toggle |
 | `width` | `string \| number` | `'200px'` | Fixed width of the field |
-| `fullWidth` | `boolean` | `false` | Whether to take full container width |
+| `fullWidth` | `boolean` | `true` | Whether to take full container width |
 
 ## Layout Examples
 

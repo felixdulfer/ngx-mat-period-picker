@@ -36,9 +36,9 @@ describe('PeriodPickerComponent', () => {
 
     it('should have default width and layout values', () => {
       expect(component.width()).toBe('auto');
-      expect(component.fullWidth()).toBe(false);
+      expect(component.fullWidth()).toBe(true);
       expect(component.fieldWidth()).toBe('200px');
-      expect(component.fieldFullWidth()).toBe(false);
+      expect(component.fieldFullWidth()).toBe(true);
     });
 
     it('should accept custom values', () => {

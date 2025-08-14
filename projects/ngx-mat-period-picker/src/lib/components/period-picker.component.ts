@@ -110,9 +110,9 @@ export class PeriodPickerComponent implements ControlValueAccessor {
 
   // Width and layout configuration
   width = input<string | number>('auto');
-  fullWidth = input<boolean>(false);
+  fullWidth = input<boolean>(true);
   fieldWidth = input<string | number>('200px');
-  fieldFullWidth = input<boolean>(false);
+  fieldFullWidth = input<boolean>(true);
 
   form: FormGroup;
   private valueSignal = signal<Period | null>(null);

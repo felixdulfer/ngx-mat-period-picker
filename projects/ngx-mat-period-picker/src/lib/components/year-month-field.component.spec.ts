@@ -119,7 +119,7 @@ describe('YearMonthFieldComponent', () => {
   describe('Width configuration', () => {
     it('should have default width values', () => {
       expect(component.width()).toBe('200px');
-      expect(component.fullWidth()).toBe(false);
+      expect(component.fullWidth()).toBe(true);
     });
 
     it('should handle custom width input', () => {
@@ -134,7 +134,7 @@ describe('YearMonthFieldComponent', () => {
 
     it('should handle fullWidth input', () => {
       // Test that the input signal works correctly
-      expect(component.fullWidth()).toBe(false);
+      expect(component.fullWidth()).toBe(true);
     });
   });
 

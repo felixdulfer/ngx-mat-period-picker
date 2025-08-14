@@ -173,21 +173,35 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
       </div>
       <pre>{{ form.value.fixedWidthFlex | json }}</pre>
 
-      <h3>Period Picker with Full Width and Equal Field Widths</h3>
+      <h3>Period Picker with Full Width and Equal Field Widths (Default)</h3>
       <ngx-mat-period-picker
         formControlName="fullWidthEqual"
         startLabel="Start Date"
         endLabel="End Date"
-        [fullWidth]="true"
-        [fieldFullWidth]="true"
       />
       <pre>{{ form.value.fullWidthEqual | json }}</pre>
+
+      <h3>Period Picker with Fixed Width (Overriding Defaults)</h3>
+      <div style="width: 500px; border: 1px solid #ccc; padding: 1rem;">
+        <ngx-mat-period-picker
+          formControlName="fixedWidthOverride"
+          startLabel="Start"
+          endLabel="End"
+          [fullWidth]="false"
+          [width]="500"
+          [fieldFullWidth]="false"
+          [fieldWidth]="200"
+        />
+      </div>
+      <pre>{{ form.value.fixedWidthOverride | json }}</pre>
     </form>
   `,
   styles: `
     :host {
       display: block;
       padding: 2rem;
+      max-width: 720px;
+      margin: 0 auto;
     }
   `,
 })
@@ -226,5 +240,6 @@ export class AppComponent {
     fullWidthField: new FormControl(null),
     fixedWidthFlex: new FormControl(null),
     fullWidthEqual: new FormControl(null),
+    fixedWidthOverride: new FormControl(null),
   });
 }
