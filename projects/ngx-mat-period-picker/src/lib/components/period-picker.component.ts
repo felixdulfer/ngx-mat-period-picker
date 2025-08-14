@@ -56,7 +56,6 @@ import { Period } from '../types';
           [placeholder]="
             form.get('present')?.value ? presentPlaceholder : endPlaceholder
           "
-          [disabled]="false"
           [presentLabel]="presentLabel"
           [presentValue]="form.get('present')?.value"
           [baseYear]="baseYearEnd()"
