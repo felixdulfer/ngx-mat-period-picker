@@ -1,17 +1,6 @@
 # ngx-mat-period-picker
 
-A flexible Angular Material period picker component that allows users to select start and end periods with support for "present" periods.
-
-## Features
-
-- **Year/Month Selection**: Pick specific years and months or just years
-- **Period Picker**: Select start and end periods with optional "present" toggle
-- **Flexible Layouts**: Support for both flex and grid layouts
-- **Configurable Widths**: Fixed width, full width, or custom width options
-- **Base Year Configuration**: Set default year ranges for better UX
-- **Responsive Design**: Mobile-friendly with responsive breakpoints
-- **Angular Material Integration**: Built with Angular Material components
-- **Standalone Components**: Modern Angular standalone component architecture
+A Angular Material period picker component that allows users to select start and end periods with support for "present" periods.
 
 ## Installation
 
@@ -24,24 +13,17 @@ npm install ngx-mat-period-picker
 ### Basic Period Picker
 
 ```typescript
-import { PeriodPickerComponent } from 'ngx-mat-period-picker';
+import { PeriodPickerComponent } from "ngx-mat-period-picker";
 
 @Component({
-  selector: 'app-example',
-  template: `
-    <ngx-mat-period-picker
-      [(ngModel)]="period"
-      startLabel="Start Date"
-      endLabel="End Date"
-      presentLabel="Present"
-    />
-  `
+  selector: "app-example",
+  template: `<ngx-mat-period-picker [(ngModel)]="period" startLabel="Start Date" endLabel="End Date" presentLabel="Present" />`,
 })
 export class ExampleComponent {
   period = {
     start: { year: 2020, month: 3 },
     end: { year: 2023, month: 12 },
-    isPresent: false
+    isPresent: false,
   };
 }
 ```
@@ -49,17 +31,11 @@ export class ExampleComponent {
 ### Year/Month Field
 
 ```typescript
-import { YearMonthFieldComponent } from 'ngx-mat-period-picker';
+import { YearMonthFieldComponent } from "ngx-mat-period-picker";
 
 @Component({
-  selector: 'app-example',
-  template: `
-    <ngx-mat-year-month-picker
-      [(ngModel)]="date"
-      label="Select Date"
-      placeholder="Choose a date"
-    />
-  `
+  selector: "app-example",
+  template: `<ngx-mat-year-month-picker [(ngModel)]="date" label="Select Date" placeholder="Choose a date" /> `,
 })
 export class ExampleComponent {
   date = { year: 2023, month: 6 };
@@ -82,6 +58,7 @@ The `startLabel` and `endLabel` attributes are static properties that can be eas
 ### With Angular i18n
 
 1. **Mark the labels for translation:**
+
 ```typescript
 <ngx-mat-period-picker
   startLabel="Start Date"
@@ -92,11 +69,13 @@ The `startLabel` and `endLabel` attributes are static properties that can be eas
 ```
 
 2. **Extract messages:**
+
 ```bash
 ng extract-i18n --output-path src/locale
 ```
 
 3. **Translate in your locale files:**
+
 ```json
 {
   "period.start.label": "Fecha de inicio",
@@ -110,15 +89,8 @@ You can also create a custom component that extends the period picker with pre-t
 
 ```typescript
 @Component({
-  selector: 'app-translated-period-picker',
-  template: `
-    <ngx-mat-period-picker
-      [startLabel]="'Start Date'"
-      [endLabel]="'End Date'"
-      i18n-startLabel="@@period.start.label"
-      i18n-endLabel="@@period.end.label"
-    />
-  `
+  selector: "app-translated-period-picker",
+  template: ` <ngx-mat-period-picker [startLabel]="'Start Date'" [endLabel]="'End Date'" i18n-startLabel="@@period.start.label" i18n-endLabel="@@period.end.label" /> `,
 })
 export class TranslatedPeriodPickerComponent extends PeriodPickerComponent {
   // Custom logic here
@@ -129,37 +101,37 @@ export class TranslatedPeriodPickerComponent extends PeriodPickerComponent {
 
 ### Period Picker Inputs
 
-| Input | Type | Default | Description |
-|-------|------|---------|-------------|
-| `startLabel` | `string` | `'Start Period'` | Label for the start field |
-| `endLabel` | `string` | `'End Period'` | Label for the end field |
-| `presentLabel` | `string` | `'Present'` | Label for the present toggle |
-| `startPlaceholder` | `string` | `'Select start period'` | Placeholder for start field |
-| `endPlaceholder` | `string` | `'Select end period'` | Placeholder for end field |
-| `presentPlaceholder` | `string` | `'Present'` | Placeholder when present is selected |
-| `baseYearStart` | `number \| undefined` | `undefined` | Base year for start field year picker |
-| `baseYearEnd` | `number \| undefined` | `undefined` | Base year for end field year picker |
-| `showPresentToggle` | `boolean` | `true` | Whether to show the present toggle |
-| `width` | `string \| number` | `'auto'` | Fixed width of the period picker container |
-| `fullWidth` | `boolean` | `true` | Whether to take full container width (automatically false when width is set) |
-| `fieldWidth` | `string \| number` | `'200px'` | Width of individual fields |
-| `fieldFullWidth` | `boolean` | `true` | Whether fields should take full width |
+| Input                | Type                  | Default                 | Description                                                                  |
+| -------------------- | --------------------- | ----------------------- | ---------------------------------------------------------------------------- |
+| `startLabel`         | `string`              | `'Start Period'`        | Label for the start field                                                    |
+| `endLabel`           | `string`              | `'End Period'`          | Label for the end field                                                      |
+| `presentLabel`       | `string`              | `'Present'`             | Label for the present toggle                                                 |
+| `startPlaceholder`   | `string`              | `'Select start period'` | Placeholder for start field                                                  |
+| `endPlaceholder`     | `string`              | `'Select end period'`   | Placeholder for end field                                                    |
+| `presentPlaceholder` | `string`              | `'Present'`             | Placeholder when present is selected                                         |
+| `baseYearStart`      | `number \| undefined` | `undefined`             | Base year for start field year picker                                        |
+| `baseYearEnd`        | `number \| undefined` | `undefined`             | Base year for end field year picker                                          |
+| `showPresentToggle`  | `boolean`             | `true`                  | Whether to show the present toggle                                           |
+| `width`              | `string \| number`    | `'auto'`                | Fixed width of the period picker container                                   |
+| `fullWidth`          | `boolean`             | `true`                  | Whether to take full container width (automatically false when width is set) |
+| `fieldWidth`         | `string \| number`    | `'200px'`               | Width of individual fields                                                   |
+| `fieldFullWidth`     | `boolean`             | `true`                  | Whether fields should take full width                                        |
 
 ### Year/Month Field Inputs
 
-| Input | Type | Default | Description |
-|-------|------|---------|-------------|
-| `label` | `string` | `'Select Year/Month'` | Field label |
-| `placeholder` | `string` | `'Click to select'` | Field placeholder |
-| `minYear` | `number \| undefined` | `undefined` | Minimum selectable year |
-| `maxYear` | `number \| undefined` | `undefined` | Maximum selectable year |
-| `baseYear` | `number \| undefined` | `undefined` | Base year for year picker |
-| `disabled` | `boolean` | `false` | Whether the field is disabled |
-| `presentLabel` | `string` | `'Present'` | Label for present value |
-| `presentValue` | `boolean` | `false` | Whether present is selected |
-| `showPresentToggle` | `boolean` | `false` | Whether to show the present toggle |
-| `width` | `string \| number` | `'200px'` | Fixed width of the field |
-| `fullWidth` | `boolean` | `true` | Whether to take full container width (automatically false when width is set) |
+| Input               | Type                  | Default               | Description                                                                  |
+| ------------------- | --------------------- | --------------------- | ---------------------------------------------------------------------------- |
+| `label`             | `string`              | `'Select Year/Month'` | Field label                                                                  |
+| `placeholder`       | `string`              | `'Click to select'`   | Field placeholder                                                            |
+| `minYear`           | `number \| undefined` | `undefined`           | Minimum selectable year                                                      |
+| `maxYear`           | `number \| undefined` | `undefined`           | Maximum selectable year                                                      |
+| `baseYear`          | `number \| undefined` | `undefined`           | Base year for year picker                                                    |
+| `disabled`          | `boolean`             | `false`               | Whether the field is disabled                                                |
+| `presentLabel`      | `string`              | `'Present'`           | Label for present value                                                      |
+| `presentValue`      | `boolean`             | `false`               | Whether present is selected                                                  |
+| `showPresentToggle` | `boolean`             | `false`               | Whether to show the present toggle                                           |
+| `width`             | `string \| number`    | `'200px'`             | Fixed width of the field                                                     |
+| `fullWidth`         | `boolean`             | `true`                | Whether to take full container width (automatically false when width is set) |
 
 ## Width Configuration
 
@@ -174,6 +146,7 @@ When you set a `width` value (either as a number or string), the component autom
 ### Examples
 
 **Default Full Width Behavior**:
+
 ```typescript
 <ngx-mat-period-picker
   startLabel="Start Date"
@@ -182,6 +155,7 @@ When you set a `width` value (either as a number or string), the component autom
 ```
 
 **Fixed Width (Automatically Overrides fullWidth)**:
+
 ```typescript
 <ngx-mat-period-picker
   startLabel="Start"
@@ -192,6 +166,7 @@ When you set a `width` value (either as a number or string), the component autom
 ```
 
 **Explicit Override**:
+
 ```typescript
 <ngx-mat-period-picker
   startLabel="Start"
@@ -292,18 +267,18 @@ MIT License
 
 ### PeriodPickerComponent
 
-| Input | Type | Default | Description |
-|-------|------|---------|-------------|
-| `startLabel` | `string` | `'Start Period'` | Static label for the start field (supports i18n) |
-| `endLabel` | `string` | `'End Period'` | Static label for the end field (supports i18n) |
-| `presentLabel` | `string` | `'Present'` | Label for the present toggle |
-| `startPlaceholder` | `string` | `'Select start period'` | Placeholder text for start field |
-| `endPlaceholder` | `string` | `'Select end period'` | Placeholder text for end field |
-| `presentPlaceholder` | `string` | `'Present'` | Placeholder text for present field |
-| `baseYearStart` | `number \| undefined` | `undefined` | Base year for start field year picker |
-| `baseYearEnd` | `number \| undefined` | `undefined` | Base year for end field year picker |
-| `showPresentToggle` | `boolean` | `true` | Whether to show the present toggle |
-| `width` | `string \| number` | `'auto'` | Fixed width of the period picker container |
-| `fullWidth` | `boolean` | `true` | Whether to take full container width (automatically false when width is set) |
-| `fieldWidth` | `string \| number` | `'200px'` | Width of individual fields |
-| `fieldFullWidth` | `boolean` | `true` | Whether fields should take full width |
+| Input                | Type                  | Default                 | Description                                                                  |
+| -------------------- | --------------------- | ----------------------- | ---------------------------------------------------------------------------- |
+| `startLabel`         | `string`              | `'Start Period'`        | Static label for the start field (supports i18n)                             |
+| `endLabel`           | `string`              | `'End Period'`          | Static label for the end field (supports i18n)                               |
+| `presentLabel`       | `string`              | `'Present'`             | Label for the present toggle                                                 |
+| `startPlaceholder`   | `string`              | `'Select start period'` | Placeholder text for start field                                             |
+| `endPlaceholder`     | `string`              | `'Select end period'`   | Placeholder text for end field                                               |
+| `presentPlaceholder` | `string`              | `'Present'`             | Placeholder text for present field                                           |
+| `baseYearStart`      | `number \| undefined` | `undefined`             | Base year for start field year picker                                        |
+| `baseYearEnd`        | `number \| undefined` | `undefined`             | Base year for end field year picker                                          |
+| `showPresentToggle`  | `boolean`             | `true`                  | Whether to show the present toggle                                           |
+| `width`              | `string \| number`    | `'auto'`                | Fixed width of the period picker container                                   |
+| `fullWidth`          | `boolean`             | `true`                  | Whether to take full container width (automatically false when width is set) |
+| `fieldWidth`         | `string \| number`    | `'200px'`               | Width of individual fields                                                   |
+| `fieldFullWidth`     | `boolean`             | `true`                  | Whether fields should take full width                                        |

@@ -121,7 +121,7 @@ import { MonthLabelService } from '../services/month-label.service';
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         animation: slideInOut 200ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
       }
-      
+
       @keyframes slideInOut {
         from {
           transform: scale(0.8);
@@ -208,6 +208,8 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   baseYear = input<number | undefined>();
   private _showPresentToggle = signal<boolean>(false);
   showPresentToggle = this._showPresentToggle.asReadonly();
+
+  // Present label as a signal for dynamic configuration
   private _presentLabel = signal<string>('Present');
   presentLabel = this._presentLabel.asReadonly();
 
@@ -279,7 +281,7 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   writeValue(_value: YearMonth | null): void {
     this.valueSignal.set(_value);
     this.originalValue = _value;
-    
+
     // If a year is selected/pre-filled, set the currentStartYear to show the interval containing that year
     if (_value?.year) {
       this.setCurrentStartYearForYear(_value.year);
@@ -297,17 +299,17 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     // We want to find the start year of the interval that contains the target year
     // For example: year 2030 should be in interval 2028-2039, so currentStartYear should be 2028
     const minYear = this.minYear() || 1900;
-    
+
     // Find the interval that contains the target year
     // We want the year to be within the interval [startYear, startYear + yearsPerPage - 1]
     // Let's find the correct interval by checking which interval contains the year
     let newStartYear = minYear;
-    
+
     // Find the interval that contains the target year
     while (newStartYear + this.yearsPerPage <= year) {
       newStartYear += this.yearsPerPage;
     }
-    
+
     // Ensure the new start year is within valid bounds
     const maxYear = this.maxYear() || 2100;
     if (newStartYear + this.yearsPerPage <= maxYear) {
@@ -383,10 +385,6 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     this._presentValue.set(value);
   }
 
-  setPresentLabel(label: string): void {
-    this._presentLabel.set(label);
-  }
-
   setShowPresentToggle(show: boolean): void {
     this._showPresentToggle.set(show);
   }
@@ -395,6 +393,10 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
     // Update the baseYear and reinitialize if needed
     this._baseYear = year;
     this.initializeCurrentStartYear();
+  }
+
+  setPresentLabel(label: string): void {
+    this._presentLabel.set(label);
   }
 
   hasValidSelection(): boolean {

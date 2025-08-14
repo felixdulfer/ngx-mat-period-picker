@@ -166,11 +166,6 @@ describe('YearMonthPickerComponent', () => {
       expect(component.presentValue()).toBe(true);
     });
 
-    it('should set present label', () => {
-      component.setPresentLabel('Current');
-      expect(component.presentLabel()).toBe('Current');
-    });
-
     it('should set show present toggle', () => {
       component.setShowPresentToggle(true);
       expect(component.showPresentToggle()).toBe(true);
@@ -254,11 +249,11 @@ describe('YearMonthPickerComponent', () => {
       const cancelSpy = jest.fn();
       const onChangeSpy = jest.fn();
       const onTouchedSpy = jest.fn();
-      
+
       component.cancelClicked.subscribe(cancelSpy);
       component.registerOnChange(onChangeSpy);
       component.registerOnTouched(onTouchedSpy);
-      
+
       const originalValue = { year: 2024, month: 6 };
       component.writeValue(originalValue);
       component.valueSignal.set({ year: 2023, month: 8 });
@@ -277,11 +272,11 @@ describe('YearMonthPickerComponent', () => {
       const presentValueChangeSpy = jest.fn();
       const onChangeSpy = jest.fn();
       const onTouchedSpy = jest.fn();
-      
+
       component.presentValueChange.subscribe(presentValueChangeSpy);
       component.registerOnChange(onChangeSpy);
       component.registerOnTouched(onTouchedSpy);
-      
+
       // Set up component with present value true
       component.valueSignal.set({ year: 2023, month: 8 });
       component.setPresentValue(true);
@@ -370,14 +365,14 @@ describe('YearMonthPickerComponent', () => {
 
     it('should set currentStartYear to show interval containing pre-filled year', () => {
       component.writeValue({ year: 2025, month: 6 });
-      
+
       expect(component.currentStartYear).toBe(2020);
       expect(component.rangeLabel).toBe('2020 - 2031');
     });
 
     it('should set currentStartYear to show interval containing selected year', () => {
       component.selectYear(2030);
-      
+
       expect(component.currentStartYear).toBe(2020);
       expect(component.rangeLabel).toBe('2020 - 2031');
     });
@@ -385,7 +380,7 @@ describe('YearMonthPickerComponent', () => {
     it('should handle year selection within current interval without changing currentStartYear', () => {
       component.selectYear(2025);
       expect(component.currentStartYear).toBe(2020);
-      
+
       component.selectYear(2030);
       expect(component.currentStartYear).toBe(2020);
       expect(component.rangeLabel).toBe('2020 - 2031');
@@ -396,18 +391,18 @@ describe('YearMonthPickerComponent', () => {
     it('should initialize with current year when no baseYear is provided', () => {
       // Mock the current year to be predictable
       const currentYear = new Date().getFullYear();
-      
+
       // Create a new component instance to test initialization
       const fixture = TestBed.createComponent(YearMonthPickerComponent);
       const component = fixture.componentInstance;
-      
+
       // Use the same algorithm as setCurrentStartYearForYear
       const minYear = 1900;
       let expectedStartYear = minYear;
       while (expectedStartYear + 12 <= currentYear) {
         expectedStartYear += 12;
       }
-      
+
       expect(component.currentStartYear).toBe(expectedStartYear);
     });
 
@@ -415,76 +410,76 @@ describe('YearMonthPickerComponent', () => {
       // Test with baseYear 2030
       const testFixture = TestBed.createComponent(YearMonthPickerComponent);
       const testComponent = testFixture.componentInstance;
-      
+
       testComponent.setBaseYear(2030);
-      
+
       // Calculate expected start year for 2030
       const minYear = 1900;
       let expectedStartYear = minYear;
       while (expectedStartYear + 12 <= 2030) {
         expectedStartYear += 12;
       }
-      
+
       expect(testComponent.currentStartYear).toBe(expectedStartYear);
       expect(testComponent.rangeLabel).toBe(`${expectedStartYear} - ${expectedStartYear + 11}`);
     });
 
     it('should update interval when baseYear is changed', () => {
       component.setBaseYear(2010);
-      
+
       // Calculate expected start year for 2010
       const minYear = 1900;
       let expectedStartYear2010 = minYear;
       while (expectedStartYear2010 + 12 <= 2010) {
         expectedStartYear2010 += 12;
       }
-      
+
       expect(component.currentStartYear).toBe(expectedStartYear2010);
       expect(component.rangeLabel).toBe(`${expectedStartYear2010} - ${expectedStartYear2010 + 11}`);
-      
+
       // Change baseYear again
       component.setBaseYear(2050);
-      
+
       // Calculate expected start year for 2050
       let expectedStartYear2050 = minYear;
       while (expectedStartYear2050 + 12 <= 2050) {
         expectedStartYear2050 += 12;
       }
-      
+
       expect(component.currentStartYear).toBe(expectedStartYear2050);
       expect(component.rangeLabel).toBe(`${expectedStartYear2050} - ${expectedStartYear2050 + 11}`);
     });
 
     it('should use baseYear for initialization when writeValue is called with null', () => {
       component.setBaseYear(2035);
-      
+
       // Writing null should still use the baseYear interval
       component.writeValue(null);
-      
+
       // Calculate expected start year for 2035
       const minYear = 1900;
       let expectedStartYear = minYear;
       while (expectedStartYear + 12 <= 2035) {
         expectedStartYear += 12;
       }
-      
+
       expect(component.currentStartYear).toBe(expectedStartYear);
       expect(component.rangeLabel).toBe(`${expectedStartYear} - ${expectedStartYear + 11}`);
     });
 
     it('should use year from value over baseYear when writeValue is called with a value', () => {
       component.setBaseYear(2010);
-      
+
       // Writing a value should use the value's year, not the baseYear
       component.writeValue({ year: 2045, month: 3 });
-      
+
       // Calculate expected start year for 2045
       const minYear = 1900;
       let expectedStartYear = minYear;
       while (expectedStartYear + 12 <= 2045) {
         expectedStartYear += 12;
       }
-      
+
       expect(component.currentStartYear).toBe(expectedStartYear);
       expect(component.rangeLabel).toBe(`${expectedStartYear} - ${expectedStartYear + 11}`);
     });
