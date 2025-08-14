@@ -23,8 +23,8 @@ describe('PeriodPickerComponent', () => {
 
   describe('Input signals', () => {
     it('should have default values', () => {
-      expect(component.startLabel()).toBe('Start Period');
-      expect(component.endLabel()).toBe('End Period');
+      expect(component.startLabel).toBe('Start Period');
+      expect(component.endLabel).toBe('End Period');
       expect(component.presentLabel()).toBe('Present');
       expect(component.startPlaceholder()).toBe('Select start period');
       expect(component.endPlaceholder()).toBe('Select end period');
@@ -52,8 +52,8 @@ describe('PeriodPickerComponent', () => {
 
     it('should accept custom values', () => {
       // Test that input signals work correctly
-      expect(component.startLabel()).toBe('Start Period');
-      expect(component.endLabel()).toBe('End Period');
+      expect(component.startLabel).toBe('Start Period');
+      expect(component.endLabel).toBe('End Period');
       expect(component.presentLabel()).toBe('Present');
     });
 

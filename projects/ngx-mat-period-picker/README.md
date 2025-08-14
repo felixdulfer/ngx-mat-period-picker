@@ -66,6 +66,65 @@ export class ExampleComponent {
 }
 ```
 
+## Internationalization (i18n)
+
+The `startLabel` and `endLabel` attributes are static properties that can be easily translated using Angular's built-in i18n solution.
+
+### Basic Usage with i18n
+
+```typescript
+<ngx-mat-period-picker
+  startLabel="Start Date"
+  endLabel="End Date"
+/>
+```
+
+### With Angular i18n
+
+1. **Mark the labels for translation:**
+```typescript
+<ngx-mat-period-picker
+  startLabel="Start Date"
+  endLabel="End Date"
+  i18n-startLabel="@@period.start.label"
+  i18n-endLabel="@@period.end.label"
+/>
+```
+
+2. **Extract messages:**
+```bash
+ng extract-i18n --output-path src/locale
+```
+
+3. **Translate in your locale files:**
+```json
+{
+  "period.start.label": "Fecha de inicio",
+  "period.end.label": "Fecha de fin"
+}
+```
+
+### Custom Component with Translated Labels
+
+You can also create a custom component that extends the period picker with pre-translated labels:
+
+```typescript
+@Component({
+  selector: 'app-translated-period-picker',
+  template: `
+    <ngx-mat-period-picker
+      [startLabel]="'Start Date'"
+      [endLabel]="'End Date'"
+      i18n-startLabel="@@period.start.label"
+      i18n-endLabel="@@period.end.label"
+    />
+  `
+})
+export class TranslatedPeriodPickerComponent extends PeriodPickerComponent {
+  // Custom logic here
+}
+```
+
 ## Configuration Options
 
 ### Period Picker Inputs
@@ -228,3 +287,23 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and contribution gu
 ## License
 
 MIT License
+
+## API Reference
+
+### PeriodPickerComponent
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `startLabel` | `string` | `'Start Period'` | Static label for the start field (supports i18n) |
+| `endLabel` | `string` | `'End Period'` | Static label for the end field (supports i18n) |
+| `presentLabel` | `string` | `'Present'` | Label for the present toggle |
+| `startPlaceholder` | `string` | `'Select start period'` | Placeholder text for start field |
+| `endPlaceholder` | `string` | `'Select end period'` | Placeholder text for end field |
+| `presentPlaceholder` | `string` | `'Present'` | Placeholder text for present field |
+| `baseYearStart` | `number \| undefined` | `undefined` | Base year for start field year picker |
+| `baseYearEnd` | `number \| undefined` | `undefined` | Base year for end field year picker |
+| `showPresentToggle` | `boolean` | `true` | Whether to show the present toggle |
+| `width` | `string \| number` | `'auto'` | Fixed width of the period picker container |
+| `fullWidth` | `boolean` | `true` | Whether to take full container width (automatically false when width is set) |
+| `fieldWidth` | `string \| number` | `'200px'` | Width of individual fields |
+| `fieldFullWidth` | `boolean` | `true` | Whether fields should take full width |

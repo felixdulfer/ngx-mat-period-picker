@@ -1,4 +1,13 @@
-import { Component, forwardRef, input, signal, effect, computed } from '@angular/core';
+import {
+  Component,
+  forwardRef,
+  input,
+  signal,
+  effect,
+  computed,
+  inject,
+  HostAttributeToken,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -18,13 +27,19 @@ import { Period } from '../types';
     <div
       class="period-picker-container"
       [class.full-width]="computedFullWidth()"
-      [style.width]="!computedFullWidth() ? (typeof width() === 'number' ? width() + 'px' : width()) : '100%'"
+      [style.width]="
+        !computedFullWidth()
+          ? typeof width() === 'number'
+            ? width() + 'px'
+            : width()
+          : '100%'
+      "
       [formGroup]="form"
     >
       <div class="period-fields">
         <ngx-mat-year-month-picker
           formControlName="start"
-          [label]="startLabel()"
+          [label]="startLabel"
           [placeholder]="startPlaceholder()"
           [presentLabel]="presentLabel()"
           [presentValue]="false"
@@ -36,7 +51,7 @@ import { Period } from '../types';
 
         <ngx-mat-year-month-picker
           formControlName="end"
-          [label]="endLabel()"
+          [label]="endLabel"
           [placeholder]="
             form.get('present')?.value ? presentPlaceholder() : endPlaceholder()
           "
@@ -97,9 +112,15 @@ import { Period } from '../types';
   ],
 })
 export class PeriodPickerComponent implements ControlValueAccessor {
+  startLabel = inject(new HostAttributeToken('startLabel'), {
+    optional: true,
+  }) || 'Start Period';
+
+  endLabel = inject(new HostAttributeToken('endLabel'), {
+    optional: true,
+  }) || 'End Period';
+
   // Configurable labels
-  startLabel = input<string>('Start Period');
-  endLabel = input<string>('End Period');
   presentLabel = input<string>('Present');
   startPlaceholder = input<string>('Select start period');
   endPlaceholder = input<string>('Select end period');
