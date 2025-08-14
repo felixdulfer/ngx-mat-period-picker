@@ -26,6 +26,8 @@ import { DisplayFormatService } from '../services/display-format.service';
     <mat-form-field
       appearance="outline"
       class="year-month-field"
+      [class.full-width]="fullWidth()"
+      [style.width]="!fullWidth() ? (typeof width() === 'number' ? width() + 'px' : width()) : '100%'"
       #fieldRef
       (click)="openPicker($event)"
     >
@@ -45,6 +47,11 @@ import { DisplayFormatService } from '../services/display-format.service';
     `
       .year-month-field {
         min-width: 200px;
+      }
+
+      .year-month-field.full-width {
+        width: 100% !important;
+        min-width: unset;
       }
 
       .calendar-icon {
@@ -75,6 +82,10 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   showPresentToggle = input<boolean>(false);
   presentValueChange = output<boolean>();
 
+  // Width configuration
+  width = input<string | number>('200px');
+  fullWidth = input<boolean>(false);
+
   valueSignal = signal<YearMonth | null>(null);
   private overlayRef: OverlayRef | null = null;
 
@@ -96,12 +107,12 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
 
     // Get the clicked mat-form-field element
     const formFieldElement = event.currentTarget as HTMLElement;
-    
+
     // Safety check for null currentTarget (e.g., in tests)
     if (!formFieldElement) {
       return;
     }
-    
+
     // Find the text field wrapper within the form field for more precise positioning
     const textFieldWrapper = formFieldElement.querySelector('.mat-mdc-text-field-wrapper');
     const targetElement = textFieldWrapper || formFieldElement;
@@ -143,7 +154,7 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     pickerRef.instance.setPresentLabel(this.presentLabel());
     pickerRef.instance.setPresentValue(this.presentValue());
     pickerRef.instance.setShowPresentToggle(this.showPresentToggle());
-    
+
     // Set the baseYear if provided
     if (this.baseYear() !== undefined) {
       pickerRef.instance.setBaseYear(this.baseYear());

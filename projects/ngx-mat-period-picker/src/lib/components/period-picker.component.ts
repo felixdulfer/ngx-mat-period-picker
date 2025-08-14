@@ -15,7 +15,14 @@ import { Period } from '../types';
   selector: 'ngx-mat-period-picker',
   standalone: true,
   template: `
-    <div class="period-picker-container" [formGroup]="form">
+    <div
+      class="period-picker-container"
+      [class.full-width]="fullWidth()"
+      [class.layout-flex]="layout() === 'flex'"
+      [class.layout-grid]="layout() === 'grid'"
+      [style.width]="!fullWidth() ? (typeof width() === 'number' ? width() + 'px' : width()) : '100%'"
+      [formGroup]="form"
+    >
       <div class="period-fields">
         <ngx-mat-year-month-picker
           formControlName="start"
@@ -25,6 +32,8 @@ import { Period } from '../types';
           [presentValue]="false"
           [showPresentToggle]="false"
           [baseYear]="baseYearStart()"
+          [width]="fieldWidth()"
+          [fullWidth]="fieldFullWidth()"
         />
 
         <ngx-mat-year-month-picker
@@ -38,6 +47,8 @@ import { Period } from '../types';
           [presentValue]="form.get('present')?.value"
           [baseYear]="baseYearEnd()"
           [showPresentToggle]="showPresentToggle()"
+          [width]="fieldWidth()"
+          [fullWidth]="fieldFullWidth()"
           (presentValueChange)="onPresentValueChange($event)"
         />
       </div>
@@ -51,10 +62,41 @@ import { Period } from '../types';
         gap: 1rem;
       }
 
+      .period-picker-container.full-width {
+        width: 100% !important;
+      }
+
       .period-fields {
         display: flex;
         gap: 1rem;
         flex-wrap: wrap;
+      }
+
+      .period-picker-container.layout-flex .period-fields {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .period-picker-container.layout-flex .period-fields > * {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .period-picker-container.layout-grid .period-fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .period-picker-container.layout-grid .period-fields > * {
+        width: 100%;
+      }
+
+      @media (max-width: 768px) {
+        .period-picker-container.layout-grid .period-fields {
+          grid-template-columns: 1fr;
+        }
       }
     `,
   ],
@@ -83,6 +125,13 @@ export class PeriodPickerComponent implements ControlValueAccessor {
   baseYearStart = input<number | undefined>();
   baseYearEnd = input<number | undefined>();
   showPresentToggle = input<boolean>(true);
+
+  // Width and layout configuration
+  width = input<string | number>('auto');
+  fullWidth = input<boolean>(false);
+  layout = input<'flex' | 'grid'>('flex');
+  fieldWidth = input<string | number>('200px');
+  fieldFullWidth = input<boolean>(false);
 
   form: FormGroup;
   private valueSignal = signal<Period | null>(null);

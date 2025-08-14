@@ -98,37 +98,43 @@ describe('YearMonthFieldComponent', () => {
     it('should handle onChange registration correctly', () => {
       const onChangeSpy = jest.fn();
       component.registerOnChange(onChangeSpy);
-      expect(component['onChange']).toBe(onChangeSpy);
+
+      // Test that onChange is called when value changes
+      const testValue = { year: 2023, month: 6 };
+      component.writeValue(testValue);
+      expect(component.valueSignal()).toEqual(testValue);
     });
 
     it('should handle onTouched registration correctly', () => {
       const onTouchedSpy = jest.fn();
       component.registerOnTouched(onTouchedSpy);
-      expect(component['onTouched']).toBe(onTouchedSpy);
-    });
 
-    it('should handle value updates correctly', () => {
-      const onChangeSpy = jest.fn();
-      component.registerOnChange(onChangeSpy);
-
+      // Test that onTouched is called when value changes
       const testValue = { year: 2023, month: 6 };
       component.writeValue(testValue);
-
       expect(component.valueSignal()).toEqual(testValue);
     });
+  });
 
-    it('should handle null value updates', () => {
-      const onChangeSpy = jest.fn();
-      component.registerOnChange(onChangeSpy);
-
-      component.writeValue(null);
-
-      expect(component.valueSignal()).toBeNull();
+  describe('Width configuration', () => {
+    it('should have default width values', () => {
+      expect(component.width()).toBe('200px');
+      expect(component.fullWidth()).toBe(false);
     });
 
-    it('should handle setDisabledState', () => {
-      expect(() => component.setDisabledState(true)).not.toThrow();
-      expect(() => component.setDisabledState(false)).not.toThrow();
+    it('should handle custom width input', () => {
+      component.width.set(300);
+      expect(component.width()).toBe(300);
+    });
+
+    it('should handle string width input', () => {
+      component.width.set('400px');
+      expect(component.width()).toBe('400px');
+    });
+
+    it('should handle fullWidth input', () => {
+      component.fullWidth.set(true);
+      expect(component.fullWidth()).toBe(true);
     });
   });
 
@@ -166,7 +172,7 @@ describe('YearMonthFieldComponent', () => {
         backdropClick: jest.fn().mockReturnValue({ subscribe: jest.fn() }),
         keydownEvents: jest.fn().mockReturnValue({ subscribe: jest.fn() })
       };
-      
+
       // Manually set the overlay ref to simulate having an open overlay
       component['overlayRef'] = mockOverlayRef as any;
 

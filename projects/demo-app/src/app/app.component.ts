@@ -140,6 +140,63 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
       />
       <pre>{{ form.value.singleBaseYear1995 | json }}</pre>
       <p><small>When you click above, the year picker will show an interval containing 1995.</small></p>
+
+      <h2>Width and Layout Configuration Examples</h2>
+
+      <h3>Year/Month Field with Custom Width</h3>
+      <ngx-mat-year-month-picker
+        formControlName="customWidthField"
+        label="Custom Width"
+        placeholder="300px width"
+        [width]="300"
+      />
+      <pre>{{ form.value.customWidthField | json }}</pre>
+
+      <h3>Year/Month Field with Full Width</h3>
+      <ngx-mat-year-month-picker
+        formControlName="fullWidthField"
+        label="Full Width"
+        placeholder="Takes full container width"
+        [fullWidth]="true"
+      />
+      <pre>{{ form.value.fullWidthField | json }}</pre>
+
+      <h3>Period Picker with Fixed Width and Flex Layout</h3>
+      <div style="width: 600px; border: 1px solid #ccc; padding: 1rem;">
+        <ngx-mat-period-picker
+          formControlName="fixedWidthFlex"
+          startLabel="Start"
+          endLabel="End"
+          [width]="600"
+          [layout]="'flex'"
+          [fieldWidth]="250"
+        />
+      </div>
+      <pre>{{ form.value.fixedWidthFlex | json }}</pre>
+
+      <h3>Period Picker with Grid Layout</h3>
+      <div style="width: 500px; border: 1px solid #ccc; padding: 1rem;">
+        <ngx-mat-period-picker
+          formControlName="gridLayout"
+          startLabel="Start"
+          endLabel="End"
+          [width]="500"
+          [layout]="'grid'"
+          [fieldWidth]="200"
+        />
+      </div>
+      <pre>{{ form.value.gridLayout | json }}</pre>
+
+      <h3>Period Picker with Full Width and Equal Field Widths</h3>
+      <ngx-mat-period-picker
+        formControlName="fullWidthEqual"
+        startLabel="Start Date"
+        endLabel="End Date"
+        [fullWidth]="true"
+        [layout]="'flex'"
+        [fieldFullWidth]="true"
+      />
+      <pre>{{ form.value.fullWidthEqual | json }}</pre>
     </form>
   `,
   styles: `
@@ -180,5 +237,10 @@ export class AppComponent {
     baseYear2035: new FormControl(null),
     differentBaseYears: new FormControl(null),
     singleBaseYear1995: new FormControl(null),
+    customWidthField: new FormControl(null),
+    fullWidthField: new FormControl(null),
+    fixedWidthFlex: new FormControl(null),
+    gridLayout: new FormControl(null),
+    fullWidthEqual: new FormControl(null),
   });
 }
