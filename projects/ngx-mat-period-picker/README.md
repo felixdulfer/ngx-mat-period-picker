@@ -82,7 +82,7 @@ export class ExampleComponent {
 | `baseYearEnd` | `number \| undefined` | `undefined` | Base year for end field year picker |
 | `showPresentToggle` | `boolean` | `true` | Whether to show the present toggle |
 | `width` | `string \| number` | `'auto'` | Fixed width of the period picker container |
-| `fullWidth` | `boolean` | `true` | Whether to take full container width |
+| `fullWidth` | `boolean` | `true` | Whether to take full container width (automatically false when width is set) |
 | `fieldWidth` | `string \| number` | `'200px'` | Width of individual fields |
 | `fieldFullWidth` | `boolean` | `true` | Whether fields should take full width |
 
@@ -100,7 +100,47 @@ export class ExampleComponent {
 | `presentValue` | `boolean` | `false` | Whether present is selected |
 | `showPresentToggle` | `boolean` | `false` | Whether to show the present toggle |
 | `width` | `string \| number` | `'200px'` | Fixed width of the field |
-| `fullWidth` | `boolean` | `true` | Whether to take full container width |
+| `fullWidth` | `boolean` | `true` | Whether to take full container width (automatically false when width is set) |
+
+## Width Configuration
+
+### Automatic Behavior
+
+When you set a `width` value (either as a number or string), the component automatically sets `fullWidth` to `false`. This ensures that:
+
+- **Fixed Width**: When you specify a width, the component respects that exact width
+- **Full Width**: When width is `'auto'` (default), the component uses the `fullWidth` setting
+- **Smart Defaults**: No need to manually coordinate width and fullWidth settings
+
+### Examples
+
+**Default Full Width Behavior**:
+```typescript
+<ngx-mat-period-picker
+  startLabel="Start Date"
+  endLabel="End Date"
+/>
+```
+
+**Fixed Width (Automatically Overrides fullWidth)**:
+```typescript
+<ngx-mat-period-picker
+  startLabel="Start"
+  endLabel="End"
+  [width]="500"
+  // fullWidth automatically becomes false
+/>
+```
+
+**Explicit Override**:
+```typescript
+<ngx-mat-period-picker
+  startLabel="Start"
+  endLabel="End"
+  [width]="500"
+  [fullWidth]="true" // This will be ignored when width is set
+/>
+```
 
 ## Layout Examples
 

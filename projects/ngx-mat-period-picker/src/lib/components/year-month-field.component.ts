@@ -7,6 +7,7 @@ import {
   output,
   signal,
   inject,
+  computed,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,8 +27,8 @@ import { DisplayFormatService } from '../services/display-format.service';
     <mat-form-field
       appearance="outline"
       class="year-month-field"
-      [class.full-width]="fullWidth()"
-      [style.width]="!fullWidth() ? (typeof width() === 'number' ? width() + 'px' : width()) : '100%'"
+      [class.full-width]="computedFullWidth()"
+      [style.width]="!computedFullWidth() ? (typeof width() === 'number' ? width() + 'px' : width()) : '100%'"
       #fieldRef
       (click)="openPicker($event)"
     >
@@ -85,6 +86,12 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   // Width configuration
   width = input<string | number>('200px');
   fullWidth = input<boolean>(true);
+
+  // Computed fullWidth that automatically becomes false when width is set
+  computedFullWidth = computed(() => {
+    const widthValue = this.width();
+    return widthValue === '200px' ? this.fullWidth() : false;
+  });
 
   valueSignal = signal<YearMonth | null>(null);
   private overlayRef: OverlayRef | null = null;

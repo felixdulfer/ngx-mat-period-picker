@@ -18,15 +18,18 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
     <h1>ngx-mat-period-picker Demo</h1>
     <form [formGroup]="form">
       <h2>Year/Month Picker (Original)</h2>
-      <ngx-mat-year-month-picker formControlName="yearMonth" />
+      <ngx-mat-year-month-picker formControlName="yearMonth" [width]="250" />
       <pre>{{ form.value.yearMonth | json }}</pre>
 
       <h2>Year/Month Field (New Text Field)</h2>
-      <ngx-mat-year-month-picker formControlName="yearMonthField" />
+      <ngx-mat-year-month-picker
+        formControlName="yearMonthField"
+        [width]="250"
+      />
       <pre>{{ form.value.yearMonthField | json }}</pre>
 
       <h2>Period Picker (Default Labels)</h2>
-      <ngx-mat-period-picker formControlName="period" />
+      <ngx-mat-period-picker formControlName="period" [width]="400" />
       <pre>{{ form.value.period | json }}</pre>
 
       <h2>Period Picker (Employment Example)</h2>
@@ -39,6 +42,7 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         endPlaceholder="When did you end?"
         presentPlaceholder="Still working here"
         [showPresentToggle]="true"
+        [width]="400"
       />
       <pre>{{ form.value.customPeriod | json }}</pre>
 
@@ -52,6 +56,7 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         endPlaceholder="Select graduation date"
         presentPlaceholder="Still studying"
         [showPresentToggle]="false"
+        [width]="400"
       />
       <pre>{{ form.value.educationPeriod | json }}</pre>
 
@@ -63,6 +68,7 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         startLabel="Start Date"
         endLabel="End Date"
         presentLabel="Present"
+        [width]="400"
       />
       <pre>{{ form.value.completePeriod | json }}</pre>
 
@@ -72,6 +78,7 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         startLabel="Start Date"
         endLabel="End Date"
         presentLabel="Present"
+        [width]="400"
       />
       <pre>{{ form.value.currentPeriod | json }}</pre>
 
@@ -81,6 +88,7 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         startLabel="Start Year"
         endLabel="End Year"
         presentLabel="Present"
+        [width]="400"
       />
       <pre>{{ form.value.yearOnlyPeriod | json }}</pre>
 
@@ -90,6 +98,7 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         startLabel="Start Date"
         endLabel="End Year"
         presentLabel="Present"
+        [width]="400"
       />
       <pre>{{ form.value.mixedPeriod | json }}</pre>
 
@@ -103,9 +112,15 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         presentLabel="Present"
         [baseYearStart]="2010"
         [baseYearEnd]="2010"
+        [width]="400"
       />
       <pre>{{ form.value.baseYear2010 | json }}</pre>
-      <p><small>When you click on empty fields above, the year picker will show an interval containing 2010.</small></p>
+      <p>
+        <small
+          >When you click on empty fields above, the year picker will show an
+          interval containing 2010.</small
+        >
+      </p>
 
       <h3>Period Picker with Base Year 2035</h3>
       <ngx-mat-period-picker
@@ -115,9 +130,15 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         presentLabel="Present"
         [baseYearStart]="2035"
         [baseYearEnd]="2035"
+        [width]="400"
       />
       <pre>{{ form.value.baseYear2035 | json }}</pre>
-      <p><small>When you click on empty fields above, the year picker will show an interval containing 2035.</small></p>
+      <p>
+        <small
+          >When you click on empty fields above, the year picker will show an
+          interval containing 2035.</small
+        >
+      </p>
 
       <h3>Period Picker with Different Base Years</h3>
       <ngx-mat-period-picker
@@ -127,9 +148,15 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         presentLabel="Still Working"
         [baseYearStart]="1990"
         [baseYearEnd]="2070"
+        [width]="400"
       />
       <pre>{{ form.value.differentBaseYears | json }}</pre>
-      <p><small>Start field shows 1984-1995 interval (for birth years), End field shows 2068-2079 interval (for retirement years).</small></p>
+      <p>
+        <small
+          >Start field shows 1984-1995 interval (for birth years), End field
+          shows 2068-2079 interval (for retirement years).</small
+        >
+      </p>
 
       <h3>Single Year/Month Field with Base Year 1995</h3>
       <ngx-mat-year-month-picker
@@ -137,9 +164,15 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         label="Historical Date"
         placeholder="Select historical year/month"
         [baseYear]="1995"
+        [width]="250"
       />
       <pre>{{ form.value.singleBaseYear1995 | json }}</pre>
-      <p><small>When you click above, the year picker will show an interval containing 1995.</small></p>
+      <p>
+        <small
+          >When you click above, the year picker will show an interval
+          containing 1995.</small
+        >
+      </p>
 
       <h2>Width and Layout Configuration Examples</h2>
 
@@ -161,18 +194,6 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
       />
       <pre>{{ form.value.fullWidthField | json }}</pre>
 
-      <h3>Period Picker with Fixed Width and Flex Layout</h3>
-      <div style="width: 600px; border: 1px solid #ccc; padding: 1rem;">
-        <ngx-mat-period-picker
-          formControlName="fixedWidthFlex"
-          startLabel="Start"
-          endLabel="End"
-          [width]="600"
-          [fieldWidth]="250"
-        />
-      </div>
-      <pre>{{ form.value.fixedWidthFlex | json }}</pre>
-
       <h3>Period Picker with Full Width and Equal Field Widths (Default)</h3>
       <ngx-mat-period-picker
         formControlName="fullWidthEqual"
@@ -180,20 +201,6 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         endLabel="End Date"
       />
       <pre>{{ form.value.fullWidthEqual | json }}</pre>
-
-      <h3>Period Picker with Fixed Width (Overriding Defaults)</h3>
-      <div style="width: 500px; border: 1px solid #ccc; padding: 1rem;">
-        <ngx-mat-period-picker
-          formControlName="fixedWidthOverride"
-          startLabel="Start"
-          endLabel="End"
-          [fullWidth]="false"
-          [width]="500"
-          [fieldFullWidth]="false"
-          [fieldWidth]="200"
-        />
-      </div>
-      <pre>{{ form.value.fixedWidthOverride | json }}</pre>
     </form>
   `,
   styles: `

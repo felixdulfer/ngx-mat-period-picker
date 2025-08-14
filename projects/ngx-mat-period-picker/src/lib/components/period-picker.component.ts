@@ -1,4 +1,4 @@
-import { Component, forwardRef, input, signal, effect } from '@angular/core';
+import { Component, forwardRef, input, signal, effect, computed } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -17,8 +17,8 @@ import { Period } from '../types';
   template: `
     <div
       class="period-picker-container"
-      [class.full-width]="fullWidth()"
-      [style.width]="!fullWidth() ? (typeof width() === 'number' ? width() + 'px' : width()) : '100%'"
+      [class.full-width]="computedFullWidth()"
+      [style.width]="!computedFullWidth() ? (typeof width() === 'number' ? width() + 'px' : width()) : '100%'"
       [formGroup]="form"
     >
       <div class="period-fields">
@@ -72,7 +72,7 @@ import { Period } from '../types';
 
       .period-fields > * {
         flex: 1;
-        min-width: 200px;
+        min-width: 100px;
       }
 
       @media (max-width: 768px) {
@@ -113,6 +113,12 @@ export class PeriodPickerComponent implements ControlValueAccessor {
   fullWidth = input<boolean>(true);
   fieldWidth = input<string | number>('200px');
   fieldFullWidth = input<boolean>(true);
+
+  // Computed fullWidth that automatically becomes false when width is set
+  computedFullWidth = computed(() => {
+    const widthValue = this.width();
+    return widthValue === 'auto' ? this.fullWidth() : false;
+  });
 
   form: FormGroup;
   private valueSignal = signal<Period | null>(null);
