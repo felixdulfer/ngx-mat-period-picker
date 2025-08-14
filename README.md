@@ -114,9 +114,9 @@ For detailed documentation, API reference, and examples, see the [library README
 
 Try the component in your browser:
 
-- [GitHub Pages Demo](https://felixdulfer.github.io/ngx-mat-period-picker/) (Coming Soon)
-- [StackBlitz Demo](https://stackblitz.com/edit/angular-ngx-mat-period-picker-demo) (Coming Soon)
-- [CodeSandbox Demo](https://codesandbox.io/s/angular-ngx-mat-period-picker-demo) (Coming Soon)
+- [GitHub Pages Demo](https://felixdulfer.github.io/ngx-mat-period-picker/)
+- [StackBlitz Demo](https://stackblitz.com/edit/angular-ngx-mat-period-picker-demo) (TBD)
+- [CodeSandbox Demo](https://codesandbox.io/s/angular-ngx-mat-period-picker-demo) (TBD)
 
 ## 🔬 PR Preview Environments
 
@@ -129,10 +129,7 @@ The preview environment is automatically updated whenever you push new commits t
 
 ## 🚀 Deployment
 
-For deployment instructions, see:
-
-- [Quick Deployment Guide](QUICK_DEPLOY.md) - Fast deployment steps
-- [Full Deployment Guide](DEPLOYMENT.md) - Comprehensive deployment instructions
+Run `./deploy.sh`.
 
 ## Additional Resources
 
