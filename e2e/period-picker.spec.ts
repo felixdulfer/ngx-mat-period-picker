@@ -55,12 +55,12 @@ test.describe('Demo App: NgxMatPeriodPicker', () => {
   });
 
   test('should display translated button labels correctly', async ({ page }) => {
-    // Find the German period picker example by looking for the heading first
+    // Find the German period picker by looking for the specific heading
     const germanHeading = page.getByRole('heading', { name: 'Period Picker with Translated Buttons (German)' });
     await expect(germanHeading).toBeVisible();
 
-    // Then find the period picker that follows this heading
-    const germanPeriodPicker = germanHeading.locator('xpath=../..').locator('ngx-mat-period-picker').first();
+    // Find the period picker that follows this heading
+    const germanPeriodPicker = page.locator('ngx-mat-period-picker').filter({ hasText: 'Startdatum' }).first();
     await expect(germanPeriodPicker).toBeVisible();
 
     // Target the first ngx-mat-year-month-picker within the German period picker
@@ -73,7 +73,13 @@ test.describe('Demo App: NgxMatPeriodPicker', () => {
     const picker = page.locator('ngx-mat-year-month-picker-dialog');
     await expect(picker).toBeVisible();
 
-    // Verify that the button labels are translated to German
+    // Select a year first
+    await picker.getByRole('button', { name: '2023' }).click();
+
+    // Select a month
+    await picker.getByRole('button', { name: 'Jan' }).click();
+
+    // Now the button should be enabled and we can verify the translated labels
     await expect(picker.getByRole('button', { name: 'Bestätigen' })).toBeVisible();
     await expect(picker.getByRole('button', { name: 'Löschen' })).toBeVisible();
 

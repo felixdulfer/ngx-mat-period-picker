@@ -1,6 +1,6 @@
 {
   "name": "@felixdulfer/ngx-mat-period-picker",
-  "version": "0.12.2",
+  "version": "0.13.0",
   "description": "A modern Angular Material period picker component built with standalone components",
   "keywords": [
     "angular",
