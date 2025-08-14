@@ -46,6 +46,58 @@ export class ExampleComponent {
 
 The `startLabel` and `endLabel` attributes are static properties that can be easily translated using Angular's built-in i18n solution.
 
+### Global Locale Configuration
+
+The library automatically uses Angular's configured locale (`LOCALE_ID` or `$localize.locale`) by default. You can also override this with custom locale configuration if needed.
+
+#### Basic Usage
+
+**Automatic (Recommended):** The library automatically uses Angular's configured locale.
+
+```typescript
+// In your app.config.ts or main.ts
+import { LOCALE_ID } from '@angular/core';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    { provide: LOCALE_ID, useValue: 'de-DE' }  // German locale
+  ]
+});
+```
+
+**Manual Override:** You can also override the locale explicitly:
+
+```typescript
+import { provideNgxMatPeriodPicker } from 'ngx-mat-period-picker';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideNgxMatPeriodPicker({
+      locale: 'de-DE'  // Override to German locale
+    })
+  ]
+});
+```
+
+#### Supported Locales
+
+The library supports all locales that the browser's `Intl` API supports, including:
+- `en-US` - English (United States)
+- `de-DE` - German (Germany) 
+- `es-ES` - Spanish (Spain)
+- `fr-FR` - French (France)
+- `it-IT` - Italian (Italy)
+- And many more...
+
+#### What Gets Localized
+
+When you configure a locale:
+- Month names in picker dialogs (Jan, Feb, Mär, Apr...)
+- Date formatting in display fields
+- Month labels throughout components
+
+For detailed configuration options, see [Locale Configuration](LOCALE_CONFIGURATION.md).
+
 ### Basic Usage with i18n
 
 ```typescript

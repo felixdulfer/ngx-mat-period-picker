@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { YearMonth } from '../types';
+import { LocaleService } from './locale.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DisplayFormatService {
+  private localeService = inject(LocaleService);
+
   /**
    * Format YearMonth value for display in text fields
    * @param value YearMonth value or null
@@ -16,7 +19,7 @@ export class DisplayFormatService {
     if (!value.month) return `${value.year}`;
 
     const date = new Date(value.year, value.month - 1, 1);
-    return date.toLocaleDateString(undefined, {
+    return date.toLocaleDateString(this.localeService.getEffectiveLocale(), {
       year: 'numeric',
       month: 'long',
     });
@@ -26,7 +29,6 @@ export class DisplayFormatService {
    * Format a specific year and month for display
    * @param year Year number
    * @param month Month number (1-12)
-   * @returns Formatted string for display
    */
   formatYearMonthDisplay(year: number, month: number): string {
     if (month < 1 || month > 12) {
@@ -34,7 +36,7 @@ export class DisplayFormatService {
     }
 
     const date = new Date(year, month - 1, 1);
-    return date.toLocaleDateString(undefined, {
+    return date.toLocaleDateString(this.localeService.getEffectiveLocale(), {
       year: 'numeric',
       month: 'long',
     });

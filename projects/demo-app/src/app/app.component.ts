@@ -16,6 +16,10 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
   ],
   template: `
     <h1>ngx-mat-period-picker Demo</h1>
+    <div class="locale-info">
+      <p><strong>Current Locale:</strong> Using Angular's configured locale</p>
+      <p><em>The library automatically uses Angular's LOCALE_ID or $localize.locale. Month names and date formatting will be displayed in the configured language.</em></p>
+    </div>
     <form [formGroup]="form">
       <h2>Year/Month Picker (Original)</h2>
       <ngx-mat-year-month-picker formControlName="yearMonth" [width]="250" />
@@ -252,6 +256,18 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
       padding: 2rem;
       max-width: 720px;
       margin: 0 auto;
+    }
+
+    .locale-info {
+      background: #e3f2fd;
+      border: 1px solid #2196f3;
+      border-radius: 4px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .locale-info p {
+      margin: 0.5rem 0;
     }
   `,
 })

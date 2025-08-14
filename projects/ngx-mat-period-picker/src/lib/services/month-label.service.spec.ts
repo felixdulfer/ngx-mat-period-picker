@@ -1,12 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { MonthLabelService } from './month-label.service';
+import { LocaleService } from './locale.service';
 
 describe('MonthLabelService', () => {
   let service: MonthLabelService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MonthLabelService],
+      providers: [
+        MonthLabelService,
+        {
+          provide: LocaleService,
+          useValue: {
+            getEffectiveLocale: () => undefined // Use browser default for tests
+          }
+        }
+      ],
     });
     service = TestBed.inject(MonthLabelService);
   });

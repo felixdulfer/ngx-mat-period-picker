@@ -1,13 +1,22 @@
 import { TestBed } from '@angular/core/testing';
 import { DisplayFormatService } from './display-format.service';
 import { YearMonth } from '../types';
+import { LocaleService } from './locale.service';
 
 describe('DisplayFormatService', () => {
   let service: DisplayFormatService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DisplayFormatService],
+      providers: [
+        DisplayFormatService,
+        {
+          provide: LocaleService,
+          useValue: {
+            getEffectiveLocale: () => undefined // Use browser default for tests
+          }
+        }
+      ],
     });
     service = TestBed.inject(DisplayFormatService);
   });

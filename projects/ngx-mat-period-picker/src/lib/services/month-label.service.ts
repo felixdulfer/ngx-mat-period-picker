@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { LocaleService } from './locale.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MonthLabelService {
+  private localeService = inject(LocaleService);
+
   /**
    * Get short month names for the picker component
    * @returns Array of short month names (e.g., ['Jan', 'Feb', ...])
@@ -11,7 +14,7 @@ export class MonthLabelService {
   getShortMonthLabels(): string[] {
     return Array.from({ length: 12 }, (_, i) => {
       const date = new Date(2000, i, 1);
-      return date.toLocaleDateString(undefined, { month: 'short' });
+      return date.toLocaleDateString(this.localeService.getEffectiveLocale(), { month: 'short' });
     });
   }
 
@@ -25,6 +28,6 @@ export class MonthLabelService {
       throw new Error('Month number must be between 1 and 12');
     }
     const date = new Date(2000, monthNumber - 1, 1);
-    return date.toLocaleDateString(undefined, { month: 'short' });
+    return date.toLocaleDateString(this.localeService.getEffectiveLocale(), { month: 'short' });
   }
 }
