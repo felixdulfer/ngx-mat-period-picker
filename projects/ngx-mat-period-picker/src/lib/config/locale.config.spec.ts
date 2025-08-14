@@ -36,7 +36,6 @@ describe('Locale Configuration Providers', () => {
       expect(providers.length).toBe(1);
       expect(providers[0].provide).toBe(LOCALE_CONFIG);
       expect(providers[0].useValue).toEqual({
-        locale: 'en-US',
         useConfiguredLocale: true,
       });
     });
@@ -58,7 +57,6 @@ describe('Locale Configuration Providers', () => {
       });
 
       expect(providers[0].useValue).toEqual({
-        locale: 'en-US',
         useConfiguredLocale: false,
       });
     });
