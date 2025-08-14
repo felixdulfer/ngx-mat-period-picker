@@ -83,6 +83,10 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
   showPresentToggle = input<boolean>(false);
   presentValueChange = output<boolean>();
 
+  // Button labels for translation
+  okLabel = input<string>('OK');
+  clearLabel = input<string>('Clear');
+
   // Width configuration
   width = input<string | number>('200px');
   fullWidth = input<boolean>(true);
@@ -162,6 +166,10 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     pickerRef.instance.setPresentValue(this.presentValue());
     pickerRef.instance.setShowPresentToggle(this.showPresentToggle());
 
+    // Set button labels for translation
+    pickerRef.instance.setOkLabel(this.okLabel());
+    pickerRef.instance.setClearLabel(this.clearLabel());
+
     // Set the baseYear if provided
     if (this.baseYear() !== undefined) {
       pickerRef.instance.setBaseYear(this.baseYear());
@@ -169,13 +177,15 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
 
     // Subscribe to onChange to handle value updates
     pickerRef.instance.registerOnChange((value: YearMonth | null) => {
-      // Update the internal value signal
-      this.valueSignal.set(value);
-
-      // Call onChange and onTouched when value changes
-      this.onChange(value);
-      this.onTouched();
-
+      // Only update if the value has actually changed
+      const currentValue = this.valueSignal();
+      if (JSON.stringify(currentValue) !== JSON.stringify(value)) {
+        // Update the internal value signal
+        this.valueSignal.set(value);
+        // Call onChange and onTouched when value changes
+        this.onChange(value);
+        this.onTouched();
+      }
       // Don't auto-close - let user manually close with OK button
     });
 
@@ -201,9 +211,13 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     pickerRef.instance.okClicked.subscribe(() => {
       const currentValue = pickerRef.instance.getCurrentValue();
       if (currentValue && currentValue.year) {
-        this.valueSignal.set(currentValue);
-        this.onChange(currentValue);
-        this.onTouched();
+        // Only update if the value has actually changed
+        const existingValue = this.valueSignal();
+        if (JSON.stringify(existingValue) !== JSON.stringify(currentValue)) {
+          this.valueSignal.set(currentValue);
+          this.onChange(currentValue);
+          this.onTouched();
+        }
       }
       this.closePicker();
     });

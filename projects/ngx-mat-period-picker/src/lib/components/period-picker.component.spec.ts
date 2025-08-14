@@ -34,6 +34,11 @@ describe('PeriodPickerComponent', () => {
       expect(component.showPresentToggle()).toBe(true);
     });
 
+    it('should have default button label values', () => {
+      expect(component.okLabel()).toBe('OK');
+      expect(component.clearLabel()).toBe('Clear');
+    });
+
     it('should have default width and layout values', () => {
       expect(component.width()).toBe('auto');
       expect(component.fullWidth()).toBe(true);
@@ -107,7 +112,11 @@ describe('PeriodPickerComponent', () => {
     });
 
     it('should subscribe to form value changes', () => {
-      const emitChangeSpy = jest.spyOn(component, 'emitChange');
+      const onChangeSpy = jest.fn();
+      const onTouchedSpy = jest.fn();
+
+      component.registerOnChange(onChangeSpy);
+      component.registerOnTouched(onTouchedSpy);
 
       component.form.patchValue({
         start: { year: 2023, month: 6 },
@@ -118,7 +127,8 @@ describe('PeriodPickerComponent', () => {
       // Wait for the next tick to allow form value changes to propagate
       fixture.detectChanges();
 
-      expect(emitChangeSpy).toHaveBeenCalled();
+      expect(onChangeSpy).toHaveBeenCalled();
+      expect(onTouchedSpy).toHaveBeenCalled();
     });
 
     it('should subscribe to present value changes', () => {

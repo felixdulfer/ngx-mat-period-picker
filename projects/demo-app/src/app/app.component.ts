@@ -60,6 +60,38 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
       />
       <pre>{{ form.value.educationPeriod | json }}</pre>
 
+      <h2>Period Picker with Translated Buttons (German)</h2>
+      <ngx-mat-period-picker
+        formControlName="germanPeriod"
+        startLabel="Startdatum"
+        endLabel="Enddatum"
+        presentLabel="Gegenwärtig"
+        startPlaceholder="Wann haben Sie angefangen?"
+        endPlaceholder="Wann haben Sie aufgehört?"
+        presentPlaceholder="Arbeiten Sie noch hier?"
+        [okLabel]="'Bestätigen'"
+        [clearLabel]="'Löschen'"
+        [showPresentToggle]="true"
+        [width]="400"
+      />
+      <pre>{{ form.value.germanPeriod | json }}</pre>
+
+      <h2>Period Picker with Translated Buttons (Spanish)</h2>
+      <ngx-mat-period-picker
+        formControlName="spanishPeriod"
+        startLabel="Fecha de Inicio"
+        endLabel="Fecha de Fin"
+        presentLabel="Actualmente"
+        startPlaceholder="¿Cuándo comenzó?"
+        endPlaceholder="¿Cuándo terminó?"
+        presentPlaceholder="¿Todavía trabaja aquí?"
+        [okLabel]="'Confirmar'"
+        [clearLabel]="'Borrar'"
+        [showPresentToggle]="true"
+        [width]="400"
+      />
+      <pre>{{ form.value.spanishPeriod | json }}</pre>
+
       <h2>Pre-filled Examples</h2>
 
       <h3>Complete Period (Start + End)</h3>
@@ -174,6 +206,17 @@ import { Period } from '../../../ngx-mat-period-picker/src/lib/types';
         >
       </p>
 
+      <h3>Single Year/Month Field with Translated Buttons (French)</h3>
+      <ngx-mat-year-month-picker
+        formControlName="frenchField"
+        label="Date Historique"
+        placeholder="Sélectionnez l'année/mois"
+        [okLabel]="'Valider'"
+        [clearLabel]="'Effacer'"
+        [width]="250"
+      />
+      <pre>{{ form.value.frenchField | json }}</pre>
+
       <h2>Width and Layout Configuration Examples</h2>
 
       <h3>Year/Month Field with Custom Width</h3>
@@ -219,6 +262,8 @@ export class AppComponent {
     period: new FormControl(null),
     customPeriod: new FormControl(null),
     educationPeriod: new FormControl(null),
+    germanPeriod: new FormControl(null),
+    spanishPeriod: new FormControl(null),
     completePeriod: new FormControl<Period>({
       start: { year: 2020, month: 3 },
       end: { year: 2023, month: 12 },
@@ -243,6 +288,7 @@ export class AppComponent {
     baseYear2035: new FormControl(null),
     differentBaseYears: new FormControl(null),
     singleBaseYear1995: new FormControl(null),
+    frenchField: new FormControl(null),
     customWidthField: new FormControl(null),
     fullWidthField: new FormControl(null),
     fixedWidthFlex: new FormControl(null),

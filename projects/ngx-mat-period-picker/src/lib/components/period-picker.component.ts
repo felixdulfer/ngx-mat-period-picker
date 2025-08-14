@@ -3,7 +3,6 @@ import {
   forwardRef,
   input,
   signal,
-  effect,
   computed,
   inject,
   HostAttributeToken,
@@ -47,6 +46,8 @@ import { Period } from '../types';
           [baseYear]="baseYearStart()"
           [width]="fieldWidth()"
           [fullWidth]="fieldFullWidth()"
+          [okLabel]="okLabel()"
+          [clearLabel]="clearLabel()"
         />
 
         <ngx-mat-year-month-picker
@@ -62,6 +63,8 @@ import { Period } from '../types';
           [showPresentToggle]="showPresentToggle()"
           [width]="fieldWidth()"
           [fullWidth]="fieldFullWidth()"
+          [okLabel]="okLabel()"
+          [clearLabel]="clearLabel()"
           (presentValueChange)="onPresentValueChange($event)"
         />
       </div>
@@ -137,6 +140,10 @@ export class PeriodPickerComponent implements ControlValueAccessor {
     optional: true,
   }) || 'Present';
 
+  // Button labels for translation
+  okLabel = input<string>('OK');
+  clearLabel = input<string>('Clear');
+
   baseYearStart = input<number | undefined>();
   baseYearEnd = input<number | undefined>();
   showPresentToggle = input<boolean>(true);
@@ -163,22 +170,22 @@ export class PeriodPickerComponent implements ControlValueAccessor {
       present: new FormControl(false),
     });
 
-    // Use effect for form value changes in zoneless environment
-    effect(() => {
-      const currentValue = this.valueSignal();
-      if (currentValue !== null) {
-        this.emitChange();
-      }
-    });
-
+    // Single subscription to form value changes to avoid multiple triggers
     this.form.valueChanges.subscribe(() => {
-      this.valueSignal.set({
-        start: this.form.get('start')?.value,
-        end: this.form.get('present')?.value
-          ? null
-          : this.form.get('end')?.value,
-        isPresent: this.form.get('present')?.value,
-      });
+      const formValue = this.form.value;
+      const newValue = {
+        start: formValue.start,
+        end: formValue.present ? null : formValue.end,
+        isPresent: formValue.present,
+      };
+
+      // Only emit if the value has actually changed
+      const currentValue = this.valueSignal();
+      if (JSON.stringify(currentValue) !== JSON.stringify(newValue)) {
+        this.valueSignal.set(newValue);
+        this.onChange(newValue);
+        this.onTouched();
+      }
     });
 
     // Subscribe to present changes and enable/disable end control
@@ -232,18 +239,8 @@ export class PeriodPickerComponent implements ControlValueAccessor {
     }
   }
 
-  emitChange() {
-    const { start, end, present } = this.form.value;
-    this.onChange({
-      start,
-      end: present ? null : end,
-      isPresent: present,
-    });
-    this.onTouched();
-  }
-
   onPresentValueChange(present: boolean) {
     this.form.get('present')?.setValue(present, { emitEvent: false });
-    this.emitChange();
+    // The form.valueChanges subscription will handle the change emission
   }
 }

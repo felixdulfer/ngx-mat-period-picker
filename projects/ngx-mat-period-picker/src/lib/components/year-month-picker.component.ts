@@ -93,7 +93,7 @@ import { MonthLabelService } from '../services/month-label.service';
       <div class="ymp-actions">
         @if (hasValue()) {
           <button matButton="text" (click)="clear()" [disabled]="disabled()">
-            Clear
+            {{ clearLabel() }}
           </button>
         } @else {
           <div></div>
@@ -103,7 +103,7 @@ import { MonthLabelService } from '../services/month-label.service';
           (click)="ok()"
           [disabled]="disabled() || !hasValidSelection()"
         >
-          OK
+          {{ okLabel() }}
         </button>
       </div>
     </mat-card>
@@ -212,6 +212,13 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
   // Present label as a signal for dynamic configuration
   private _presentLabel = signal<string>('Present');
   presentLabel = this._presentLabel.asReadonly();
+
+  // Button labels as signals for dynamic configuration
+  private _okLabel = signal<string>('OK');
+  okLabel = this._okLabel.asReadonly();
+
+  private _clearLabel = signal<string>('Clear');
+  clearLabel = this._clearLabel.asReadonly();
 
   yearsPerPage = 12;
   currentStartYear = 2000;
@@ -397,6 +404,14 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
 
   setPresentLabel(label: string): void {
     this._presentLabel.set(label);
+  }
+
+  setOkLabel(label: string): void {
+    this._okLabel.set(label);
+  }
+
+  setClearLabel(label: string): void {
+    this._clearLabel.set(label);
   }
 
   hasValidSelection(): boolean {

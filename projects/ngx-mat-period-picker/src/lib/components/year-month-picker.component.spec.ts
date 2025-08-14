@@ -21,6 +21,39 @@ describe('YearMonthPickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('Button label configuration', () => {
+    it('should have default button labels', () => {
+      expect(component.okLabel()).toBe('OK');
+      expect(component.clearLabel()).toBe('Clear');
+    });
+
+    it('should set OK button label', () => {
+      component.setOkLabel('Confirmar');
+      expect(component.okLabel()).toBe('Confirmar');
+    });
+
+    it('should set Clear button label', () => {
+      component.setClearLabel('Borrar');
+      expect(component.clearLabel()).toBe('Borrar');
+    });
+
+    it('should update button labels dynamically', () => {
+      // Set initial labels
+      component.setOkLabel('Bestätigen');
+      component.setClearLabel('Löschen');
+
+      expect(component.okLabel()).toBe('Bestätigen');
+      expect(component.clearLabel()).toBe('Löschen');
+
+      // Update labels
+      component.setOkLabel('Valider');
+      component.setClearLabel('Effacer');
+
+      expect(component.okLabel()).toBe('Valider');
+      expect(component.clearLabel()).toBe('Effacer');
+    });
+  });
+
   describe('ControlValueAccessor implementation', () => {
     it('should handle writeValue', () => {
       const testValue = { year: 2023, month: 6 };
