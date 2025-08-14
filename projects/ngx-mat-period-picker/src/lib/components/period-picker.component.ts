@@ -40,8 +40,8 @@ import { Period } from '../types';
         <ngx-mat-year-month-picker
           formControlName="start"
           [label]="startLabel"
-          [placeholder]="startPlaceholder()"
-          [presentLabel]="presentLabel()"
+          [placeholder]="startPlaceholder"
+          [presentLabel]="presentLabel"
           [presentValue]="false"
           [showPresentToggle]="false"
           [baseYear]="baseYearStart()"
@@ -53,10 +53,10 @@ import { Period } from '../types';
           formControlName="end"
           [label]="endLabel"
           [placeholder]="
-            form.get('present')?.value ? presentPlaceholder() : endPlaceholder()
+            form.get('present')?.value ? presentPlaceholder : endPlaceholder
           "
           [disabled]="false"
-          [presentLabel]="presentLabel()"
+          [presentLabel]="presentLabel"
           [presentValue]="form.get('present')?.value"
           [baseYear]="baseYearEnd()"
           [showPresentToggle]="showPresentToggle()"
@@ -120,11 +120,23 @@ export class PeriodPickerComponent implements ControlValueAccessor {
     optional: true,
   }) || 'End Period';
 
-  // Configurable labels
-  presentLabel = input<string>('Present');
-  startPlaceholder = input<string>('Select start period');
-  endPlaceholder = input<string>('Select end period');
-  presentPlaceholder = input<string>('Present');
+  // Configurable labels using HostAttributeToken
+  presentLabel = inject(new HostAttributeToken('presentLabel'), {
+    optional: true,
+  }) || 'Present';
+
+  startPlaceholder = inject(new HostAttributeToken('startPlaceholder'), {
+    optional: true,
+  }) || 'Select start period';
+
+  endPlaceholder = inject(new HostAttributeToken('endPlaceholder'), {
+    optional: true,
+  }) || 'Select end period';
+
+  presentPlaceholder = inject(new HostAttributeToken('presentPlaceholder'), {
+    optional: true,
+  }) || 'Present';
+
   baseYearStart = input<number | undefined>();
   baseYearEnd = input<number | undefined>();
   showPresentToggle = input<boolean>(true);
