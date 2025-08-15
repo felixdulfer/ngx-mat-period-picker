@@ -23,12 +23,12 @@ describe('PeriodPickerComponent', () => {
 
   describe('Input signals', () => {
     it('should have default values', () => {
-      expect(component.startLabel).toBe('Start Period');
-      expect(component.endLabel).toBe('End Period');
-      expect(component.presentLabel).toBe('Present');
-      expect(component.startPlaceholder).toBe('Select start period');
-      expect(component.endPlaceholder).toBe('Select end period');
-      expect(component.presentPlaceholder).toBe('Present');
+      expect(component.startLabel()).toBe('Start Period');
+      expect(component.endLabel()).toBe('End Period');
+      expect(component.presentLabel()).toBe('Present');
+      expect(component.startPlaceholder()).toBe('Select start period');
+      expect(component.endPlaceholder()).toBe('Select end period');
+      expect(component.presentPlaceholder()).toBe('Present');
       expect(component.baseYearStart()).toBeUndefined();
       expect(component.baseYearEnd()).toBeUndefined();
       expect(component.showPresentToggle()).toBe(true);
@@ -57,9 +57,9 @@ describe('PeriodPickerComponent', () => {
 
     it('should accept custom values', () => {
       // Test that HostAttributeToken properties work correctly
-      expect(component.startLabel).toBe('Start Period');
-      expect(component.endLabel).toBe('End Period');
-      expect(component.presentLabel).toBe('Present');
+      expect(component.startLabel()).toBe('Start Period');
+      expect(component.endLabel()).toBe('End Period');
+      expect(component.presentLabel()).toBe('Present');
     });
 
     it('should accept baseYear values', () => {
