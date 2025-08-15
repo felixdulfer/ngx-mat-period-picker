@@ -4,8 +4,6 @@ import {
   input,
   signal,
   computed,
-  inject,
-  HostAttributeToken,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -38,9 +36,9 @@ import { Period } from '../types';
       <div class="period-fields">
         <ngx-mat-year-month-picker
           formControlName="start"
-          [label]="startLabel"
-          [placeholder]="startPlaceholder"
-          [presentLabel]="presentLabel"
+          [label]="startLabel()"
+          [placeholder]="startPlaceholder()"
+          [presentLabel]="presentLabel()"
           [presentValue]="false"
           [showPresentToggle]="false"
           [baseYear]="baseYearStart()"
@@ -52,11 +50,11 @@ import { Period } from '../types';
 
         <ngx-mat-year-month-picker
           formControlName="end"
-          [label]="endLabel"
+          [label]="endLabel()"
           [placeholder]="
-            form.get('present')?.value ? presentPlaceholder : endPlaceholder
+            form.get('present')?.value ? presentPlaceholder() : endPlaceholder()
           "
-          [presentLabel]="presentLabel"
+          [presentLabel]="presentLabel()"
           [presentValue]="form.get('present')?.value"
           [baseYear]="baseYearEnd()"
           [showPresentToggle]="showPresentToggle()"
@@ -114,32 +112,12 @@ import { Period } from '../types';
   ],
 })
 export class PeriodPickerComponent implements ControlValueAccessor {
-  startLabel = inject(new HostAttributeToken('startLabel'), {
-    optional: true,
-  }) || 'Start Period';
-
-  endLabel = inject(new HostAttributeToken('endLabel'), {
-    optional: true,
-  }) || 'End Period';
-
-  // Configurable labels using HostAttributeToken
-  presentLabel = inject(new HostAttributeToken('presentLabel'), {
-    optional: true,
-  }) || 'Present';
-
-  startPlaceholder = inject(new HostAttributeToken('startPlaceholder'), {
-    optional: true,
-  }) || 'Select start period';
-
-  endPlaceholder = inject(new HostAttributeToken('endPlaceholder'), {
-    optional: true,
-  }) || 'Select end period';
-
-  presentPlaceholder = inject(new HostAttributeToken('presentPlaceholder'), {
-    optional: true,
-  }) || 'Present';
-
-  // Button labels for translation
+  startLabel = input<string>('Start Period');
+  endLabel = input<string>('End Period');
+  presentLabel = input<string>('Present');
+  startPlaceholder = input<string>('Select start period');
+  endPlaceholder = input<string>('Select end period');
+  presentPlaceholder = input<string>('Present');
   okLabel = input<string>('OK');
   clearLabel = input<string>('Clear');
 
