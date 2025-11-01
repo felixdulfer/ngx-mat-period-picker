@@ -72,6 +72,10 @@ echo "Cleaning and rebuilding package..."
 rm -rf dist
 ng build ngx-mat-period-picker --configuration production
 
+# Build schematics
+echo "Building schematics..."
+npm run build:schematics
+
 # Run e2e tests
 echo "Running e2e tests..."
 npm run test:e2e

@@ -3,5 +3,9 @@
   "dest": "../../dist/ngx-mat-period-picker",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "assets": [
+    "./src/schematics/**/*.json",
+    "./src/schematics/**/files/**/*"
+  ]
 }
