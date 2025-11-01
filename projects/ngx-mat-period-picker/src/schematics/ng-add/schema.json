@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "NgAddSchema",
+  "title": "ng-add options for @felixdulfer/ngx-mat-period-picker",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Name of the project to add the library to"
+    },
+    "skipInstall": {
+      "type": "boolean",
+      "default": false,
+      "description": "Skip installing peer dependencies"
+    }
+  }
+}

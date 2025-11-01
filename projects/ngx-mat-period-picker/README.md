@@ -4,9 +4,27 @@ A Angular Material period picker component that allows users to select start and
 
 ## Installation
 
+### Using Angular CLI (Recommended)
+
 ```bash
-npm install ngx-mat-period-picker
+ng add @felixdulfer/ngx-mat-period-picker
 ```
+
+This command will:
+- Install the package and its peer dependencies
+- Display helpful next steps for using the component
+
+### Using npm
+
+```bash
+npm install @felixdulfer/ngx-mat-period-picker
+```
+
+Make sure you also have the required peer dependencies installed:
+- `@angular/common` (^19.2.0 || ^20.0.0)
+- `@angular/core` (^19.2.0 || ^20.0.0)
+- `@angular/material` (^19.2.0 || ^20.0.0)
+- `@angular/cdk` (^19.2.0 || ^20.0.0)
 
 ## Usage
 
