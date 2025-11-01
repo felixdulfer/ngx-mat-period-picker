@@ -65,6 +65,7 @@
     "conventional-recommended-bump": "^11.2.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.39.0",
+    "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
     "identity-obj-proxy": "^3.0.0",
     "jasmine-core": "~5.12.1",
@@ -84,6 +85,9 @@
     "prettier": "^3.6.2",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.46.2"
+  },
+  "overrides": {
+    "gh-pages": "^6.3.0"
   },
   "config": {
     "commitizen": {
