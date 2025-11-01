@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:schematics": "tsc -p projects/ngx-mat-period-picker/src/schematics/tsconfig.json && npm run copy:schematic-files",
-    "copy:schematic-files": "cp dist/ngx-mat-period-picker/src/schematics/collection.json dist/ngx-mat-period-picker/schematics/ && cp dist/ngx-mat-period-picker/src/schematics/ng-add/schema.json dist/ngx-mat-period-picker/schematics/ng-add/",
+    "copy:schematic-files": "node scripts/copy-schematic-files.js",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:watch": "jest --watch",

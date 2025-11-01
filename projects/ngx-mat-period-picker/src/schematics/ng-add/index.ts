@@ -5,7 +5,7 @@ import { Schema } from './schema';
 /**
  * Adds the @felixdulfer/ngx-mat-period-picker package to the project.
  * This schematic will:
- * 1. Ensure Angular Material peer dependencies are installed
+ * 1. Schedule package installation (ng add handles peer dependencies automatically)
  * 2. Display a success message with next steps
  */
 export function ngAdd(options: Schema): Rule {
