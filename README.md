@@ -6,6 +6,16 @@ A modern Angular Material period picker component built with standalone componen
 
 ## 📦 Installation
 
+### Using Angular CLI (Recommended)
+
+```bash
+ng add @felixdulfer/ngx-mat-period-picker
+```
+
+This will automatically install the package and its peer dependencies.
+
+### Using npm
+
 ```bash
 npm install @felixdulfer/ngx-mat-period-picker
 ```
