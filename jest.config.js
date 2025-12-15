@@ -1,8 +1,8 @@
 module.exports = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  testEnvironment: 'jsdom',
-  moduleNameMapping: {
+  testEnvironment: 'jest-environment-jsdom',
+  moduleNameMapper: {
     '^@lib/(.*)$': '<rootDir>/projects/ngx-mat-period-picker/src/lib/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
@@ -32,11 +32,6 @@ module.exports = {
     '<rootDir>/dist/',
     '<rootDir>/coverage/',
   ],
-  // Mock CSS files
-  moduleNameMapping: {
-    '^@lib/(.*)$': '<rootDir>/projects/ngx-mat-period-picker/src/lib/$1',
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-  },
   // Handle CSS parsing errors
   testEnvironmentOptions: {
     customExportConditions: [''],
