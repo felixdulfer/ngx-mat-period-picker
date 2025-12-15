@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/felixdulfer/ngx-mat-period-picker#readme",
   "peerDependencies": {
-    "@angular/common": "^19.2.0 || ^20.0.0",
-    "@angular/core": "^19.2.0 || ^20.0.0",
-    "@angular/material": "^19.2.0 || ^20.0.0",
-    "@angular/cdk": "^19.2.0 || ^20.0.0"
+    "@angular/common": "^19.2.0 || ^20.0.0 || ^21.0.0",
+    "@angular/core": "^19.2.0 || ^20.0.0 || ^21.0.0",
+    "@angular/material": "^19.2.0 || ^20.0.0 || ^21.0.0",
+    "@angular/cdk": "^19.2.0 || ^20.0.0 || ^21.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
