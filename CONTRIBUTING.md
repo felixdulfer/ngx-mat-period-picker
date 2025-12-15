@@ -79,7 +79,7 @@ and provide user-friendly error messages.
 You can use the interactive commit tool:
 
 ```bash
-npm run commit
+pnpm run commit
 ```
 
 Or commit manually following the conventional format:

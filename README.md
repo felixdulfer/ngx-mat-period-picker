@@ -7,7 +7,7 @@ A modern Angular Material period picker component built with standalone componen
 ## 📦 Installation
 
 ```bash
-npm install @felixdulfer/ngx-mat-period-picker
+pnpm add @felixdulfer/ngx-mat-period-picker
 ```
 
 ## 🚀 Quick Start
@@ -61,7 +61,7 @@ This will compile your project and store the build artifacts in the `dist/` dire
 To execute unit tests, use the following command:
 
 ```bash
-npm test
+pnpm test
 ```
 
 ## Running end-to-end tests
@@ -83,7 +83,7 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 Use the interactive commit tool for guided commit creation:
 
 ```bash
-npm run commit
+pnpm run commit
 ```
 
 Or commit manually following the conventional format:

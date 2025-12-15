@@ -55,12 +55,12 @@ fi
 
 # Run lint
 echo "Running lint..."
-npm run lint:lib
-npm run lint:app
+pnpm run lint:lib
+pnpm run lint:app
 
 # Run unittests
 echo "Running tests..."
-npm run test:ci
+pnpm run test:ci
 
 # Update version in package.json first
 echo "Updating version to $NEW_VERSION..."
@@ -74,7 +74,7 @@ ng build ngx-mat-period-picker --configuration production
 
 # Run e2e tests
 echo "Running e2e tests..."
-npm run test:e2e
+pnpm run test:e2e
 
 # Commit the version change
 echo "Committing version change..."
@@ -84,7 +84,7 @@ git commit -m "chore: bump version to $NEW_VERSION"
 # Publish
 echo "Publishing to NPM..."
 cd dist/ngx-mat-period-picker
-npm publish --access public
+pnpm publish --access public
 
 # Create git tag
 cd ../..
@@ -108,7 +108,7 @@ RELEASE_TITLE="v$NEW_VERSION"
 RELEASE_BODY="## 📦 Installation
 
 \`\`\`bash
-npm install @felixdulfer/ngx-mat-period-picker@$NEW_VERSION
+pnpm add @felixdulfer/ngx-mat-period-picker@$NEW_VERSION
 \`\`\`
 
 ## 🚀 Usage

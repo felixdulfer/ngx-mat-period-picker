@@ -5,7 +5,7 @@ A Angular Material period picker component that allows users to select start and
 ## Installation
 
 ```bash
-npm install ngx-mat-period-picker
+pnpm add @felixdulfer/ngx-mat-period-picker
 ```
 
 ## Usage
