@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  testEnvironment: 'jest-environment-jsdom',
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@lib/(.*)$': '<rootDir>/projects/ngx-mat-period-picker/src/lib/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
