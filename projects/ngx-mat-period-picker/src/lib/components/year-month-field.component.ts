@@ -28,7 +28,13 @@ import { DisplayFormatService } from '../services/display-format.service';
       appearance="outline"
       class="year-month-field"
       [class.full-width]="computedFullWidth()"
-      [style.width]="!computedFullWidth() ? (typeof width() === 'number' ? width() + 'px' : width()) : '100%'"
+      [style.width]="
+        !computedFullWidth()
+          ? typeof width() === 'number'
+            ? width() + 'px'
+            : width()
+          : '100%'
+      "
       #fieldRef
       (click)="openPicker($event)"
     >
@@ -125,7 +131,9 @@ export class YearMonthFieldComponent implements ControlValueAccessor {
     }
 
     // Find the text field wrapper within the form field for more precise positioning
-    const textFieldWrapper = formFieldElement.querySelector('.mat-mdc-text-field-wrapper');
+    const textFieldWrapper = formFieldElement.querySelector(
+      '.mat-mdc-text-field-wrapper',
+    );
     const targetElement = textFieldWrapper || formFieldElement;
 
     // Create overlay positioned relative to the text field wrapper
