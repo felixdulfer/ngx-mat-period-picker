@@ -54,8 +54,8 @@
     "@playwright/test": "^1.56.1",
     "@types/jasmine": "~5.1.12",
     "@types/jest": "^30.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.46.2",
-    "@typescript-eslint/parser": "^8.46.2",
+    "@typescript-eslint/eslint-plugin": "^8.64.0",
+    "@typescript-eslint/parser": "^8.64.0",
     "angular-cli-ghpages": "^2.0.3",
     "angular-eslint": "^21.1.0",
     "commitizen": "^4.3.1",
@@ -85,7 +85,7 @@
     "playwright-ng-schematics": "^21.0.3",
     "prettier": "^3.6.2",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.46.2",
+    "typescript-eslint": "^8.64.0",
     "zone.js": "^0.16.0"
   },
   "overrides": {
