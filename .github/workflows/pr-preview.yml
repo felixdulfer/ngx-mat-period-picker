@@ -16,15 +16,15 @@ jobs:
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
     - name: Install pnpm
       if: github.event.action != 'closed'
-      uses: pnpm/action-setup@v4
+      uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
 
     - name: Setup Node.js
       if: github.event.action != 'closed'
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: '22'
         cache: 'pnpm'
@@ -42,7 +42,7 @@ jobs:
       run: pnpm run build:demo:pr-preview
 
     - name: Deploy PR Preview
-      uses: rossjrw/pr-preview-action@v1
+      uses: rossjrw/pr-preview-action@ffa7509e91a3ec8dfc2e5536c4d5c1acdf7a6de9 # v1.8.1
       with:
         source-dir: ./dist/demo-app/browser
         preview-branch: gh-pages
