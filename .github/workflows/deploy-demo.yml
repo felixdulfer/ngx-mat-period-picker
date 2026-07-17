@@ -3,8 +3,6 @@ name: Deploy Demo
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 permissions:
   contents: write
@@ -40,8 +38,6 @@ jobs:
 
       - name: Build demo app
         run: pnpm run build:demo
-        env:
-          BASE_HREF: ${{ github.event_name == 'pull_request' && format('/ngx-mat-period-picker/pr-preview/pr-{0}/', github.event.number) || '/ngx-mat-period-picker/' }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
