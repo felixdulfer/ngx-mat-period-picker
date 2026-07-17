@@ -244,7 +244,8 @@ export class YearMonthPickerComponent implements ControlValueAccessor {
    * Initializes currentStartYear based on baseYear input or current year
    */
   private initializeCurrentStartYear(): void {
-    const targetYear = this._baseYear || this.baseYear() || new Date().getFullYear();
+    const targetYear =
+      this._baseYear || this.baseYear() || new Date().getFullYear();
     this.setCurrentStartYearForYear(targetYear);
   }
 

@@ -1,7 +1,7 @@
 import js from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import angularEslint from '@angular-eslint/eslint-plugin';
+import angular from 'angular-eslint';
 import globals from 'globals';
 
 export default [
@@ -76,6 +76,10 @@ export default [
   },
 
   // Angular rules for Angular files
+  ...angular.configs.tsRecommended.map((config) => ({
+    ...config,
+    files: ['projects/**/*.ts'],
+  })),
   {
     files: ['projects/**/*.ts'],
     languageOptions: {
@@ -109,11 +113,7 @@ export default [
         jest: 'readonly',
       },
     },
-    plugins: {
-      '@angular-eslint': angularEslint,
-    },
     rules: {
-      ...angularEslint.configs.recommended.rules,
       // Disable some Angular rules that might be too strict
       '@angular-eslint/prefer-inject': 'warn',
       '@angular-eslint/no-empty-lifecycle-method': 'warn',
