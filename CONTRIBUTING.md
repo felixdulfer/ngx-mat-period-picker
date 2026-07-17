@@ -95,3 +95,20 @@ All commit messages are automatically validated using commitlint. Invalid commit
 ### Breaking Changes
 
 When introducing breaking changes, include `BREAKING CHANGE:` in the commit body or footer, followed by a description of the change.
+
+## Releasing
+
+Releases are fully automated with [semantic-release](https://semantic-release.gitbook.io/) and require no manual steps. On every merge to `main`, once CI passes, the [Release workflow](.github/workflows/release.yml):
+
+1. Analyzes commit messages since the last release to determine the next version (`fix` → patch, `feat` → minor, `BREAKING CHANGE` → major).
+2. Updates `CHANGELOG.md` and the library's `package.json` version.
+3. Builds the library and publishes it to npm (with [provenance](https://docs.npmjs.com/generating-provenance-statements)).
+4. Creates a git tag (`vX.Y.Z`) and a GitHub release with generated notes.
+
+If no commits since the last release warrant a version bump (e.g. only `docs`/`chore` commits), no release is published. The release configuration lives in [`.releaserc.json`](.releaserc.json).
+
+To preview what the next release would look like without publishing anything, run:
+
+```bash
+pnpm run release:dry-run
+```

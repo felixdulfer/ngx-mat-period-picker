@@ -129,7 +129,9 @@ The preview environment is automatically updated whenever you push new commits t
 
 ## 🚀 Deployment
 
-Run `./deploy.sh`.
+Releases to npm are fully automated. Every merge to `main` that passes CI is analyzed by [semantic-release](https://semantic-release.gitbook.io/): the version bump, changelog, git tag, GitHub release, and npm publish are all derived from the [Conventional Commits](https://www.conventionalcommits.org/) in that merge — no manual version bump or publish step is needed.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md#releasing) for details.
 
 ## Additional Resources
 
