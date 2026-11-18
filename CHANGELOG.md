@@ -1,3 +1,10 @@
+# [0.21.0](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.20.3...v0.21.0) (2026-11-18)
+
+
+### Features
+
+* **demo:** redesign preview page with Material 3 and dark/light/system theme toggle ([#54](https://github.com/felixdulfer/ngx-mat-period-picker/issues/54)) ([5125447](https://github.com/felixdulfer/ngx-mat-period-picker/commit/5125447a7a6af89cb10ccf59e723736c7ea6f4ba))
+
 ## [0.20.3](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.20.2...v0.20.3) (2026-11-18)
 
 
