@@ -16,8 +16,10 @@ test.describe('Demo App: Basic tests', () => {
   });
 
   test('should display the theme toggle in the toolbar', async ({ page }) => {
-    await expect(page.getByRole('button', { name: 'Light mode' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'System preference' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Dark mode' })).toBeVisible();
+    const toggleGroup = page.locator('mat-button-toggle-group.theme-toggle');
+    await expect(toggleGroup).toBeVisible();
+    await expect(toggleGroup.locator('mat-button-toggle[value="light"]')).toBeVisible();
+    await expect(toggleGroup.locator('mat-button-toggle[value="system"]')).toBeVisible();
+    await expect(toggleGroup.locator('mat-button-toggle[value="dark"]')).toBeVisible();
   });
 });
