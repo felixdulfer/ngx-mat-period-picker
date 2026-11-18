@@ -1,0 +1,72 @@
+@use '@angular/material' as mat;
+
+// ---------------------------------------------------------------------------
+// Material 3 theme with automatic light/dark via CSS `color-scheme`.
+// `theme-type: color-scheme` makes Angular Material emit `light-dark()` CSS
+// functions, so the browser picks the right variant based on the
+// `color-scheme` property we toggle on <html>.
+// ---------------------------------------------------------------------------
+
+html {
+  color-scheme: light dark; // default = follow system
+
+  @include mat.theme((
+    color: (
+      primary: mat.$violet-palette,
+      secondary: mat.$azure-palette,
+      tertiary: mat.$rose-palette,
+      theme-type: color-scheme,
+    ),
+    typography: (
+      brand-family: 'Roboto Flex',
+      plain-family: 'Roboto Flex',
+      bold-weight: 600,
+      medium-weight: 500,
+      regular-weight: 400,
+    ),
+    density: 0,
+  ));
+}
+
+// ---------------------------------------------------------------------------
+// Base element styles
+// ---------------------------------------------------------------------------
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto Flex', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--mat-sys-background);
+  color: var(--mat-sys-on-background);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Smooth color transitions when switching themes
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+// ---------------------------------------------------------------------------
+// Utility classes
+// ---------------------------------------------------------------------------
+
+.code-output {
+  font-family: 'Roboto Mono', 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  background: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface-variant);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0 0;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
