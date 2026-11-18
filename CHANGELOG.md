@@ -1,3 +1,10 @@
+## [0.20.3](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.20.2...v0.20.3) (2026-11-18)
+
+
+### Bug Fixes
+
+* **security:** update pnpm overrides to patch critical and high vulnerabilities ([#53](https://github.com/felixdulfer/ngx-mat-period-picker/issues/53)) ([1f27254](https://github.com/felixdulfer/ngx-mat-period-picker/commit/1f27254d4171c8c6dcc097e54f6cd9f066e882d6))
+
 ## [0.20.2](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.20.1...v0.20.2) (2026-07-17)
 
 
