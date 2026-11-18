@@ -153,14 +153,14 @@ import { ThemeService } from './theme.service';
             Custom labels, present toggles, and internationalised buttons.
           </p>
 
-          <div class="card-grid">
+          <div class="card-grid card-grid-wide">
             <mat-card appearance="outlined" class="demo-card">
               <mat-card-header>
                 <mat-card-title class="mat-title-medium">Default Labels</mat-card-title>
                 <mat-card-subtitle>Out of the box</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
-                <ngx-mat-period-picker formControlName="period" [width]="400" />
+                <ngx-mat-period-picker formControlName="period"  />
                 <pre class="code-output">{{ form.value.period | json }}</pre>
               </mat-card-content>
             </mat-card>
@@ -180,7 +180,7 @@ import { ThemeService } from './theme.service';
                   endPlaceholder="When did you end?"
                   presentPlaceholder="Still working here"
                   [showPresentToggle]="true"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.customPeriod | json }}</pre>
               </mat-card-content>
@@ -201,7 +201,7 @@ import { ThemeService } from './theme.service';
                   endPlaceholder="Select graduation date"
                   presentPlaceholder="Still studying"
                   [showPresentToggle]="false"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.educationPeriod | json }}</pre>
               </mat-card-content>
@@ -224,7 +224,7 @@ import { ThemeService } from './theme.service';
                   [okLabel]="'Bestätigen'"
                   [clearLabel]="'Löschen'"
                   [showPresentToggle]="true"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.germanPeriod | json }}</pre>
               </mat-card-content>
@@ -247,7 +247,7 @@ import { ThemeService } from './theme.service';
                   [okLabel]="'Confirmar'"
                   [clearLabel]="'Borrar'"
                   [showPresentToggle]="true"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.spanishPeriod | json }}</pre>
               </mat-card-content>
@@ -280,7 +280,7 @@ import { ThemeService } from './theme.service';
             Different period shapes: complete, ongoing, year-only, and mixed granularity.
           </p>
 
-          <div class="card-grid">
+          <div class="card-grid card-grid-wide">
             <mat-card appearance="outlined" class="demo-card">
               <mat-card-header>
                 <mat-card-title class="mat-title-medium">Complete Period</mat-card-title>
@@ -292,7 +292,7 @@ import { ThemeService } from './theme.service';
                   startLabel="Start Date"
                   endLabel="End Date"
                   presentLabel="Present"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.completePeriod | json }}</pre>
               </mat-card-content>
@@ -309,7 +309,7 @@ import { ThemeService } from './theme.service';
                   startLabel="Start Date"
                   endLabel="End Date"
                   presentLabel="Present"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.currentPeriod | json }}</pre>
               </mat-card-content>
@@ -326,7 +326,7 @@ import { ThemeService } from './theme.service';
                   startLabel="Start Year"
                   endLabel="End Year"
                   presentLabel="Present"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.yearOnlyPeriod | json }}</pre>
               </mat-card-content>
@@ -343,7 +343,7 @@ import { ThemeService } from './theme.service';
                   startLabel="Start Date"
                   endLabel="End Year"
                   presentLabel="Present"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.mixedPeriod | json }}</pre>
               </mat-card-content>
@@ -358,7 +358,7 @@ import { ThemeService } from './theme.service';
             Control which year interval the picker opens on when a field is empty.
           </p>
 
-          <div class="card-grid">
+          <div class="card-grid card-grid-wide">
             <mat-card appearance="outlined" class="demo-card">
               <mat-card-header>
                 <mat-card-title class="mat-title-medium">Base Year 2010</mat-card-title>
@@ -372,7 +372,7 @@ import { ThemeService } from './theme.service';
                   presentLabel="Present"
                   [baseYearStart]="2010"
                   [baseYearEnd]="2010"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.baseYear2010 | json }}</pre>
               </mat-card-content>
@@ -391,7 +391,7 @@ import { ThemeService } from './theme.service';
                   presentLabel="Present"
                   [baseYearStart]="2035"
                   [baseYearEnd]="2035"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.baseYear2035 | json }}</pre>
               </mat-card-content>
@@ -410,7 +410,7 @@ import { ThemeService } from './theme.service';
                   presentLabel="Still Working"
                   [baseYearStart]="1990"
                   [baseYearEnd]="2070"
-                  [width]="400"
+                  
                 />
                 <pre class="code-output">{{ form.value.differentBaseYears | json }}</pre>
               </mat-card-content>
@@ -667,7 +667,13 @@ import { ThemeService } from './theme.service';
       gap: 1rem;
     }
 
+    /* Wider 2-column grid for period pickers (two fields side-by-side) */
+    .card-grid-wide {
+      grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+    }
+
     .demo-card {
+      overflow: hidden;
       transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
 
@@ -716,7 +722,8 @@ import { ThemeService } from './theme.service';
         display: none;
       }
 
-      .card-grid {
+      .card-grid,
+      .card-grid-wide {
         grid-template-columns: 1fr;
       }
     }
