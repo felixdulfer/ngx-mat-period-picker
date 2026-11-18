@@ -5,7 +5,7 @@ test.describe('Demo App: NgxMatPeriodPicker', () => {
     // Navigate to the demo app's root page before each test.
     await page.goto('/');
     // Wait for a stable element to ensure the page is loaded before running tests.
-    await expect(page.getByRole('heading', { name: /ngx-mat-period-picker Demo/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /A Material 3 period picker for Angular/i })).toBeVisible();
   });
 
   test('should display the period picker component', async ({ page }) => {
@@ -55,8 +55,8 @@ test.describe('Demo App: NgxMatPeriodPicker', () => {
   });
 
   test('should display translated button labels correctly', async ({ page }) => {
-    // Find the German period picker by looking for the specific heading
-    const germanHeading = page.getByRole('heading', { name: 'Period Picker with Translated Buttons (German)' });
+    // Find the German period picker by looking for the card title
+    const germanHeading = page.getByText('Deutsch 🇩🇪');
     await expect(germanHeading).toBeVisible();
 
     // Find the period picker that follows this heading
