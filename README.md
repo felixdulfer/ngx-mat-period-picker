@@ -24,20 +24,20 @@ import { PeriodPickerComponent } from "@felixdulfer/ngx-mat-period-picker";
 export class MyComponent {}
 ```
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.
 
 ## Development server
 
 To start a local development server, make sure you have a build of the lib:
 
 ```bash
-npx -p @angular/cli@20 ng build ngx-mat-period-picker --watch
+npx -p @angular/cli@22 ng build ngx-mat-period-picker --watch
 ```
 
 To run the demo app, run:
 
 ```bash
-npx -p @angular/cli@20 ng serve
+npx -p @angular/cli@22 ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
@@ -47,7 +47,7 @@ Once the server is running, open your browser and navigate to `http://localhost:
 To build the project run:
 
 ```bash
-npx -p @angular/cli@20 ng build @felixdulfer/ngx-mat-period-picker
+npx -p @angular/cli@22 ng build @felixdulfer/ngx-mat-period-picker
 ```
 
 ```bash
