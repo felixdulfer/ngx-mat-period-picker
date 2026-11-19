@@ -1,0 +1,36 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    target-branch: "main"
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      angular:
+        patterns:
+          - "@angular/*"
+          - "@angular-eslint/*"
+
+  - package-ecosystem: "npm"
+    directory: "/projects/ngx-mat-period-picker"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    target-branch: "main"
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    target-branch: "main"
+    commit-message:
+      prefix: "chore(ci)"
