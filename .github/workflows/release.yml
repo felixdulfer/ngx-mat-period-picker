@@ -37,9 +37,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # npm Trusted Publishing (OIDC) requires npm >= 11.5.1
+      # npm Trusted Publishing (OIDC) requires npm >= 11.5.1; version is pinned (12.2.3) to avoid an unpinned registry install in a secrets-bearing workflow
       - name: Update npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@12.2.3
 
       - name: Release
         env:
