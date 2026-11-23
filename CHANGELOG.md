@@ -1,3 +1,10 @@
+# [0.22.0](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.21.0...v0.22.0) (2026-11-23)
+
+
+### Features
+
+* **skills:** add security-review skill for dependency audits ([c548bfe](https://github.com/felixdulfer/ngx-mat-period-picker/commit/c548bfe326d0f3d13c0069017622e1f3a60dc3d8))
+
 # [0.21.0](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.20.3...v0.21.0) (2026-11-18)
 
 
