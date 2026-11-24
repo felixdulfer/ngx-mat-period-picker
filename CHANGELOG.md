@@ -1,3 +1,10 @@
+## [0.22.2](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.22.1...v0.22.2) (2026-11-24)
+
+
+### Bug Fixes
+
+* **security:** raise esbuild override above patched 0.28.1 and drop inert overrides ([#58](https://github.com/felixdulfer/ngx-mat-period-picker/issues/58)) ([94b4e17](https://github.com/felixdulfer/ngx-mat-period-picker/commit/94b4e17a52813392508c99c25475a5172797d868))
+
 ## [0.22.1](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.22.0...v0.22.1) (2026-11-24)
 
 
