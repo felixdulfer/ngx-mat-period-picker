@@ -1,3 +1,10 @@
+## [0.22.1](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.22.0...v0.22.1) (2026-11-24)
+
+
+### Bug Fixes
+
+* **security:** pin npm version in release workflow ([#57](https://github.com/felixdulfer/ngx-mat-period-picker/issues/57)) ([2e8f8f7](https://github.com/felixdulfer/ngx-mat-period-picker/commit/2e8f8f720f798c83554573adb39931eed0bc3661))
+
 # [0.22.0](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.21.0...v0.22.0) (2026-11-23)
 
 
