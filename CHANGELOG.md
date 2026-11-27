@@ -1,3 +1,10 @@
+## [0.22.4](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.22.3...v0.22.4) (2026-11-27)
+
+
+### Bug Fixes
+
+* **security:** raise Angular peer floors to fully patched versions ([#61](https://github.com/felixdulfer/ngx-mat-period-picker/issues/61)) ([5173a11](https://github.com/felixdulfer/ngx-mat-period-picker/commit/5173a1126bf4c58786724cbeab05021270a6381f)), closes [hi#severity](https://github.com/hi/issues/severity)
+
 ## [0.22.3](https://github.com/felixdulfer/ngx-mat-period-picker/compare/v0.22.2...v0.22.3) (2026-11-24)
 
 
